@@ -1,0 +1,26 @@
+const SK=(o)=>Object.assign({
+  top:C(0x0e1420),hor:C(0x1c2735),bot:C(0x0d1117),fog:C(0x131a26),fd:0.0070,star:0.35,
+  moon:new THREE.Vector3(30,120,-200),ms:1.8,mph:0.10,mhaze:0.12,dirC:C(0xc2cede),dirI:0.46,
+  dirP:new THREE.Vector3(-40,90,26),ambC:C(0x1c2636),ambI:0.60},o);
+const STAGES=[
+{ key:'cover',name:'卷首',dwell:0,river:0.03,build:bCover,
+  cam:{f:[0,7,52],t:[0,7.5,46],lf:[-1,5,-26],lt:[-2,5.2,-30]},
+  sky:()=>SK({fd:0.0058,star:0.30,ms:1.9,mph:0.10,mhaze:0.10,moon:new THREE.Vector3(-60,100,-210),
+    dirC:C(0xc6d2e2),dirI:0.46}) },
+{ name:'众芳独妍',dwell:16,river:0.03,build:bZhongfang,
+  cam:{f:[-2,5,26],t:[0,5,22],lf:[2,4,-8],lt:[3,4.1,-10]},
+  sky:()=>SK({fd:0.0070,star:0.32,ms:1.8,mph:0.10,mhaze:0.12,moon:new THREE.Vector3(46,96,-204),
+    dirC:C(0xc2cede),dirI:0.46,dirP:new THREE.Vector3(-38,88,24),ambC:C(0x1c2636),ambI:0.62}) },
+{ name:'疏影暗香',dwell:17,river:0.03,build:bShuying,
+  cam:{f:[0,3.4,15],t:[0.6,3.5,12.5],lf:[-1,2.8,-6],lt:[-2,2.9,-8]},
+  sky:()=>SK({fd:0.0072,star:0.30,ms:2.15,mph:0.08,mhaze:0.14,moon:new THREE.Vector3(-24,74,-190),
+    dirC:C(0xc8d4e4),dirI:0.48,dirP:new THREE.Vector3(-34,80,20),ambC:C(0x1e2838),ambI:0.62}) },
+{ name:'霜禽粉蝶',dwell:17,river:0.03,build:bShuangqin,
+  cam:{f:[1.6,4.0,13],t:[0.6,4.1,11],lf:[-1,3.4,-5],lt:[-2,3.5,-6.5]},
+  sky:()=>SK({fd:0.0070,star:0.32,ms:1.9,mph:0.10,mhaze:0.12,moon:new THREE.Vector3(30,84,-196),
+    dirC:C(0xc4d0e0),dirI:0.47,dirP:new THREE.Vector3(-36,82,22),ambC:C(0x1c2636),ambI:0.62}) },
+{ name:'微吟相狎',dwell:18,river:0.03,build:bWeiyin,
+  cam:{f:[0.4,3.6,14],t:[0.8,3.7,11.5],lf:[-1,3.0,-6],lt:[-2,3.1,-7.5]},
+  sky:()=>SK({fd:0.0072,star:0.30,ms:2.05,mph:0.09,mhaze:0.13,moon:new THREE.Vector3(-28,78,-192),
+    dirC:C(0xc8d4e4),dirI:0.48,dirP:new THREE.Vector3(-34,80,20),ambC:C(0x1e2838),ambI:0.62}) },
+];

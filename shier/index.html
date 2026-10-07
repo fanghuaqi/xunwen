@@ -1,0 +1,1363 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>循文入境 · 示儿 | Three.js 沉浸式诗词课堂</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Noto+Serif+SC:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --gold:#b0c4de; --ink:#dfe6f0; --dim:#8b98ac; --paper:rgba(13,17,23,.60);
+  --line:rgba(176,196,222,.26);
+  --kai:'Ma Shan Zheng','Kaiti SC','STKaiti','KaiTi','Noto Serif SC',serif;
+  --song:'Noto Serif SC','SimSun','STSong',serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:100%;height:100%;overflow:hidden;background:#0d1117}
+body{font-family:var(--song);color:var(--ink)}
+#app{position:fixed;inset:0}
+#app canvas{display:block}
+button{font-family:var(--song)}
+
+/* ---------- 顶部 HUD ---------- */
+#hud{position:fixed;top:0;left:0;right:0;padding:18px 26px;display:flex;justify-content:space-between;align-items:flex-start;pointer-events:none;z-index:20;transition:opacity .6s}
+#hud.hidden{opacity:0}
+#brand{font-family:var(--kai);font-size:22px;letter-spacing:.2em;color:var(--gold);text-shadow:0 0 18px rgba(176,196,222,.35)}
+#brand small{display:block;font-family:var(--song);font-size:11px;letter-spacing:.5em;color:var(--dim);margin-top:4px}
+#stageInfo{text-align:right}
+#stageNo{font-family:var(--kai);font-size:15px;color:var(--dim);letter-spacing:.3em;display:block}
+#stageName{font-family:var(--kai);font-size:26px;color:var(--ink);letter-spacing:.25em;text-shadow:0 0 20px rgba(176,196,222,.22)}
+#dots{display:flex;gap:9px;margin-top:10px;justify-content:flex-end;pointer-events:auto}
+#dots i{width:9px;height:9px;border-radius:50%;border:1px solid var(--line);cursor:pointer;transition:all .3s}
+#dots i.on{background:var(--gold);box-shadow:0 0 10px rgba(176,196,222,.8);border-color:var(--gold)}
+#dots i:hover{transform:scale(1.3)}
+
+/* ---------- 竖排诗句 ---------- */
+#poemBox{position:fixed;right:4.5vw;top:50%;transform:translateY(-52%);writing-mode:vertical-rl;max-height:74vh;padding-right:2.6em;z-index:15;pointer-events:none;transition:opacity .8s}
+body.no-poem #poemBox{opacity:0}
+body.no-poem #controls{opacity:0;pointer-events:none}
+#controls{transition:opacity .8s}
+.seg{font-family:var(--kai);font-size:clamp(26px,4.6vh,42px);line-height:1.15;letter-spacing:.14em;color:var(--ink);text-shadow:0 0 24px rgba(176,196,222,.26),0 2px 6px rgba(0,0,0,.7);max-height:70vh;margin-block-end:1.3em}
+.seg .pu{opacity:0;animation:zin .7s forwards}
+.zi{opacity:0;animation:zin .7s forwards;ruby-align:center}
+.zi rt{font-size:.32em;color:var(--dim);letter-spacing:0;font-family:var(--song);opacity:.9}
+body.no-py-off .zi rt{display:none}
+@keyframes zin{from{opacity:0;transform:translateY(-10px);filter:blur(4px)}to{opacity:1;transform:none;filter:none}}
+
+/* ---------- 释义 / 注释 ---------- */
+#notePanel{position:fixed;left:26px;bottom:108px;width:min(400px,86vw);background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:16px 20px;backdrop-filter:blur(12px);z-index:18;transition:opacity .8s;line-height:1.85}
+body.no-poem #notePanel{opacity:0;pointer-events:none}
+#notePanel h3{font-family:var(--kai);color:var(--gold);font-size:15px;letter-spacing:.4em;margin-bottom:6px;font-weight:normal}
+#yisi{font-size:14px;color:var(--ink)}
+#zsBox{margin-top:8px;font-size:13px;color:var(--dim)}
+#zsBox summary{cursor:pointer;letter-spacing:.3em;color:var(--dim);font-size:13px;outline:none}
+#zsBox summary:hover{color:var(--gold)}
+#zhu{list-style:none;margin-top:6px}
+#zhu li b{color:var(--gold);font-weight:600;margin-right:6px}
+
+/* ---------- 意境题句 ---------- */
+#jing{position:fixed;left:50%;bottom:170px;transform:translateX(-50%);font-family:var(--kai);font-size:17px;letter-spacing:.5em;color:var(--dim);z-index:15;text-shadow:0 0 14px rgba(0,0,0,.8);opacity:0;transition:opacity 1.2s;pointer-events:none;white-space:nowrap}
+#jing.show{opacity:.95}
+
+/* ---------- 控制条 ---------- */
+#controls{position:fixed;left:50%;bottom:26px;transform:translateX(-50%);display:flex;gap:8px;align-items:center;background:var(--paper);border:1px solid var(--line);border-radius:40px;padding:9px 16px;backdrop-filter:blur(12px);z-index:25;flex-wrap:wrap;justify-content:center;max-width:94vw}
+#controls button{background:none;border:1px solid var(--line);color:var(--ink);font-size:13px;letter-spacing:.15em;padding:7px 14px;border-radius:20px;cursor:pointer;transition:all .25s;white-space:nowrap}
+#controls button:hover{border-color:var(--gold);color:var(--gold);box-shadow:0 0 14px rgba(176,196,222,.25)}
+#controls button.on{background:rgba(176,196,222,.16);border-color:var(--gold);color:var(--gold)}
+#controls .sep{width:1px;height:20px;background:var(--line);margin:0 4px}
+
+/* ---------- 特效文字 ---------- */
+#flash{position:fixed;left:50%;top:38%;transform:translate(-50%,-50%);font-family:var(--kai);font-size:clamp(24px,4.4vw,52px);color:var(--gold);letter-spacing:.22em;text-shadow:0 0 40px rgba(176,196,222,.7);opacity:0;pointer-events:none;z-index:30;white-space:nowrap}
+#flash.go{animation:flashA 1.8s forwards}
+@keyframes flashA{0%{opacity:0;transform:translate(-50%,-50%) scale(.7)}18%{opacity:1;transform:translate(-50%,-50%) scale(1.06)}30%{transform:translate(-50%,-50%) scale(1)}75%{opacity:1}100%{opacity:0;transform:translate(-50%,-56%) scale(1)}}
+#tip{position:fixed;left:50%;bottom:88px;transform:translateX(-50%);font-size:13px;letter-spacing:.3em;color:var(--dim);background:var(--paper);border:1px solid var(--line);border-radius:20px;padding:7px 20px;opacity:0;transition:opacity .6s;z-index:26;pointer-events:none}
+#tip.show{opacity:1}
+
+/* ---------- 封面 ---------- */
+#cover{position:fixed;inset:0;z-index:40;display:flex;align-items:center;justify-content:center;background:radial-gradient(ellipse at 50% 60%,rgba(8,12,19,.25),rgba(8,11,18,.85));transition:opacity 1.2s}
+#cover.off{opacity:0;pointer-events:none}
+#coverInner{display:flex;align-items:center;gap:7vw;padding:0 6vw}
+#titleCol{writing-mode:vertical-rl;font-family:var(--kai)}
+#titleCol h1{font-size:clamp(64px,11vh,120px);letter-spacing:.28em;color:var(--ink);text-shadow:0 0 60px rgba(176,196,222,.35),0 4px 20px rgba(0,0,0,.8);font-weight:normal}
+#titleCol .dyn{font-size:clamp(18px,3vh,26px);color:var(--gold);letter-spacing:.5em;margin-top:2.2em}
+#coverSide{max-width:430px}
+#coverSide .motto{font-family:var(--kai);font-size:22px;letter-spacing:.45em;color:var(--gold);margin-bottom:18px}
+#coverSide p{font-size:14px;line-height:2.1;color:var(--dim);margin-bottom:10px}
+#enterBtn{margin-top:26px;font-family:var(--kai);font-size:22px;letter-spacing:.7em;padding:14px 20px 14px 34px;color:var(--gold);background:none;border:1px solid var(--gold);border-radius:4px;cursor:pointer;transition:all .35s}
+#enterBtn:hover{background:rgba(176,196,222,.14);box-shadow:0 0 34px rgba(176,196,222,.35);letter-spacing:.9em}
+#coverHint{margin-top:20px;font-size:12px;letter-spacing:.2em;color:#6a7684;line-height:2}
+
+/* ---------- 终章 ---------- */
+#ending{position:fixed;inset:0;z-index:45;display:none;align-items:center;justify-content:center;background:radial-gradient(ellipse at 50% 45%,rgba(10,14,21,.45),rgba(8,11,18,.9));backdrop-filter:blur(2px)}
+#ending.show{display:flex}
+#endInner{text-align:center;max-width:92vw}
+#endInner h2{font-family:var(--kai);font-size:clamp(30px,5vh,44px);letter-spacing:.6em;color:var(--gold);text-shadow:0 0 30px rgba(176,196,222,.45);margin-bottom:6px}
+#endInner .sub{font-size:13px;letter-spacing:.4em;color:var(--dim);margin-bottom:20px}
+#endPoem{writing-mode:vertical-rl;height:52vh;max-height:52vh;margin:0 auto 24px;overflow:auto;padding:10px 6px;scrollbar-width:thin}
+#endPoem .seg{font-size:clamp(15px,2.6vh,21px);line-height:1.25;letter-spacing:.12em;margin-block-end:1em}
+#endPoem .zi rt{font-size:.55em}
+#endBtns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+#endBtns button{font-family:var(--kai);font-size:17px;letter-spacing:.4em;padding:11px 18px 11px 26px;background:none;border:1px solid var(--line);color:var(--ink);border-radius:4px;cursor:pointer;transition:all .3s}
+#endBtns button:hover{border-color:var(--gold);color:var(--gold);box-shadow:0 0 20px rgba(176,196,222,.3)}
+#endBtns button.main{border-color:var(--gold);color:var(--gold)}
+
+/* ---------- 小测 ---------- */
+#quiz{position:fixed;inset:0;z-index:50;display:none;align-items:center;justify-content:center;background:rgba(8,11,18,.72);backdrop-filter:blur(6px)}
+#quiz.show{display:flex}
+#quizCard{width:min(560px,92vw);background:#0d121c;border:1px solid var(--line);border-radius:14px;padding:30px 34px}
+#quizCard h3{font-family:var(--kai);color:var(--gold);letter-spacing:.4em;font-size:20px;font-weight:normal;margin-bottom:4px}
+#quizCard .cnt{font-size:12px;color:var(--dim);letter-spacing:.3em;margin-bottom:16px}
+#quizQ{font-size:17px;line-height:1.9;margin-bottom:18px}
+.opt{display:block;width:100%;text-align:left;background:none;border:1px solid var(--line);color:var(--ink);border-radius:8px;padding:11px 16px;font-size:15px;margin-bottom:10px;cursor:pointer;transition:all .2s;line-height:1.6}
+.opt:hover{border-color:var(--gold);transform:translateX(4px)}
+.opt.right{border-color:#7fc97f;background:rgba(127,201,127,.12);color:#bfe8bf}
+.opt.wrong{border-color:#c97f7f;background:rgba(201,127,127,.1);color:#e8bfbf}
+#quizNext,#quizClose{margin-top:8px;font-family:var(--kai);letter-spacing:.4em;font-size:15px;padding:9px 18px 9px 26px;background:none;border:1px solid var(--gold);color:var(--gold);border-radius:4px;cursor:pointer}
+#quizResult{text-align:center;padding:14px 0}
+#quizResult .score{font-family:var(--kai);font-size:52px;color:var(--gold);text-shadow:0 0 26px rgba(176,196,222,.55)}
+#quizResult .word{font-size:15px;letter-spacing:.3em;color:var(--ink);margin:10px 0 22px}
+
+#err{position:fixed;inset:0;z-index:99;display:none;align-items:center;justify-content:center;background:#0d1117;color:var(--dim);font-size:15px;letter-spacing:.2em;text-align:center;line-height:2.2;padding:0 8vw}
+
+.credit{position:fixed;right:18px;bottom:12px;font-size:10px;letter-spacing:.25em;color:#55606e;z-index:14;pointer-events:none}
+
+@media (max-width:760px){
+  #poemBox{right:5vw;gap:.9em}
+  .seg{font-size:clamp(20px,3.4vh,28px)}
+  #notePanel{bottom:130px;padding:12px 14px}
+  #jing{bottom:190px;font-size:14px;letter-spacing:.3em}
+  #coverInner{flex-direction:column;gap:24px}
+  #titleCol h1{font-size:64px}
+  #brand{font-size:17px}
+}
+.galLink{display:inline-block;font-family:var(--song);font-size:12.5px;letter-spacing:.25em;color:var(--dim);text-decoration:none;border:1px solid var(--line);border-radius:20px;padding:7px 18px;transition:all .3s}
+.galLink:hover{color:var(--gold);border-color:var(--gold)}
+#endBtns .galLink{align-self:center}
+</style>
+</head>
+<body class="no-poem">
+
+<div id="app"></div>
+
+<!-- 顶部信息 -->
+<header id="hud" class="hidden">
+  <div id="brand">示儿<small>循 文 入 境 · 陆 游</small></div>
+  <div id="stageInfo">
+    <span id="stageNo"></span>
+    <span id="stageName"></span>
+    <div id="dots"></div>
+  </div>
+</header>
+
+<div id="poemBox"></div>
+<div id="jing"></div>
+
+<aside id="notePanel">
+  <h3>释 义</h3>
+  <p id="yisi"></p>
+  <details id="zsBox">
+    <summary>注 释</summary>
+    <ul id="zhu"></ul>
+  </details>
+</aside>
+
+<!-- 控制条 -->
+<div id="controls">
+  <button id="btnPrev">‹ 上一境</button>
+  <button id="btnAuto" class="on">自动游览 · 开</button>
+  <button id="btnNext">下一境 ›</button>
+  <span class="sep"></span>
+  <button id="btnSpeak">朗读此句</button>
+  <button id="btnAutoSpeak" class="on">自动朗读 · 开</button>
+  <button id="btnPy" class="on">注音 · 开</button>
+  <button id="btnSnd" class="on">声音 · 开</button>
+  <button id="btnFs">全屏</button>
+</div>
+
+<div id="flash"></div>
+<div id="tip"></div>
+<div class="credit">循文入境 · THREE.JS 互动诗词课件</div>
+
+<!-- 封面 -->
+<div id="cover">
+  <div id="coverInner">
+    <div id="titleCol">
+      <h1>示儿</h1>
+      <div class="dyn">宋 · 陆游</div>
+    </div>
+    <div id="coverSide">
+      <div class="motto">循文入境 · 随诗入画</div>
+      <p>三重意境，随诗句次第展开：病榻一豆残烛，照着临终遗嘱；壁上九州舆图，北地犹沉阴影；遥想他年家祭日，烛光拔亮处中原重光，一炷清香告乃翁。</p>
+      <p>边读诗，边走进陆游临终那份沉郁而滚烫的牵挂。</p>
+      <button id="enterBtn">入 境</button>
+      <div style="margin-top:20px"><a class="galLink" href="../index.html">← 返回诗集目录</a></div>
+      <div id="coverHint">← → 键或空格逐境游览 · 第三境可点击烛火遥告乃翁<br>建议开启声音并佩戴耳机 · 需联网加载三维引擎</div>
+    </div>
+  </div>
+</div>
+
+<!-- 终章 -->
+<div id="ending">
+  <div id="endInner">
+    <h2>烛尽 · 愿在</h2>
+    <div class="sub">三 境 已 尽 · 全 诗 在 此</div>
+    <div id="endPoem"></div>
+    <div id="endBtns">
+      <button id="btnQuiz" class="main">学习小测</button>
+      <button id="btnPoemAudio">聆听全诗</button>
+      <button id="btnAgain">重新入境</button>
+      <button id="btnCover">回到封面</button>
+      <a class="galLink" href="../index.html" style="align-self:center">诗集目录</a>
+    </div>
+  </div>
+</div>
+
+<!-- 小测 -->
+<div id="quiz">
+  <div id="quizCard">
+    <h3>学习小测</h3>
+    <div class="cnt" id="quizCnt"></div>
+    <div id="quizBody"></div>
+  </div>
+</div>
+
+<div id="err">三维引擎加载失败。<br>请检查网络后刷新页面（首次打开需联网加载 Three.js）。</div>
+
+<!-- ============ 主程序 ============ -->
+<script id="main">
+/* 循文入境 · 示儿 —— Three.js 沉浸式诗词课件
+   三境随诗句推进，含注音/释义/注释/朗读/小测 · 水墨夜思·病榻遗嘱赛道 */
+'use strict';
+window.__inited = false;
+
+/* ---------------- 工具 ---------------- */
+const $ = s => document.querySelector(s);
+const clamp = (x,a,b)=>Math.max(a,Math.min(b,x));
+const lerp = (a,b,t)=>a+(b-a)*t;
+const sstep = (a,b,x)=>{ const t=clamp((x-a)/(b-a),0,1); return t*t*(3-2*t); };
+const ease = t => t<0.5 ? 4*t*t*t : 1-Math.pow(-2*t+2,3)/2;
+const v3 = a => new THREE.Vector3(a[0],a[1],a[2]);
+const C = h => new THREE.Color(h);
+const rnd = (a,b)=>a+Math.random()*(b-a);
+
+/* ---------------- 诗词数据 ---------------- */
+const py = s => s.split(' ');
+const POEM = [
+{ name:'万事皆空', jing:'病榻残烛 —— 死原是空，唯愿未了。',
+  segs:[{c:'死去元知万事空，', p:py('sǐ qù yuán zhī wàn shì kōng')}],
+  read:'死去元知万事空。',
+  yisi:'本来就知道人死之后万事皆空，什么都可以放下 —— 只有一件事，放不下。',
+  zhu:[['元知','本来就知道。元，同“原”'],['万事空','万事都可无牵无挂']] },
+{ name:'悲不见同', jing:'烛影摇曳，壁上九州舆图，北地犹沉阴影。',
+  segs:[{c:'但悲不见九州同。', p:py('dàn bēi bú jiàn jiǔ zhōu tóng')}],
+  read:'但悲不见九州同。',
+  yisi:'只是悲伤啊，活着没能亲眼看见九州归于一统。',
+  zhu:[['九州','古分天下为九州，后指全中国'],['同','统一'],['不见','“不”在去声前变读 bú']] },
+{ name:'家祭遗言', jing:'遥想他年家祭日，一炷清香告乃翁。（点击烛火，拔亮遥告）',
+  segs:[{c:'王师北定中原日，', p:py('wáng shī běi dìng zhōng yuán rì')},
+        {c:'家祭无忘告乃翁。', p:py('jiā jì wú wàng gào nǎi wēng')}],
+  read:'王师北定中原日，家祭无忘告乃翁。',
+  yisi:'等到朝廷军队收复中原的那一天，家祭时不要忘了把这个消息告诉你们的父亲。',
+  zhu:[['王师','南宋朝廷的军队'],['北定','收复北方'],['中原','黄河流域一带，时被金人占据'],['乃翁','你们的父亲，陆游自指']] },
+];
+const CN = ['壹','贰','叁'];
+const QUIZ = [
+ {q:'「死去元知万事空」的下一句是？', o:['但悲不见九州同','家祭无忘告乃翁','王师北定中原日'], a:0},
+ {q:'「家祭无忘告乃翁」中「乃翁」的意思是？', o:['祭祀的主持人','你们的父亲（陆游自指）','家里的老仆人'], a:1},
+ {q:'「王师北定中原日」的下一句是？', o:['但悲不见九州同','死去元知万事空','家祭无忘告乃翁'], a:2},
+ {q:'诗中「王师」指的是？', o:['南宋朝廷的军队','金国的军队','地方义军'], a:0},
+ {q:'陆游写《示儿》时至死不放的执念是？', o:['家人平安、衣食无忧','王师收复中原、九州统一','自己诗集流传后世'], a:1},
+];
+
+/* ---------------- 着色器（穹顶） ---------------- */
+const DOME_VERT=`varying vec3 vP; void main(){ vP=position; gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.0); }`;
+const DOME_FRAG=`uniform vec3 uTop; uniform vec3 uHor; uniform vec3 uBot; varying vec3 vP;
+void main(){ float h=normalize(vP).y;
+  vec3 c=mix(uHor,uTop,smoothstep(0.02,0.5,h));
+  c=mix(uBot,c,smoothstep(-0.3,0.02,h));
+  gl_FragColor=vec4(c,1.0); }`;
+
+/* ---------------- 全局三维状态 ---------------- */
+let renderer,scene,camera;
+let skyDome,starA,starB,moonGroup,moonMesh,moonGlow,dirLight,ambLight;
+let SKYcur=null,skyFrom=null,skyTo=null;
+let state='boot';           // boot | stage | transition | ending
+let curIdx=0,curDef=null,curStageObj=null;
+let trans=null,stageT=0,autoT=0,autoMode=true;
+let curLook=null; // 在 boot() 中初始化，避免 THREE 尚未加载时执行顶层代码报错
+const mouse={x:0,y:0};
+const clock={t:0,last:0};
+let groupAudio={ctx:null,master:null,river:null,muted:false};
+
+/* ---------------- 纹理 ---------------- */
+let _circleTex=null,_glowTex=null;
+function circleTex(){ if(_circleTex)return _circleTex;
+  const c=document.createElement('canvas');c.width=c.height=64;const x=c.getContext('2d');
+  const g=x.createRadialGradient(32,32,0,32,32,30);
+  g.addColorStop(0,'rgba(255,255,255,1)');g.addColorStop(0.4,'rgba(255,255,255,.8)');g.addColorStop(1,'rgba(255,255,255,0)');
+  x.fillStyle=g;x.fillRect(0,0,64,64);
+  _circleTex=new THREE.CanvasTexture(c);return _circleTex; }
+function glowTex(){ if(_glowTex)return _glowTex;
+  const c=document.createElement('canvas');c.width=c.height=256;const x=c.getContext('2d');
+  const g=x.createRadialGradient(128,128,0,128,128,128);
+  g.addColorStop(0,'rgba(255,255,255,.9)');g.addColorStop(0.25,'rgba(255,255,255,.38)');g.addColorStop(0.6,'rgba(255,255,255,.1)');g.addColorStop(1,'rgba(255,255,255,0)');
+  x.fillStyle=g;x.fillRect(0,0,256,256);
+  _glowTex=new THREE.CanvasTexture(c);return _glowTex; }
+
+/* ---------------- 天空 ---------------- */
+function buildSky(){
+  skyDome=new THREE.Mesh(new THREE.SphereGeometry(460,32,20),
+    new THREE.ShaderMaterial({side:THREE.BackSide,depthWrite:false,fog:false,
+      uniforms:{uTop:{value:C(0x081020)},uHor:{value:C(0x1d3350)},uBot:{value:C(0x0c1016)}},
+      vertexShader:DOME_VERT,fragmentShader:DOME_FRAG}));
+  skyDome.renderOrder=-10; skyDome.frustumCulled=false;
+  scene.add(skyDome);
+  starA=makeStars(1400,2.4,0.95); starB=makeStars(700,3.8,0.8);
+  scene.add(starA,starB);
+  moonGroup=new THREE.Group();
+  moonMesh=new THREE.Mesh(new THREE.SphereGeometry(14,32,24),
+    new THREE.MeshBasicMaterial({color:0xf2f6ff,fog:false}));
+  moonGlow=new THREE.Sprite(new THREE.SpriteMaterial({map:glowTex(),color:0xcfe2ff,
+    transparent:true,opacity:0.85,depthWrite:false,fog:false,blending:THREE.AdditiveBlending}));
+  moonGlow.scale.set(150,150,1); moonGlow.renderOrder=-8;
+  moonGroup.add(moonMesh,moonGlow); moonGroup.renderOrder=-8;
+  scene.add(moonGroup);
+  // 远山剪影
+  for(let i=0;i<18;i++){
+    const a=i/18*Math.PI*2+rnd(-0.1,0.1), r=rnd(330,380), h=rnd(28,85);
+    const m=new THREE.Mesh(new THREE.ConeGeometry(rnd(40,95),h,5),
+      new THREE.MeshBasicMaterial({color:0x04070c}));
+    m.position.set(Math.sin(a)*r,h/2-8,Math.cos(a)*r);
+    scene.add(m);
+  }
+  dirLight=new THREE.DirectionalLight(0x9db8e8,0.7); dirLight.position.set(60,120,40); scene.add(dirLight);
+  ambLight=new THREE.AmbientLight(0x31405c,0.55); scene.add(ambLight);
+}
+function makeStars(n,size,op){
+  const g=new THREE.BufferGeometry(); const P=new Float32Array(n*3); const Cc=new Float32Array(n*3);
+  for(let i=0;i<n;i++){
+    const a=Math.random()*Math.PI*2, e=Math.asin(rnd(-0.04,1)), r=410;
+    P[i*3]=Math.cos(e)*Math.sin(a)*r; P[i*3+1]=Math.sin(e)*r; P[i*3+2]=Math.cos(e)*Math.cos(a)*r;
+    const w=rnd(0.75,1); const tint=Math.random();
+    Cc[i*3]=w*(0.85+tint*0.15); Cc[i*3+1]=w*(0.88+tint*0.1); Cc[i*3+2]=w;
+  }
+  g.setAttribute('position',new THREE.BufferAttribute(P,3));
+  g.setAttribute('color',new THREE.BufferAttribute(Cc,3));
+  const m=new THREE.PointsMaterial({size,sizeAttenuation:false,map:circleTex(),vertexColors:true,
+    transparent:true,opacity:op,depthWrite:false,fog:false,blending:THREE.AdditiveBlending});
+  m.userData.baseOp=op;
+  const p=new THREE.Points(g,m); p.renderOrder=-9; return p;
+}
+function cloneSky(s){
+  return {top:s.top.clone(),hor:s.hor.clone(),bot:s.bot.clone(),fog:s.fog.clone(),fd:s.fd,
+    star:s.star,moon:s.moon.clone(),ms:s.ms,dirC:s.dirC.clone(),dirI:s.dirI,dirP:s.dirP.clone(),
+    ambC:s.ambC.clone(),ambI:s.ambI};
+}
+function mixSky(k){
+  if(!skyFrom||!skyTo)return;
+  SKYcur.top.lerpColors(skyFrom.top,skyTo.top,k);
+  SKYcur.hor.lerpColors(skyFrom.hor,skyTo.hor,k);
+  SKYcur.bot.lerpColors(skyFrom.bot,skyTo.bot,k);
+  SKYcur.fog.lerpColors(skyFrom.fog,skyTo.fog,k);
+  SKYcur.dirC.lerpColors(skyFrom.dirC,skyTo.dirC,k);
+  SKYcur.ambC.lerpColors(skyFrom.ambC,skyTo.ambC,k);
+  SKYcur.moon.lerpVectors(skyFrom.moon,skyTo.moon,k);
+  SKYcur.dirP.lerpVectors(skyFrom.dirP,skyTo.dirP,k);
+  SKYcur.fd=lerp(skyFrom.fd,skyTo.fd,k); SKYcur.star=lerp(skyFrom.star,skyTo.star,k);
+  SKYcur.ms=lerp(skyFrom.ms,skyTo.ms,k); SKYcur.dirI=lerp(skyFrom.dirI,skyTo.dirI,k);
+  SKYcur.ambI=lerp(skyFrom.ambI,skyTo.ambI,k);
+  applySky();
+}
+function applySky(){
+  skyDome.material.uniforms.uTop.value.copy(SKYcur.top);
+  skyDome.material.uniforms.uHor.value.copy(SKYcur.hor);
+  skyDome.material.uniforms.uBot.value.copy(SKYcur.bot);
+  scene.fog.color.copy(SKYcur.fog); scene.fog.density=SKYcur.fd;
+  renderer.setClearColor(SKYcur.fog);
+  starA.material.opacity=SKYcur.star*(0.8+0.2*Math.sin(clock.t*0.7));
+  starB.material.opacity=SKYcur.star*(0.55+0.25*Math.sin(clock.t*0.53+2));
+  moonGroup.position.copy(SKYcur.moon);
+  moonGlow.material.color.copy(SKYcur.dirC).lerp(C(0xffffff),0.55);
+  moonGroup.scale.setScalar(SKYcur.ms);
+  dirLight.color.copy(SKYcur.dirC); dirLight.intensity=SKYcur.dirI; dirLight.position.copy(SKYcur.dirP);
+  ambLight.color.copy(SKYcur.ambC); ambLight.intensity=SKYcur.ambI;
+}
+
+/* ---------------- 通用构件（CPU 粒子 · 无自定义着色器） ---------------- */
+function makeGlow(o){ // 漂浮微尘 / 上升青烟（rise=1 循环上升），vertexColors 明暗错落
+  const {n=100,box=[40,20,40],pos=[0,0,0],color=0xffcc66,size=10,speed=0.3,rise=1,add=true,maxA=1}=o;
+  const g=new THREE.BufferGeometry();
+  const P=new Float32Array(n*3), Cc=new Float32Array(n*3);
+  const base=new Array(n);
+  for(let i=0;i<n;i++){
+    base[i]=[pos[0]+(Math.random()-0.5)*box[0], pos[1]+Math.random()*box[1], pos[2]+(Math.random()-0.5)*box[2]];
+    P[i*3]=base[i][0]; P[i*3+1]=base[i][1]; P[i*3+2]=base[i][2];
+    const w=rnd(0.35,1);
+    Cc[i*3]=w; Cc[i*3+1]=w; Cc[i*3+2]=w;
+  }
+  g.setAttribute('position',new THREE.BufferAttribute(P,3));
+  g.setAttribute('color',new THREE.BufferAttribute(Cc,3));
+  const m=new THREE.PointsMaterial({size,map:circleTex(),color,vertexColors:true,
+    transparent:true,opacity:maxA,depthWrite:false,
+    blending:add?THREE.AdditiveBlending:THREE.NormalBlending,sizeAttenuation:true});
+  m.userData.baseOp=maxA;
+  const points=new THREE.Points(g,m); points.frustumCulled=false; points.renderOrder=3;
+  return {points,mat:m,update(t){
+    const arr=g.attributes.position.array;
+    for(let i=0;i<n;i++){
+      const b=base[i], sd=S0(i);
+      const life=(t*speed+sd)%1;
+      arr[i*3]  =b[0]+Math.sin(t*0.8+sd*43.0)*0.8*(1+rise*0.4);
+      arr[i*3+1]=b[1]+(rise>0?life*box[1]:0)+Math.sin(t*0.6+sd*21.0)*0.6*(1-rise);
+      arr[i*3+2]=b[2]+Math.cos(t*0.7+sd*31.0)*0.8*(1+rise*0.4);
+    }
+    g.attributes.position.needsUpdate=true;
+  }};
+  function S0(i){ return (i*2654435761 % 997)/997; }
+}
+function makeBurst(o){ // 火星迸溅（fire() 触发，统一 clock.t 时间源）
+  const {n=70,color=0xffe0a0,pos=[0,0,0]}=o||{};
+  const g=new THREE.BufferGeometry();
+  const P=new Float32Array(n*3), D=new Float32Array(n*3), S=new Float32Array(n);
+  for(let i=0;i<n;i++){
+    P[i*3]=pos[0];P[i*3+1]=pos[1];P[i*3+2]=pos[2];
+    const v=new THREE.Vector3(rnd(-1,1),rnd(-0.2,1.2),rnd(-1,1)).normalize();
+    D[i*3]=v.x;D[i*3+1]=v.y;D[i*3+2]=v.z;
+    S[i]=rnd(3.5,8.5);
+  }
+  g.setAttribute('position',new THREE.BufferAttribute(P,3));
+  g.setAttribute('aDir',new THREE.BufferAttribute(D,3));
+  const m=new THREE.PointsMaterial({size:0.5,map:circleTex(),color,transparent:true,
+    opacity:0,depthWrite:false,blending:THREE.AdditiveBlending,sizeAttenuation:true});
+  m.userData.baseOp=1;
+  const points=new THREE.Points(g,m); points.frustumCulled=false; points.renderOrder=4;
+  let t0=-999;
+  return {points,update(t){
+    const age=t-t0, arr=g.attributes.position.array, dirs=g.attributes.aDir.array;
+    if(age>=0&&age<1.3){
+      for(let i=0;i<n;i++){
+        arr[i*3]  =pos[0]+dirs[i*3]*S[i]*age;
+        arr[i*3+1]=pos[1]+dirs[i*3+1]*S[i]*age-2.2*age*age;
+        arr[i*3+2]=pos[2]+dirs[i*3+2]*S[i]*age;
+      }
+      g.attributes.position.needsUpdate=true;
+      m.opacity=1-sstep(0.5,1.3,age);
+    }else m.opacity=0;
+  },fire(){ t0=clock.t; }};
+}
+function makeMist(o){
+  const {n=12,spread=[200,30,120],pos=[0,10,-40],scale=70,color=0xaac4e8,op=0.10}=o;
+  const g=new THREE.Group(); const items=[];
+  for(let i=0;i<n;i++){
+    const m=new THREE.SpriteMaterial({map:glowTex(),color,transparent:true,
+      opacity:op*rnd(0.5,1),depthWrite:false});
+    const s=new THREE.Sprite(m);
+    s.position.set(pos[0]+(Math.random()-0.5)*spread[0],
+      pos[1]+(Math.random()-0.5)*spread[1]*0.5,
+      pos[2]+(Math.random()-0.5)*spread[2]);
+    const sc=scale*(0.6+Math.random()*0.9); s.scale.set(sc,sc*0.6,1); s.renderOrder=5;
+    g.add(s); items.push({s,seed:Math.random()*100,op0:m.opacity});
+  }
+  return {g,update(t,fk){ fk=(fk===undefined)?1:fk; for(const it of items){
+    it.s.material.opacity=it.op0*(0.7+0.3*Math.sin(t*0.23+it.seed))*fk;
+  }}};
+}
+function addLights(g,dir,amb){
+  if(dir){ const d=new THREE.DirectionalLight(dir.c,dir.i); d.position.set(...dir.p); g.add(d); }
+  if(amb){ g.add(new THREE.AmbientLight(amb.c,amb.i)); }
+}
+function makeFigure(s=1){
+  const g=new THREE.Group();
+  const m=new THREE.MeshPhongMaterial({color:0x11141d,shininess:8});
+  const body=new THREE.Mesh(new THREE.CylinderGeometry(1.0,1.5,3.6,10),m); body.position.y=1.8;
+  const head=new THREE.Mesh(new THREE.SphereGeometry(0.75,12,10),m); head.position.y=4.1;
+  g.add(body,head); g.scale.setScalar(s);
+  return g;
+}
+
+/* ---------------- 本诗三境场景（水墨夜思 · 病榻遗嘱） ---------------- */
+let _winTex=null;
+function winTex(){ // 冷窗 · 北国夜色（窗棂 + 疏星 + 远山）
+  if(_winTex)return _winTex;
+  const c=document.createElement('canvas'); c.width=256; c.height=320; const x=c.getContext('2d');
+  const grd=x.createLinearGradient(0,0,0,320);
+  grd.addColorStop(0,'#0a1120'); grd.addColorStop(1,'#101a2c');
+  x.fillStyle=grd; x.fillRect(0,0,256,320);
+  for(let i=0;i<26;i++){ x.fillStyle='rgba(214,226,246,'+(0.25+Math.random()*0.6).toFixed(2)+')';
+    x.fillRect(Math.random()*246+5,Math.random()*300+10,1.6,1.6); }
+  x.fillStyle='rgba(14,19,30,.92)';
+  x.beginPath(); x.moveTo(0,262);
+  for(let i=0;i<=8;i++) x.lineTo(i*32,240+Math.sin(i*1.7)*16);
+  x.lineTo(256,320); x.lineTo(0,320); x.closePath(); x.fill();
+  x.strokeStyle='#2a2620'; x.lineWidth=7;
+  for(let i=1;i<4;i++){ x.beginPath(); x.moveTo(i*64,0); x.lineTo(i*64,320); x.stroke(); }
+  for(let i=1;i<5;i++){ x.beginPath(); x.moveTo(0,i*64); x.lineTo(256,i*64); x.stroke(); }
+  x.strokeStyle='#1a1610'; x.lineWidth=12; x.strokeRect(2,2,252,316);
+  _winTex=new THREE.CanvasTexture(c); return _winTex;
+}
+function mapTex(northShaded){ // 九州舆图丝绢挂轴（写意九州 · 北地可压入阴影）
+  const c=document.createElement('canvas'); c.width=512; c.height=384;
+  const x=c.getContext('2d');
+  x.fillStyle='#1c222c'; x.fillRect(0,0,512,384);
+  for(let i=0;i<44;i++){ x.fillStyle='rgba(230,238,250,'+(0.008+Math.random()*0.02).toFixed(3)+')';
+    x.fillRect(Math.random()*500+6,Math.random()*376+4,Math.random()*46+8,1.2); }
+  x.strokeStyle='rgba(150,168,192,.5)'; x.lineWidth=3; x.strokeRect(14,14,484,356);
+  x.strokeStyle='rgba(150,168,192,.2)'; x.lineWidth=1; x.strokeRect(24,24,464,336);
+  x.strokeStyle='rgba(120,140,168,.13)';
+  for(let i=1;i<6;i++){ x.beginPath(); x.moveTo(24+i*76,24); x.lineTo(24+i*76,360); x.stroke(); }
+  for(let i=1;i<6;i++){ x.beginPath(); x.moveTo(24,24+i*56); x.lineTo(488,24+i*56); x.stroke(); }
+  const land=[[96,300],[150,268],[210,258],[262,236],[300,206],[318,168],[352,140],[398,132],
+    [436,150],[446,190],[420,214],[430,244],[398,268],[352,276],[318,296],[272,308],[216,316],[160,318],[118,312]];
+  x.beginPath(); x.moveTo(land[0][0],land[0][1]);
+  for(let i=1;i<=land.length;i++){ const p=land[i%land.length], q=land[(i+1)%land.length];
+    x.quadraticCurveTo(p[0]+(Math.random()-0.5)*8,p[1]+(Math.random()-0.5)*8,(p[0]+q[0])/2,(p[1]+q[1])/2); }
+  x.closePath();
+  x.fillStyle='#2b3644'; x.fill();
+  x.strokeStyle='rgba(168,186,210,.55)'; x.lineWidth=2; x.stroke();
+  x.fillStyle='rgba(158,176,202,.5)';
+  [[190,282],[232,268],[300,246],[340,224],[300,190],[350,170]].forEach(m=>{
+    x.beginPath(); x.moveTo(m[0]-9,m[1]); x.lineTo(m[0],m[1]-11); x.lineTo(m[0]+9,m[1]); x.closePath(); x.fill(); });
+  x.strokeStyle='rgba(140,164,196,.6)'; x.lineWidth=2.2;
+  x.beginPath(); x.moveTo(150,240); x.quadraticCurveTo(240,214,330,232); x.quadraticCurveTo(390,246,432,238); x.stroke();
+  x.beginPath(); x.moveTo(170,300); x.quadraticCurveTo(250,296,320,282); x.stroke();
+  if(northShaded){
+    const gs=x.createLinearGradient(0,110,0,255);
+    gs.addColorStop(0,'rgba(4,6,10,.95)'); gs.addColorStop(1,'rgba(4,6,10,0)');
+    x.fillStyle=gs; x.fillRect(60,55,400,205);
+  }
+  x.fillStyle='rgba(196,212,232,.85)'; x.font='26px serif';
+  x.save(); x.translate(452,52); x.rotate(Math.PI/2); x.fillText('九 州 舆 图',0,0); x.restore();
+  x.fillStyle='rgba(176,194,218,.8)'; x.font='19px serif';
+  x.fillText('中原',238,236); x.fillText('河北',322,152); x.fillText('江南',240,302); x.fillText('陇右',112,212);
+  return new THREE.CanvasTexture(c);
+}
+function northShadowTex(){ // 北地阴影覆层（家祭境可被烛光揭开）
+  const c=document.createElement('canvas'); c.width=256; c.height=192; const x=c.getContext('2d');
+  const g=x.createLinearGradient(0,0,0,192);
+  g.addColorStop(0,'rgba(3,5,9,.97)'); g.addColorStop(0.55,'rgba(3,5,9,.72)'); g.addColorStop(1,'rgba(3,5,9,0)');
+  x.fillStyle=g; x.fillRect(0,0,256,192);
+  return new THREE.CanvasTexture(c);
+}
+const ghostMat=o=>new THREE.MeshPhongMaterial({color:(o&&o.color)||0x93a6c2,transparent:true,
+  opacity:(o&&o.opacity)||0.34,emissive:0x0f1520,shininess:14,depthWrite:false});
+const gmesh=(geo,op)=>{ const m=new THREE.Mesh(geo,ghostMat(op)); m.renderOrder=2; return m; };
+function makeCandle(o){ // 烛台母题：座+柱+烛身+双焰+光+烛泪 —— 全诗唯一光源
+  const x=o.x||0, z=o.z||0, y0=(o.y0===undefined?0:o.y0), h=(o.h===undefined?2.4:o.h), light=o.light||1.2;
+  const g=new THREE.Group(); g.position.set(x,y0,z);
+  const wood=new THREE.MeshPhongMaterial({color:0x241a10,shininess:18});
+  const base=new THREE.Mesh(new THREE.CylinderGeometry(0.62,0.78,0.18,16),wood); base.position.y=0.09; g.add(base);
+  const pole=new THREE.Mesh(new THREE.CylinderGeometry(0.09,0.12,h,10),wood); pole.position.y=h/2+0.18; g.add(pole);
+  const dish=new THREE.Mesh(new THREE.CylinderGeometry(0.4,0.28,0.12,14),wood); dish.position.y=h+0.24; g.add(dish);
+  const wax=new THREE.Mesh(new THREE.CylinderGeometry(0.2,0.24,0.95,12),
+    new THREE.MeshPhongMaterial({color:0xcfc3a6,shininess:8}));
+  wax.position.y=h+0.75; g.add(wax);
+  const wick=new THREE.Mesh(new THREE.CylinderGeometry(0.018,0.018,0.14,6),
+    new THREE.MeshBasicMaterial({color:0x1a120a}));
+  wick.position.y=h+1.28; g.add(wick);
+  const flameIn=new THREE.Sprite(new THREE.SpriteMaterial({map:glowTex(),color:0xffd9a0,
+    transparent:true,opacity:0.95,depthWrite:false,blending:THREE.AdditiveBlending}));
+  flameIn.position.y=h+1.42; flameIn.scale.set(1.5,2.4,1); g.add(flameIn);
+  const flameOut=new THREE.Sprite(new THREE.SpriteMaterial({map:glowTex(),color:0xff9548,
+    transparent:true,opacity:0.55,depthWrite:false,blending:THREE.AdditiveBlending}));
+  flameOut.position.y=h+1.52; flameOut.scale.set(5.5,6.5,1); flameOut.renderOrder=3; g.add(flameOut);
+  const pl=new THREE.PointLight(0xffa356,light,46); pl.position.y=h+1.5; g.add(pl);
+  const tear=new THREE.Mesh(new THREE.SphereGeometry(0.045,8,6),
+    new THREE.MeshPhongMaterial({color:0xe8dcb8,transparent:true,opacity:0.85,shininess:60}));
+  tear.scale.set(1,1.8,1); tear.position.set(0.205,0.3,0); wax.add(tear);
+  const seed=Math.random()*10;
+  const self={g,pl,boost:0,update(t,fk){
+    fk=(fk===undefined)?1:fk;
+    const fl=1+Math.sin(t*9.3+seed)*0.10+Math.sin(t*23.1+seed*2)*0.06;
+    pl.intensity=light*fl*fk*(1+self.boost);
+    flameIn.scale.y=2.4*(0.92+0.14*Math.sin(t*11.7+seed));
+    flameOut.scale.y=6.5*(0.94+0.10*Math.sin(t*7.3+seed));
+    flameOut.material.opacity=0.55*fl*fk*(1+self.boost*0.9);
+    const cy=(t*0.09+seed)%1;
+    tear.position.y=0.3-cy*0.85;
+    tear.material.opacity=0.85*(1-sstep(0.82,1,cy))*fk;
+  }};
+  return self;
+}
+function bCover(){ // 封面 · 夜宅孤灯（茫茫北国夜，唯一一点烛光）
+  const g=new THREE.Group();
+  const ground=new THREE.Mesh(new THREE.CircleGeometry(240,40),
+    new THREE.MeshBasicMaterial({color:0x0a0e15}));
+  ground.rotation.x=-Math.PI/2; g.add(ground);
+  const house=new THREE.Group(); house.position.set(0,0,-58); g.add(house);
+  const body=new THREE.Mesh(new THREE.BoxGeometry(15,8.5,9),
+    new THREE.MeshBasicMaterial({color:0x0b0f16}));
+  body.position.y=4.25; house.add(body);
+  const roof=new THREE.Mesh(new THREE.ConeGeometry(11.5,4.2,4),
+    new THREE.MeshBasicMaterial({color:0x080b11}));
+  roof.rotation.y=Math.PI/4; roof.position.y=10.6; house.add(roof);
+  const win=new THREE.Mesh(new THREE.PlaneGeometry(2.6,2.1),
+    new THREE.MeshBasicMaterial({color:0xffab58,transparent:true,opacity:0.9}));
+  win.position.set(2.4,4.6,4.51); house.add(win);
+  const winglow=new THREE.Sprite(new THREE.SpriteMaterial({map:glowTex(),color:0xff9d4e,
+    transparent:true,opacity:0.5,depthWrite:false,blending:THREE.AdditiveBlending}));
+  winglow.scale.set(11,11,1); winglow.position.set(2.4,4.6,4.6); winglow.renderOrder=3; house.add(winglow);
+  const twigM=new THREE.MeshBasicMaterial({color:0x070a10});
+  [[-15,-36,11,0.35],[12,-42,13,-0.3],[23,-26,9,0.15],[-8,-52,8,0.1]].forEach(p=>{
+    const tr=new THREE.Mesh(new THREE.CylinderGeometry(0.16,0.3,p[2],6),twigM);
+    tr.position.set(p[0],p[2]/2,p[1]); tr.rotation.z=p[3]*0.3; g.add(tr);
+    for(let b=0;b<3;b++){
+      const br=new THREE.Mesh(new THREE.CylinderGeometry(0.05,0.09,rnd(3,5.5),5),twigM);
+      br.position.set(p[0]+rnd(-1,1),p[2]*rnd(0.55,0.92),p[1]+rnd(-0.8,0.8));
+      br.rotation.z=rnd(-1.1,1.1); br.rotation.x=rnd(-0.6,0.6); g.add(br);
+    }
+  });
+  const mist=makeMist({n:14,spread:[260,36,150],pos:[0,9,-40],scale:80,color:0x76839a,op:0.11});
+  g.add(mist.g);
+  const motes=makeGlow({n:80,box:[200,34,120],pos:[0,8,-30],color:0x9fb0c8,size:7,speed:0.04,rise:0,maxA:0.4});
+  g.add(motes.points);
+  addLights(g,{c:0x8fa3c0,i:0.18,p:[20,60,40]},{c:0x232c3a,i:0.7});
+  return {group:g,update(t){
+    const fk=g.userData.fadeK===undefined?1:g.userData.fadeK;
+    mist.update(t,fk); motes.update(t);
+    const fl=0.82+Math.sin(t*8.7)*0.1+Math.sin(t*21.3)*0.06;
+    winglow.material.opacity=0.5*fl*fk;
+    win.material.opacity=(0.85+Math.sin(t*8.7)*0.08)*fk;
+  }};
+}
+function bDeathbed(){ // 壹 · 万事皆空 —— 病榻残烛，遗嘱未托
+  const g=new THREE.Group();
+  const floor=new THREE.Mesh(new THREE.CircleGeometry(50,40),
+    new THREE.MeshPhongMaterial({color:0x0b0906,shininess:10,specular:0x1a150e}));
+  floor.rotation.x=-Math.PI/2; g.add(floor);
+  const wall=new THREE.Mesh(new THREE.PlaneGeometry(34,18),
+    new THREE.MeshBasicMaterial({color:0x0d1117}));
+  wall.position.set(0,9,-14); g.add(wall);
+  const win=new THREE.Mesh(new THREE.PlaneGeometry(4.6,5.6),
+    new THREE.MeshBasicMaterial({map:winTex(),transparent:true,opacity:0.85}));
+  win.position.set(-7.5,7.4,-13.9); g.add(win);
+  const whalo=new THREE.Sprite(new THREE.SpriteMaterial({map:glowTex(),color:0x8fa8cc,
+    transparent:true,opacity:0.14,depthWrite:false,blending:THREE.AdditiveBlending}));
+  whalo.scale.set(9,9,1); whalo.position.set(-7.5,7.4,-13.7); g.add(whalo);
+  const patch=new THREE.Mesh(new THREE.PlaneGeometry(4.2,6.4),
+    new THREE.MeshBasicMaterial({color:0x7f9cc2,transparent:true,opacity:0.055,
+      blending:THREE.AdditiveBlending,depthWrite:false}));
+  patch.rotation.x=-Math.PI/2; patch.rotation.z=0.4; patch.position.set(-6.2,0.02,-7.5); g.add(patch);
+  const wood=new THREE.MeshPhongMaterial({color:0x16110b,shininess:12});
+  const frame=new THREE.Mesh(new THREE.BoxGeometry(9,0.55,4.8),wood);
+  frame.position.set(-1.5,0.45,-4); g.add(frame);
+  const matress=new THREE.Mesh(new THREE.BoxGeometry(8.6,0.5,4.4),
+    new THREE.MeshPhongMaterial({color:0x1c1712,shininess:6}));
+  matress.position.set(-1.5,0.97,-4); g.add(matress);
+  const quilt=new THREE.MeshPhongMaterial({color:0x242030,shininess:5});
+  const blanket=new THREE.Mesh(new THREE.BoxGeometry(7.6,0.42,4.2),quilt);
+  blanket.position.set(-0.7,1.4,-4); g.add(blanket);
+  const bodyBump=new THREE.Mesh(new THREE.SphereGeometry(1,14,10),quilt);
+  bodyBump.scale.set(2.4,0.62,1.5); bodyBump.position.set(-0.9,1.6,-4); g.add(bodyBump);
+  const pillow=new THREE.Mesh(new THREE.BoxGeometry(1.5,0.34,1.7),
+    new THREE.MeshPhongMaterial({color:0x2b2620,shininess:4}));
+  pillow.position.set(-4.7,1.3,-4); g.add(pillow);
+  const head=new THREE.Mesh(new THREE.SphereGeometry(0.44,14,12),
+    new THREE.MeshPhongMaterial({color:0x14131a,shininess:10}));
+  head.position.set(-4.7,1.72,-4); g.add(head);
+  const knot=new THREE.Mesh(new THREE.SphereGeometry(0.15,10,8),
+    new THREE.MeshPhongMaterial({color:0x0e0d13}));
+  knot.position.set(-4.7,2.18,-4); g.add(knot);
+  const bedG=new THREE.Group(); g.add(bedG);
+  [[-6,-6.4],[3,-6.4],[-6,-1.6],[3,-1.6]].forEach(p=>{
+    const post=new THREE.Mesh(new THREE.CylinderGeometry(0.06,0.08,5.4,8),wood);
+    post.position.set(p[0],2.7,p[1]); bedG.add(post); });
+  const r1=new THREE.Mesh(new THREE.BoxGeometry(9.2,0.09,0.09),wood); r1.position.set(-1.5,5.4,-6.4); bedG.add(r1);
+  const r2=new THREE.Mesh(new THREE.BoxGeometry(9.2,0.09,0.09),wood); r2.position.set(-1.5,5.4,-1.6); bedG.add(r2);
+  const r3=new THREE.Mesh(new THREE.BoxGeometry(0.09,0.09,5.2),wood); r3.position.set(-6,5.4,-4); bedG.add(r3);
+  const r4=new THREE.Mesh(new THREE.BoxGeometry(0.09,0.09,5.2),wood); r4.position.set(3,5.4,-4); bedG.add(r4);
+  const gauze=new THREE.MeshPhongMaterial({color:0xaebcd0,transparent:true,opacity:0.085,
+    shininess:0,side:THREE.DoubleSide,depthWrite:false});
+  const curtain1=new THREE.Mesh(new THREE.PlaneGeometry(9,4.9),gauze);
+  curtain1.position.set(-1.5,2.85,-1.58); bedG.add(curtain1);
+  const curtain2=new THREE.Mesh(new THREE.PlaneGeometry(5,4.9),gauze);
+  curtain2.rotation.y=Math.PI/2; curtain2.position.set(-6.05,2.85,-4); bedG.add(curtain2);
+  const table=new THREE.Group(); table.position.set(4.4,0,-2); g.add(table);
+  const ttop=new THREE.Mesh(new THREE.BoxGeometry(2.0,0.12,2.0),wood); ttop.position.y=1.06; table.add(ttop);
+  [[-0.8,-0.8],[0.8,-0.8],[-0.8,0.8],[0.8,0.8]].forEach(p=>{
+    const leg=new THREE.Mesh(new THREE.CylinderGeometry(0.05,0.06,1.0,8),wood);
+    leg.position.set(p[0],0.5,p[1]); table.add(leg); });
+  const candle=makeCandle({x:4.4,z:-2,y0:1.12,h:0.5,light:1.2}); g.add(candle.g);
+  const motes=makeGlow({n:70,box:[16,8,12],pos:[1,3.4,-3],color:0xc9b795,size:5.5,speed:0.03,rise:0,maxA:0.32});
+  g.add(motes.points);
+  const mist=makeMist({n:6,spread:[60,18,40],pos:[0,6,-8],scale:34,color:0x6f7d92,op:0.05});
+  g.add(mist.g);
+  addLights(g,{c:0x8fa3c0,i:0.14,p:[10,50,20]},{c:0x1e2531,i:0.85});
+  return {group:g,update(t){
+    const fk=g.userData.fadeK===undefined?1:g.userData.fadeK;
+    candle.update(t,fk);
+    mist.update(t,fk); motes.update(t);
+    const br=1+0.028*Math.sin(t*1.05);   // 病榻上微弱的呼吸
+    bodyBump.scale.y=0.62*br;
+    blanket.position.y=1.4+0.006*Math.sin(t*1.05);
+    curtain1.rotation.z=Math.sin(t*0.45)*0.012;
+    curtain2.rotation.z=Math.sin(t*0.38+1)*0.012;
+    patch.material.opacity=0.055*fk;
+    whalo.material.opacity=0.14*fk;
+    win.material.opacity=0.85*fk;
+  }};
+}
+function bYutu(){ // 贰 · 悲不见同 —— 壁上九州舆图，北地犹沉阴影
+  const g=new THREE.Group();
+  const floor=new THREE.Mesh(new THREE.CircleGeometry(50,40),
+    new THREE.MeshPhongMaterial({color:0x0b0906,shininess:10,specular:0x1a150e}));
+  floor.rotation.x=-Math.PI/2; g.add(floor);
+  const wall=new THREE.Mesh(new THREE.PlaneGeometry(36,20),
+    new THREE.MeshBasicMaterial({color:0x0d1117}));
+  wall.position.set(0,10,-14); g.add(wall);
+  const scroll=new THREE.Group(); scroll.position.set(0,7.4,-13.8); g.add(scroll);
+  const mapMat=new THREE.MeshBasicMaterial({map:mapTex(true)});
+  const map=new THREE.Mesh(new THREE.PlaneGeometry(10.6,7.6),mapMat);
+  map.position.y=-0.3; scroll.add(map);
+  const veil=new THREE.Mesh(new THREE.PlaneGeometry(10.7,7.7),
+    new THREE.MeshBasicMaterial({color:0x05070b,transparent:true,opacity:0.12,depthWrite:false}));
+  veil.position.set(0,-0.3,0.04); veil.renderOrder=2; scroll.add(veil);
+  const rodM=new THREE.MeshPhongMaterial({color:0x241a10,shininess:20});
+  const rodT=new THREE.Mesh(new THREE.CylinderGeometry(0.09,0.09,11.6,10),rodM);
+  rodT.rotation.z=Math.PI/2; rodT.position.y=3.65; scroll.add(rodT);
+  const rodB=new THREE.Mesh(new THREE.CylinderGeometry(0.07,0.07,10.9,10),rodM);
+  rodB.rotation.z=Math.PI/2; rodB.position.y=-4.25; scroll.add(rodB);
+  const nail=new THREE.Mesh(new THREE.SphereGeometry(0.08,8,6),rodM); nail.position.y=5.4; scroll.add(nail);
+  const cordM=new THREE.LineBasicMaterial({color:0x3a3226});
+  [[-5.6],[5.6]].forEach(p=>{
+    scroll.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(
+      [new THREE.Vector3(p[0],3.6,0),new THREE.Vector3(0,5.35,0)]),cordM)); });
+  const warm=new THREE.Sprite(new THREE.SpriteMaterial({map:glowTex(),color:0xffb56a,
+    transparent:true,opacity:0.12,depthWrite:false,blending:THREE.AdditiveBlending}));
+  warm.scale.set(7,5.5,1); warm.position.set(1.6,5.6,-13.6); warm.renderOrder=3; g.add(warm);
+  const candle=makeCandle({x:5.2,z:0.5,h:2.5,light:1.25}); g.add(candle.g);
+  const oldman=makeFigure(1.28); oldman.position.set(1.0,0,-3.4); oldman.rotation.y=Math.PI; g.add(oldman);
+  const cane=new THREE.Mesh(new THREE.CylinderGeometry(0.045,0.055,2.7,7),
+    new THREE.MeshPhongMaterial({color:0x241a10,shininess:14}));
+  cane.position.set(2.2,1.35,-3.1); cane.rotation.z=-0.1; g.add(cane);
+  const motes=makeGlow({n:90,box:[8,7,14],pos:[2.6,3.6,-6.5],color:0xc9b795,size:5.5,speed:0.035,rise:0,maxA:0.34});
+  g.add(motes.points);
+  const mist=makeMist({n:6,spread:[70,16,40],pos:[0,7,-9],scale:36,color:0x6f7d92,op:0.05});
+  g.add(mist.g);
+  addLights(g,{c:0x8fa3c0,i:0.12,p:[10,50,20]},{c:0x1d2430,i:0.85});
+  return {group:g,update(t){
+    const fk=g.userData.fadeK===undefined?1:g.userData.fadeK;
+    candle.update(t,fk);
+    mist.update(t,fk); motes.update(t);
+    warm.material.opacity=(0.11+0.05*Math.sin(t*8.3))*fk;
+    veil.material.opacity=(0.10+0.05*Math.sin(t*8.3+1.2))*fk;
+    oldman.rotation.z=Math.sin(t*0.5)*0.008;
+  }};
+}
+function bJiasi(){ // 叁 · 家祭遗言 —— 烛火拔亮，遥告乃翁（标志性瞬间：虚影家祭）
+  const g=new THREE.Group();
+  const floor=new THREE.Mesh(new THREE.CircleGeometry(55,40),
+    new THREE.MeshPhongMaterial({color:0x0b0906,shininess:10,specular:0x1a150e}));
+  floor.rotation.x=-Math.PI/2; g.add(floor);
+  const wall=new THREE.Mesh(new THREE.PlaneGeometry(38,20),
+    new THREE.MeshBasicMaterial({color:0x0d1117}));
+  wall.position.set(0,10,-13); g.add(wall);
+  // 壁上舆图（遥想之境 · 半透虚影）：北方仍阴，中原待照
+  const mapMat=new THREE.MeshBasicMaterial({map:mapTex(false),transparent:true,opacity:0.55,depthWrite:false});
+  const map=new THREE.Mesh(new THREE.PlaneGeometry(9.4,6.8),mapMat);
+  map.position.set(-0.3,8.4,-12.8); map.renderOrder=1; g.add(map);
+  const shadowMat=new THREE.MeshBasicMaterial({map:northShadowTex(),transparent:true,opacity:0.85,depthWrite:false});
+  const shadow=new THREE.Mesh(new THREE.PlaneGeometry(6.6,4.4),shadowMat);
+  shadow.position.set(0.4,9.6,-12.72); shadow.renderOrder=2; g.add(shadow);
+  const zhongyuan=new THREE.Sprite(new THREE.SpriteMaterial({map:glowTex(),color:0xffca7a,
+    transparent:true,opacity:0,depthWrite:false,blending:THREE.AdditiveBlending}));
+  zhongyuan.scale.set(3.4,2.4,1); zhongyuan.position.set(-0.3,7.7,-12.6); zhongyuan.renderOrder=4; g.add(zhongyuan);
+  const skywin=new THREE.Mesh(new THREE.PlaneGeometry(4.6,3.4),
+    new THREE.MeshBasicMaterial({map:winTex(),transparent:true,opacity:0.7,depthWrite:false}));
+  skywin.position.set(-9.5,10.2,-12.9); skywin.renderOrder=1; g.add(skywin);
+  // 遥想家祭 —— 供桌、香炉、牌位、小烛（全是虚影半透明）
+  const altar=new THREE.Group(); altar.position.set(0,0,-5.2); g.add(altar);
+  const tabletop=gmesh(new THREE.BoxGeometry(7.4,0.26,2.7),{opacity:0.38}); tabletop.position.y=1.5; altar.add(tabletop);
+  const apron=gmesh(new THREE.BoxGeometry(6.8,0.95,2.3),{opacity:0.34}); apron.position.y=0.98; altar.add(apron);
+  [[-3.2,-1.05],[3.2,-1.05],[-3.2,1.05],[3.2,1.05]].forEach(p=>{
+    const leg=gmesh(new THREE.CylinderGeometry(0.11,0.13,1.0,10),{opacity:0.34});
+    leg.position.set(p[0],0.5,p[1]); altar.add(leg); });
+  const cloth=gmesh(new THREE.PlaneGeometry(7.2,1.15),{opacity:0.22});
+  cloth.position.set(0,0.95,1.18); altar.add(cloth);
+  const burnerPts=[[0,0],[0.34,0.02],[0.44,0.18],[0.46,0.4],[0.36,0.55],[0.18,0.6]]
+    .map(p=>new THREE.Vector2(p[0],p[1]));
+  const burner=gmesh(new THREE.LatheGeometry(burnerPts,18),{opacity:0.5});
+  burner.position.set(0,1.63,0); altar.add(burner);
+  const sticks=[];
+  [[-0.09,0.03],[0,0],[0.09,-0.03]].forEach(p=>{
+    const st=gmesh(new THREE.CylinderGeometry(0.018,0.018,1.15,6),{opacity:0.6});
+    st.position.set(p[0],2.35,p[1]); st.rotation.x=p[1]*1.6; st.rotation.z=-p[0]*1.6; altar.add(st);
+    const ember=new THREE.Mesh(new THREE.SphereGeometry(0.035,8,6),
+      new THREE.MeshBasicMaterial({color:0xff6a3c,transparent:true,opacity:0.85}));
+    ember.position.set(0,0.6,0); st.add(ember); sticks.push(ember);
+  });
+  const tablet=new THREE.Group(); tablet.position.set(-1.7,1.63,0); tablet.rotation.y=0.16; altar.add(tablet);
+  const tb=gmesh(new THREE.BoxGeometry(0.52,1.15,0.07),{opacity:0.55}); tb.position.y=0.58; tablet.add(tb);
+  const tbase=gmesh(new THREE.BoxGeometry(0.6,0.12,0.2),{opacity:0.5}); tbase.position.y=0.06; tablet.add(tbase);
+  const mini=[];
+  [[-3.0,0.35],[3.0,0.35]].forEach(p=>{
+    const cw=gmesh(new THREE.CylinderGeometry(0.09,0.11,0.55,10),{opacity:0.6});
+    cw.position.set(p[0],1.9,p[1]); altar.add(cw);
+    const cf=new THREE.Sprite(new THREE.SpriteMaterial({map:glowTex(),color:0xffc890,
+      transparent:true,opacity:0.5,depthWrite:false,blending:THREE.AdditiveBlending}));
+    cf.scale.set(0.8,1.2,1); cf.position.set(p[0],2.3,p[1]); cf.renderOrder=3; altar.add(cf); mini.push(cf);
+  });
+  // 后辈跪拜剪影（虚影 · 缓缓叩首）
+  const kneelers=[];
+  [[-2.2,-2.3],[0,-2.55],[2.2,-2.3]].forEach((p,i)=>{
+    const kg=new THREE.Group(); kg.position.set(p[0],0,p[1]);
+    const shin=gmesh(new THREE.BoxGeometry(0.85,0.34,1.0),{opacity:0.3});
+    shin.position.y=0.17; kg.add(shin);
+    const hip=new THREE.Group(); hip.position.y=0.42; kg.add(hip);
+    const torso=gmesh(new THREE.CylinderGeometry(0.4,0.48,1.35,10),{opacity:0.3});
+    torso.position.y=0.6; torso.rotation.x=-0.18; hip.add(torso);
+    const headK=gmesh(new THREE.SphereGeometry(0.3,12,10),{opacity:0.34});
+    headK.position.set(0,1.32,-0.22); hip.add(headK);
+    const knotK=gmesh(new THREE.SphereGeometry(0.1,8,6),{opacity:0.4});
+    knotK.position.set(0,1.6,-0.22); hip.add(knotK);
+    g.add(kg); kneelers.push({hip,ph:i*1.1});
+  });
+  // 香炉青烟：粒子 + 袅袅烟线
+  const smoke=makeGlow({n:110,box:[1.1,8.5,1.1],pos:[0,2.4,-5.2],color:0x9fb0c6,size:8,
+    speed:0.055,rise:1,add:false,maxA:0.42});
+  g.add(smoke.points);
+  const rp=new Float32Array(26*3); const rgeo=new THREE.BufferGeometry();
+  rgeo.setAttribute('position',new THREE.BufferAttribute(rp,3));
+  const ribbon=new THREE.Line(rgeo,new THREE.LineBasicMaterial({color:0x9fb2cc,transparent:true,opacity:0.22}));
+  ribbon.renderOrder=3; ribbon.frustumCulled=false; g.add(ribbon);
+  // 眼前的烛 —— 点击拔亮
+  const candle=makeCandle({x:4.7,z:2.6,h:2.4,light:1.3}); g.add(candle.g);
+  const burst=makeBurst({n:70,color:0xffc890,pos:[4.7,3.9,2.6]}); g.add(burst.points);
+  const motes=makeGlow({n:90,box:[20,9,14],pos:[0,4,-4],color:0xc9b795,size:5.5,speed:0.03,rise:0,maxA:0.3});
+  g.add(motes.points);
+  const mist=makeMist({n:8,spread:[80,18,50],pos:[0,6,-8],scale:38,color:0x6f7d92,op:0.055});
+  g.add(mist.g);
+  addLights(g,{c:0x8fa3c0,i:0.13,p:[10,50,20]},{c:0x202835,i:0.85});
+  const ctl={t0:null};
+  return {group:g,update(t){
+    const fk=g.userData.fadeK===undefined?1:g.userData.fadeK;
+    // 点击叙事进度（与 click 统一用 clock.t 时间源）
+    const k=ctl.t0===null?0:clamp((clock.t-ctl.t0)/2.8,0,1);
+    const surge=Math.sin(Math.min(k,1)*Math.PI);
+    candle.boost=0.55*sstep(0,0.35,k)+0.35*surge;
+    candle.update(t,fk);
+    smoke.mat.opacity=(0.42+0.3*sstep(0.1,0.8,k))*fk;   // 乘 fadeK：setFade 在过渡期会改写 opacity
+    smoke.update(t);
+    mist.update(t,fk); motes.update(t);
+    shadowMat.opacity=(0.85-0.75*sstep(0.1,0.7,k))*fk;
+    const zg=sstep(0.15,0.6,k);
+    zhongyuan.material.opacity=(0.9*zg+0.12*Math.sin(t*2.3)*zg)*fk;
+    mapMat.opacity=0.55*fk;
+    sticks.forEach((e,i)=>{e.material.opacity=(0.6+0.35*Math.sin(t*7+i*2))*fk;});
+    mini.forEach((f,i)=>{f.material.opacity=0.5*fk*(0.9+0.18*Math.sin(t*9+i*2.4));});
+    const amp=0.36+0.2*sstep(0.2,0.6,k);
+    kneelers.forEach(o=>{
+      const c=(t*0.1+o.ph)%1;
+      const b=sstep(0.03,0.14,c)*(1-sstep(0.34,0.5,c));
+      o.hip.rotation.x=-(0.1+amp*b);
+    });
+    for(let i=0;i<26;i++){
+      const kk=i/25;
+      rp[i*3]=Math.sin(t*0.85+kk*5.2)*0.4*kk;
+      rp[i*3+1]=2.35+kk*8.5;
+      rp[i*3+2]=-5.2+Math.cos(t*0.63+kk*4.1)*0.3*kk;
+    }
+    rgeo.attributes.position.needsUpdate=true;
+    ribbon.material.opacity=(0.2+0.14*sstep(0.1,0.8,k))*fk;
+  },click(){
+    if(ctl.t0!==null&&clock.t-ctl.t0<2.2)return;   // 守卫防连点
+    ctl.t0=clock.t;
+    burst.fire(); bell();
+    const fl=$('#flash'); fl.textContent='家祭无忘告乃翁';
+    fl.classList.remove('go'); void fl.offsetWidth; fl.classList.add('go');
+  }};
+}
+
+/* ---------------- 境定义 ---------------- */
+const SK=(o)=>Object.assign({
+  top:C(0x081020),hor:C(0x1d3350),bot:C(0x0c1016),fog:C(0x0a1526),fd:0.0045,star:0.85,
+  moon:new THREE.Vector3(120,150,-210),ms:1.0,dirC:C(0x9db8e8),dirI:0.7,
+  dirP:new THREE.Vector3(60,120,40),ambC:C(0x31405c),ambI:0.55},o);
+const STAGES=[
+{ key:'cover',name:'卷首',dwell:0,river:0.01,build:bCover,
+  cam:{f:[0,6,34],t:[0,6,28],lf:[0,5.5,-58],lt:[0,5.5,-58]},
+  sky:()=>SK({top:C(0x090c12),hor:C(0x121a26),bot:C(0x06090e),fog:C(0x111824),fd:0.0038,star:0.28,
+    ms:0.001,moon:new THREE.Vector3(0,-400,0),dirC:C(0x8fa3c0),dirI:0.2,ambC:C(0x232c3a),ambI:0.7}) },
+{ name:'万事皆空',dwell:16,river:0.012,build:bDeathbed,
+  cam:{f:[2.8,3.6,10.5],t:[1.6,4.1,8.2],lf:[-0.6,3.1,-3],lt:[-1.2,3.3,-3]},
+  sky:()=>SK({top:C(0x080b11),hor:C(0x0e141e),bot:C(0x06090e),fog:C(0x121a26),fd:0.016,star:0.1,
+    ms:0.001,moon:new THREE.Vector3(0,-400,0),dirC:C(0x8fa3c0),dirI:0.15,ambC:C(0x1e2531),ambI:0.85}) },
+{ name:'悲不见同',dwell:16,river:0.012,build:bYutu,
+  cam:{f:[0,4.4,11.5],t:[-0.4,5.2,9],lf:[0,6.9,-13.8],lt:[0,7.2,-13.8]},
+  sky:()=>SK({top:C(0x080b11),hor:C(0x0e141e),bot:C(0x06090e),fog:C(0x131b28),fd:0.018,star:0.08,
+    ms:0.001,moon:new THREE.Vector3(0,-400,0),dirC:C(0x8fa3c0),dirI:0.13,ambC:C(0x1d2430),ambI:0.85}) },
+{ name:'家祭遗言',dwell:18,river:0.015,build:bJiasi,
+  cam:{f:[0.4,4.0,11],t:[0,4.6,8.6],lf:[0,4.6,-5],lt:[0,5.0,-5.2]},
+  sky:()=>SK({top:C(0x080b11),hor:C(0x0f151f),bot:C(0x06090e),fog:C(0x131b27),fd:0.015,star:0.1,
+    ms:0.001,moon:new THREE.Vector3(0,-400,0),dirC:C(0x8fa3c0),dirI:0.15,ambC:C(0x202835),ambI:0.85}) },
+];
+
+/* ---------------- 淡入淡出 ---------------- */
+function setFade(root,k){
+  root.userData.fadeK=k;
+  root.traverse(o=>{
+    if(o.isLight){ if(o.userData.baseI===undefined)o.userData.baseI=o.intensity;
+      o.intensity=o.userData.baseI*k; return; }
+    const m=o.material; if(!m)return;
+    if(m.isShaderMaterial){ if(m.uniforms&&m.uniforms.uFade)m.uniforms.uFade.value=k; return; }
+    if(m.userData.baseOpacity===undefined){ m.userData.baseOpacity=m.opacity; m.transparent=true; }
+    m.opacity=m.userData.baseOpacity*k;
+  });
+}
+function disposeGroup(root){
+  root.traverse(o=>{
+    if(o.geometry)o.geometry.dispose();
+    if(o.material){
+      const ms=Array.isArray(o.material)?o.material:[o.material];
+      ms.forEach(m=>{ if(m.map)m.map.dispose(); m.dispose(); });
+    }
+  });
+}
+
+/* ---------------- 声音 ---------------- */
+const PENTA=[261.6,293.7,329.6,392,440,523.3];
+function initAudio(){
+  if(groupAudio.ctx)return;
+  try{
+    const ctx=new (window.AudioContext||window.webkitAudioContext)();
+    groupAudio.ctx=ctx;
+    groupAudio.master=ctx.createGain(); groupAudio.master.gain.value=groupAudio.muted?0:1;
+    groupAudio.master.connect(ctx.destination);
+    // 夜蝉风声（brown noise 循环，音量很低）
+    const len=ctx.sampleRate*2, buf=ctx.createBuffer(1,len,ctx.sampleRate);
+    const d=buf.getChannelData(0); let lastV=0;
+    for(let i=0;i<len;i++){ const w=Math.random()*2-1; lastV=(lastV+0.02*w)/1.02; d[i]=lastV*3.5; }
+    const src=ctx.createBufferSource(); src.buffer=buf; src.loop=true;
+    const lp=ctx.createBiquadFilter(); lp.type='lowpass'; lp.frequency.value=320;
+    groupAudio.river=ctx.createGain(); groupAudio.river.gain.value=0;
+    src.connect(lp).connect(groupAudio.river).connect(groupAudio.master);
+    src.start();
+  }catch(e){}
+}
+function setAmbience(v){
+  if(!groupAudio.river)return;
+  const now=groupAudio.ctx.currentTime;
+  groupAudio.river.gain.cancelScheduledValues(now);
+  groupAudio.river.gain.linearRampToValueAtTime(v,now+1.6);
+}
+const _pluckCache={};
+function pluck(noteIdx,delay=0,vol=0.18){
+  if(!groupAudio.ctx)return;
+  const ctx=groupAudio.ctx;
+  const freq=PENTA[noteIdx%PENTA.length];
+  const key=Math.round(freq);
+  if(!_pluckCache[key]){
+    const sr=ctx.sampleRate, N=Math.max(2,Math.round(sr/freq));
+    const b=ctx.createBuffer(1,sr*2,sr), o=b.getChannelData(0);
+    for(let i=0;i<N;i++)o[i]=Math.random()*2-1;
+    for(let i=N;i<o.length;i++)o[i]=(o[i-N]+o[i-N-1])/2*0.996;
+    _pluckCache[key]=b;
+  }
+  const s=ctx.createBufferSource(); s.buffer=_pluckCache[key];
+  const g=ctx.createGain(); g.gain.value=vol;
+  s.connect(g).connect(groupAudio.master);
+  s.start(ctx.currentTime+delay);
+}
+function bell(){
+  if(!groupAudio.ctx)return;
+  const ctx=groupAudio.ctx, now=ctx.currentTime;
+  [1244,1864].forEach((f,i)=>{
+    const o=ctx.createOscillator(), g=ctx.createGain();
+    o.frequency.value=f*(1+i*0.002); o.type='sine';
+    g.gain.setValueAtTime(0.12/(i+1),now);
+    g.gain.exponentialRampToValueAtTime(0.0001,now+0.9);
+    o.connect(g).connect(groupAudio.master); o.start(now); o.stop(now+1);
+  });
+}
+
+/* ---------------- 朗读 v2（神经语音现场朗诵 → 内置配音 → 系统语音） ---------------- */
+let zhVoice=null,curAudio=null,speakSeq=0,queueTimer=null;
+function pickVoice(){
+  if(!('speechSynthesis' in window))return;
+  const vs=speechSynthesis.getVoices();
+  const zh=vs.filter(v=>(v.lang||'').toLowerCase().startsWith('zh'));
+  // 优先 Edge 的“在线自然语音”（Yunjian/Yunxi/Xiaoxiao/Yunyang 等神经网络音色）
+  zhVoice=zh.find(v=>/Yunjian/i.test(v.name))||zh.find(v=>/Yunxi/i.test(v.name))
+    ||zh.find(v=>/Xiaoxiao/i.test(v.name))||zh.find(v=>/Yunyang/i.test(v.name))
+    ||zh.find(v=>/Natural|Online|Neural/i.test(v.name))||zh[0]||null;
+}
+if('speechSynthesis' in window){ speechSynthesis.onvoiceschanged=pickVoice; pickVoice(); }
+const isNeural=v=>!!v&&/Yunjian|Yunxi|Xiaoxiao|Yunyang|Natural|Online|Neural/i.test(v.name||'');
+function stopSpeak(){
+  speakSeq++;
+  if(curAudio){ try{curAudio.pause();}catch(e){} curAudio=null; }
+  clearTimeout(queueTimer);
+  if('speechSynthesis' in window)speechSynthesis.cancel();
+}
+function splitSentences(t){ // 按句末标点切分，用于逐句朗诵
+  const out=[];let cur='';
+  for(const ch of t){cur+=ch;if('。！？；'.includes(ch)){out.push(cur);cur='';}}
+  if(cur)out.push(cur);return out.length?out:[t];
+}
+function speakLive(text,onend,seq,onFail){ // 神经语音逐句朗诵：句间停顿，节奏接近真人
+  const parts=splitSentences(text);let i=0,failed=false;
+  const fail=()=>{if(failed||seq!==speakSeq)return;failed=true;onFail&&onFail();};
+  const next=()=>{
+    if(seq!==speakSeq||failed)return;
+    if(i>=parts.length){onend&&onend();return;}
+    const u=new SpeechSynthesisUtterance(parts[i++]);
+    u.lang='zh-CN';u.rate=0.78;u.pitch=1;u.volume=1;if(zhVoice)u.voice=zhVoice;
+    u.onend=()=>{if(seq!==speakSeq||failed)return;if(i<parts.length)queueTimer=setTimeout(next,420);else next();};
+    u.onerror=()=>{if(i===1)fail();else{if(i<parts.length)queueTimer=setTimeout(next,300);else onend&&onend();}};
+    speechSynthesis.speak(u);
+  };
+  next();
+}
+function speak(text,onend){ // 兜底：普通系统语音整段朗读
+  if(!('speechSynthesis' in window)){ tip('当前浏览器不支持朗读'); return; }
+  speechSynthesis.cancel();
+  const u=new SpeechSynthesisUtterance(text);
+  u.lang='zh-CN'; u.rate=0.82; if(zhVoice)u.voice=zhVoice;
+  if(onend)u.addEventListener('end',onend);
+  speechSynthesis.speak(u);
+}
+function playMp3(file,fallbackText,onend){
+  try{
+    const a=new Audio('audio/'+file);
+    curAudio=a; let done=false;
+    const fallback=()=>{ if(done)return; done=true; curAudio=null; speak(fallbackText,onend); };
+    a.addEventListener('error',fallback);
+    a.addEventListener('ended',()=>{ if(!done){done=true;curAudio=null;onend&&onend();} });
+    const p=a.play();
+    if(p&&p.catch)p.catch(fallback);
+  }catch(e){ speak(fallbackText,onend); }
+}
+function aiSpeak(file,fallbackText,onend){
+  stopSpeak();
+  const seq=speakSeq;
+  // ① 有神经语音（Edge 在线自然语音）→ 现场逐句朗诵，真人感最佳
+  if('speechSynthesis' in window&&zhVoice&&isNeural(zhVoice)){
+    speakLive(fallbackText,onend,seq,()=>{ if(seq!==speakSeq)return; playMp3(file,fallbackText,onend); });
+    return;
+  }
+  // ② 内置 AI 配音 MP3 → ③ 普通系统语音
+  playMp3(file,fallbackText,onend);
+}
+const stageAudio=i=>String(i).padStart(2,'0')+'.mp3';
+
+/* ---------------- UI ---------------- */
+function buildPoemDOM(idx){
+  const line=POEM[idx-1], box=$('#poemBox');
+  box.innerHTML='';
+  line.segs.forEach((seg,si)=>{
+    const d=document.createElement('div'); d.className='seg';
+    let pi=0,ci=0;
+    for(const ch of seg.c){
+      let el;
+      if(/[，。、！？；：]/.test(ch)){
+        el=document.createElement('span'); el.className='pu'; el.textContent=ch;
+      }else{
+        el=document.createElement('ruby'); el.className='zi';
+        el.innerHTML='<span>'+ch+'</span><rt>'+(seg.p[pi++]||'')+'</rt>';
+      }
+      el.style.animationDelay=(0.25+(ci++)*0.13+si*0.55)+'s';
+      d.appendChild(el);
+    }
+    box.appendChild(d);
+  });
+}
+function fillNotes(idx){
+  const line=POEM[idx-1];
+  $('#yisi').textContent=line.yisi;
+  const ul=$('#zhu'); ul.innerHTML='';
+  line.zhu.forEach(z=>{ const li=document.createElement('li');
+    li.innerHTML='<b>'+z[0]+'</b>'+z[1]; ul.appendChild(li); });
+}
+function buildDots(){
+  const d=$('#dots');
+  for(let i=1;i<=3;i++){
+    const s=document.createElement('i');
+    s.title='第'+CN[i-1]+'境 · '+POEM[i-1].name;
+    s.addEventListener('click',()=>goto(i));
+    d.appendChild(s);
+  }
+}
+let tipTimer=null;
+let autoSpeak=true;   // 进入新境后自动朗读诗句
+let speakTimer=null;
+function tip(msg,dur=3200){
+  const t=$('#tip'); t.textContent=msg; t.classList.add('show');
+  clearTimeout(tipTimer); tipTimer=setTimeout(()=>t.classList.remove('show'),dur);
+}
+function updateHUD(i){
+  const hud=$('#hud');
+  if(i===0){ hud.classList.add('hidden'); document.body.classList.add('no-poem');
+    $('#jing').classList.remove('show'); return; }
+  hud.classList.remove('hidden'); document.body.classList.remove('no-poem');
+  $('#stageNo').textContent='第'+CN[i-1]+'境';
+  $('#stageName').textContent=POEM[i-1].name;
+  buildPoemDOM(i); fillNotes(i);
+  document.querySelectorAll('#dots i').forEach((d,k)=>d.classList.toggle('on',k===i-1));
+  const j=$('#jing'); j.classList.remove('show');
+  setTimeout(()=>{ j.textContent=POEM[i-1].jing; j.classList.add('show'); },600);
+  $('#zsBox').open=false;
+}
+
+/* ---------------- 场景切换 ---------------- */
+function goto(i){
+  if(state==='transition'||i===curIdx)return;
+  i=clamp(i,0,3);
+  stopSpeak();
+  clearTimeout(speakTimer);
+  $('#ending').classList.remove('show');
+  curIdx=i;
+  const def=STAGES[i];
+  const st=def.build();
+  scene.add(st.group); setFade(st.group,0);
+  trans={t:0,dur:2.6,fromP:camera.position.clone(),fromL:curLook.clone(),
+    toP:v3(def.cam.f),toL:v3(def.cam.lf),stage:st,old:curStageObj};
+  skyFrom=cloneSky(SKYcur); skyTo=def.sky();
+  stageT=0; autoT=0; state='transition';
+  updateHUD(i);
+  setAmbience(def.river);
+  if(i>0){
+    pluck(i%PENTA.length,0.3,0.15);
+    pluck((i+3)%PENTA.length,0.75,0.11);
+    if(st.onEnter)st.onEnter();
+    if(autoSpeak)speakTimer=setTimeout(()=>{ if(curIdx===i)aiSpeak(stageAudio(i),POEM[i-1].read); },1600);
+  }
+  if(i===3)setTimeout(()=>tip('轻点烛火 / 按空格 —— 拔亮烛光，遥告乃翁'),2600);
+}
+function showEnding(){
+  if(state!=='stage')return;
+  state='ending';
+  const box=$('#endPoem'); box.innerHTML='';
+  POEM.forEach(line=>{
+    line.segs.forEach(seg=>{
+      const d=document.createElement('div'); d.className='seg';
+      let pi=0;
+      for(const ch of seg.c){
+        let el;
+        if(/[，。、！？；：]/.test(ch)){ el=document.createElement('span'); el.className='pu'; el.textContent=ch; }
+        else{ el=document.createElement('ruby'); el.className='zi';
+          el.innerHTML='<span>'+ch+'</span><rt>'+(seg.p[pi++]||'')+'</rt>'; }
+        d.appendChild(el);
+      }
+      box.appendChild(d);
+    });
+  });
+  $('#ending').classList.add('show');
+  if(autoSpeak)aiSpeak('04.mp3',POEM.map(l=>l.read).join(''));
+}
+function hideEnding(to){
+  $('#ending').classList.remove('show');
+  state='stage';
+  if(to==='cover'){ $('#cover').classList.remove('off'); goto(0); }
+  else goto(1);
+}
+
+/* ---------------- 主循环 ---------------- */
+function animate(){
+  requestAnimationFrame(animate);
+  const now=performance.now()/1000;
+  let dt=clock.last?now-clock.last:0.016;
+  clock.last=now; dt=Math.min(dt,0.05); clock.t+=dt;
+  const t=clock.t;
+  if(state==='transition'&&trans){
+    trans.t+=dt;
+    const k=ease(clamp(trans.t/trans.dur,0,1));
+    camera.position.lerpVectors(trans.fromP,trans.toP,k);
+    curLook.lerpVectors(trans.fromL,trans.toL,k);
+    setFade(trans.stage.group,k);
+    if(trans.old)setFade(trans.old.group,1-k);
+    mixSky(k);
+    if(trans.stage.update)trans.stage.update(trans.t,dt);
+    if(k>=1){
+      if(trans.old){ scene.remove(trans.old.group); disposeGroup(trans.old.group); }
+      curStageObj=trans.stage; curDef=STAGES[curIdx];
+      state='stage'; stageT=0; autoT=0;
+    }
+  }
+  else if(state==='stage'&&curStageObj){
+    stageT+=dt; autoT+=dt;
+    if(curStageObj.update)curStageObj.update(stageT,dt);
+    const p=Math.min(1,stageT/30);
+    camera.position.set(lerp(curDef.cam.f[0],curDef.cam.t[0],p),
+      lerp(curDef.cam.f[1],curDef.cam.t[1],p),lerp(curDef.cam.f[2],curDef.cam.t[2],p));
+    curLook.set(lerp(curDef.cam.lf[0],curDef.cam.lt[0],p),
+      lerp(curDef.cam.lf[1],curDef.cam.lt[1],p),lerp(curDef.cam.lf[2],curDef.cam.lt[2],p));
+    if(autoMode&&curIdx>0){
+      if(autoT>curDef.dwell){ if(curIdx===3)showEnding(); else goto(curIdx+1); }
+    }
+  }
+  // 视差 + 呼吸
+  if(curDef){
+    const fwd=new THREE.Vector3().subVectors(curLook,camera.position).normalize();
+    const right=new THREE.Vector3().crossVectors(fwd,new THREE.Vector3(0,1,0)).normalize();
+    const up=new THREE.Vector3().crossVectors(right,fwd).normalize();
+    camera.position.addScaledVector(right,mouse.x*2.4).addScaledVector(up,mouse.y*1.4);
+    camera.position.y+=Math.sin(t*0.5)*0.16;
+    camera.lookAt(curLook);
+    if(curDef.roll&&state==='stage')camera.rotateZ(Math.sin(t*0.2)*curDef.roll);
+  }
+  applySky();
+  renderer.render(scene,camera);
+}
+
+/* ---------------- 小测 ---------------- */
+let qIdx=0,qScore=0;
+function startQuiz(){
+  qIdx=0; qScore=0;
+  $('#quiz').classList.add('show');
+  renderQuiz();
+}
+function renderQuiz(){
+  $('#quizCnt').textContent='第 '+(qIdx+1)+' 题 / 共 '+QUIZ.length+' 题';
+  const q=QUIZ[qIdx], body=$('#quizBody');
+  body.innerHTML='<div id="quizQ">'+q.q+'</div>';
+  q.o.forEach((op,i)=>{
+    const b=document.createElement('button'); b.className='opt'; b.textContent=String.fromCharCode(65+i)+'. '+op;
+    b.addEventListener('click',()=>{
+      const opts=body.querySelectorAll('.opt');
+      opts.forEach(x=>x.disabled=true);
+      if(i===q.a){ b.classList.add('right'); qScore++; }
+      else{ b.classList.add('wrong'); opts[q.a].classList.add('right'); }
+      const nb=document.createElement('button');
+      nb.id='quizNext'; nb.textContent=qIdx<QUIZ.length-1?'下一题':'查看结果';
+      nb.addEventListener('click',()=>{ qIdx++; qIdx<QUIZ.length?renderQuiz():showResult(); });
+      body.appendChild(nb);
+    });
+    body.appendChild(b);
+  });
+}
+function showResult(){
+  $('#quizCnt').textContent='测 验 完 成';
+  const words=['烛火未明，再游一次','初识放翁，尚需共读','渐入诗境，再诵几遍','悲愿渐明，再进一层','深得放翁赤心','九州在念，遗训长明'];
+  $('#quizBody').innerHTML='<div id="quizResult"><div class="score">'+qScore+' / '+QUIZ.length+
+    '</div><div class="word">「'+words[qScore]+'」</div></div>';
+  const cb=document.createElement('button'); cb.id='quizClose'; cb.textContent='回到终章';
+  cb.addEventListener('click',()=>$('#quiz').classList.remove('show'));
+  $('#quizBody').appendChild(cb);
+}
+
+/* ---------------- 启动 ---------------- */
+function boot(){
+  try{
+    renderer=new THREE.WebGLRenderer({antialias:true});
+  }catch(e){ $('#err').style.display='flex'; return; }
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,1.8));
+  renderer.setSize(window.innerWidth,window.innerHeight);
+  $('#app').appendChild(renderer.domElement);
+  scene=new THREE.Scene();
+  scene.fog=new THREE.FogExp2(0x111824,0.0038);
+  camera=new THREE.PerspectiveCamera(55,window.innerWidth/window.innerHeight,0.1,1500);
+  curLook=new THREE.Vector3();
+  buildSky();
+  buildDots();
+  // 初始：封面境
+  curIdx=0; curDef=STAGES[0];
+  SKYcur=cloneSky(curDef.sky());
+  curStageObj=curDef.build();
+  scene.add(curStageObj.group); setFade(curStageObj.group,1);
+  curStageObj.group.userData.fadeK=1;
+  camera.position.set(...curDef.cam.f);
+  curLook.set(...curDef.cam.lf);
+  applySky();
+  state='stage';
+  window.addEventListener('resize',()=>{
+    camera.aspect=window.innerWidth/window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth,window.innerHeight);
+  });
+  window.addEventListener('pointermove',e=>{
+    mouse.x=(e.clientX/window.innerWidth-0.5)*2;
+    mouse.y=-(e.clientY/window.innerHeight-0.5)*2;
+  });
+  renderer.domElement.addEventListener('pointerdown',()=>{
+    if(curIdx===3&&state==='stage'&&curStageObj&&curStageObj.click)curStageObj.click();
+  });
+  // 控件
+  $('#enterBtn').addEventListener('click',()=>{
+    initAudio();
+    if(groupAudio.ctx&&groupAudio.ctx.state==='suspended')groupAudio.ctx.resume();
+    $('#cover').classList.add('off');
+    setAmbience(STAGES[1].river);
+    goto(1);
+  });
+  $('#btnNext').addEventListener('click',()=>{ if(curIdx>=3)showEnding(); else goto(curIdx+1); });
+  $('#btnPrev').addEventListener('click',()=>goto(curIdx-1));
+  $('#btnAuto').addEventListener('click',e=>{
+    autoMode=!autoMode; autoT=0;
+    e.currentTarget.classList.toggle('on',autoMode);
+    e.currentTarget.textContent='自动游览 · '+(autoMode?'开':'关');
+  });
+  $('#btnSpeak').addEventListener('click',()=>{
+    if(curIdx>0)aiSpeak(stageAudio(curIdx),POEM[curIdx-1].read);
+    else aiSpeak('00.mp3','示儿。宋，陆游。死去元知万事空，但悲不见九州同。王师北定中原日，家祭无忘告乃翁。');
+  });
+  $('#btnAutoSpeak').addEventListener('click',e=>{
+    autoSpeak=!autoSpeak;
+    e.currentTarget.classList.toggle('on',autoSpeak);
+    e.currentTarget.textContent='自动朗读 · '+(autoSpeak?'开':'关');
+    if(!autoSpeak)stopSpeak();
+  });
+  $('#btnPy').addEventListener('click',e=>{
+    const off=document.body.classList.toggle('no-py-off');
+    e.currentTarget.classList.toggle('on',!off);
+    e.currentTarget.textContent='注音 · '+(off?'关':'开');
+  });
+  $('#btnSnd').addEventListener('click',e=>{
+    groupAudio.muted=!groupAudio.muted;
+    if(groupAudio.master)groupAudio.master.gain.value=groupAudio.muted?0:1;
+    e.currentTarget.classList.toggle('on',!groupAudio.muted);
+    e.currentTarget.textContent='声音 · '+(groupAudio.muted?'关':'开');
+  });
+  $('#btnFs').addEventListener('click',()=>{
+    if(document.fullscreenElement)document.exitFullscreen();
+    else document.documentElement.requestFullscreen&&document.documentElement.requestFullscreen();
+  });
+  $('#btnQuiz').addEventListener('click',startQuiz);
+  $('#btnPoemAudio').addEventListener('click',()=>aiSpeak('04.mp3',POEM.map(l=>l.read).join('')));
+  $('#btnAgain').addEventListener('click',()=>hideEnding('start'));
+  $('#btnCover').addEventListener('click',()=>hideEnding('cover'));
+  window.addEventListener('keydown',e=>{
+    if(document.activeElement&&document.activeElement.tagName==='BUTTON')document.activeElement.blur();
+    if($('#quiz').classList.contains('show'))return;
+    if(e.code==='ArrowRight'){ if(curIdx>=3)showEnding(); else goto(curIdx+1); }
+    else if(e.code==='ArrowLeft')goto(curIdx-1);
+    else if(e.code==='Space'){
+      e.preventDefault();
+      if(curIdx===3&&state==='stage'&&curStageObj.click)curStageObj.click();
+      else if(curIdx>=3)showEnding();
+      else goto(curIdx+1);
+    }
+    else if(e.code==='Escape'){
+      stopSpeak();
+      $('#ending').classList.remove('show'); $('#quiz').classList.remove('show'); state='stage';
+    }
+  });
+  animate();
+}
+function initApp(){
+  if(window.__inited)return; window.__inited=true;
+  if(window.THREE)boot();
+}
+</script>
+
+<!-- Three.js 多源加载（cdnjs → jsdelivr → unpkg） -->
+<script>
+(function(){
+  var S=['https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js',
+        'https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.min.js',
+        'https://unpkg.com/three@0.128.0/build/three.min.js'];
+  var i=0;
+  function next(){
+    if(window.THREE){ initApp(); return; }
+    if(i>=S.length){ document.getElementById('err').style.display='flex'; return; }
+    var s=document.createElement('script');
+    s.src=S[i++];
+    s.onload=next; s.onerror=next;
+    document.head.appendChild(s);
+  }
+  next();
+  setTimeout(function(){ if(!window.THREE)document.getElementById('err').style.display='flex'; },20000);
+})();
+</script>
+</body>
+</html>

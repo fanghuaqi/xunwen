@@ -1,0 +1,26 @@
+const SK=(o)=>Object.assign({
+  top:C(0x1a120b),hor:C(0x3d2c1a),bot:C(0x0d0906),fog:C(0x1a120a),fd:0.0060,star:0.30,
+  moon:new THREE.Vector3(-60,26,-190),ms:0.55,mph:0,mhaze:0,dirC:C(0xc89860),dirI:0.45,
+  dirP:new THREE.Vector3(-50,70,30),ambC:C(0x33281a),ambI:0.6},o);
+const STAGES=[
+{ key:'cover',name:'卷首',dwell:0,river:0.03,build:bCoverGzx,
+  cam:{f:[0,10,74],t:[0,11,66],lf:[0,10,-40],lt:[0,11,-46]},
+  sky:()=>SK({top:C(0x16100a),hor:C(0x3a2a18),bot:C(0x0b0805),fog:C(0x191108),fd:0.0060,star:0.22,
+    ms:0.6,moon:new THREE.Vector3(-70,28,-190),dirI:0.40}) },
+{ name:'澄江如练',dwell:19,river:0.03,build:bDenglin,
+  cam:{f:[0,40,92],t:[0,44,86],lf:[0,2,-42],lt:[4,2,-54]},
+  sky:()=>SK({top:C(0x15100a),hor:C(0x44301c),bot:C(0x0c0805),fog:C(0x191108),fd:0.0050,star:0.34,
+    ms:0.5,moon:new THREE.Vector3(-84,22,-190),dirC:C(0xc09058),dirI:0.42,ambI:0.58}) },
+{ name:'残阳帆影',dwell:18,river:0.05,build:bGuifan,
+  cam:{f:[2,7,30],t:[0.5,6.4,24],lf:[-16,5,-58],lt:[-12,5.4,-72]},
+  sky:()=>SK({top:C(0x18110b),hor:C(0x54371c),bot:C(0x0d0806),fog:C(0x1c1209),fd:0.0072,star:0.24,
+    ms:0.45,moon:new THREE.Vector3(-46,13,-185),dirC:C(0xd09a58),dirI:0.50,ambI:0.62}) },
+{ name:'门外楼头',dwell:18,river:0.02,build:bPinggao,
+  cam:{f:[0,9.5,26],t:[1.5,10,20],lf:[0,12,-52],lt:[2,13,-66]},
+  sky:()=>SK({top:C(0x120d08),hor:C(0x2e2013),bot:C(0x0a0605),fog:C(0x181007),fd:0.0078,star:0.10,
+    ms:0.4,moon:new THREE.Vector3(-100,20,-180),dirC:C(0x9a7c50),dirI:0.30,ambI:0.60}) },
+{ name:'后庭遗曲',dwell:19,river:0.03,build:bYiqu,
+  cam:{f:[1.5,7.5,24],t:[0.5,7.0,19],lf:[0,3,-46],lt:[-3,3.4,-58]},
+  sky:()=>SK({top:C(0x100b07),hor:C(0x241a10),bot:C(0x080504),fog:C(0x150e08),fd:0.0095,star:0.20,
+    ms:0.35,moon:new THREE.Vector3(-64,17,-175),dirC:C(0x8a7048),dirI:0.24,ambI:0.58}) },
+];

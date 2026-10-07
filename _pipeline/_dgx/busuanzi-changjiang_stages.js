@@ -1,0 +1,26 @@
+const SK=(o)=>Object.assign({
+  top:C(0x12261c),hor:C(0x2e4a30),bot:C(0x0a1410),fog:C(0x0e1d16),fd:0.0056,star:0.16,
+  moon:new THREE.Vector3(60,110,-210),ms:0.6,mph:0.3,mhaze:0.08,dirC:C(0xd8c88a),dirI:0.48,
+  dirP:new THREE.Vector3(40,90,30),ambC:C(0x22301f),ambI:0.62},o);
+const STAGES=[
+{ key:'cover',name:'卷首',dwell:0,river:0.06,build:bCover,
+  cam:{f:[0,16,60],t:[2,14.5,52],lf:[0,2,-10],lt:[2,2,-12]},
+  sky:()=>SK({top:C(0x142a1e),hor:C(0x3a5a40),bot:C(0x0c1610),fog:C(0x0e1d16),fd:0.0048,star:0.14,
+    ms:0.55,mph:0.35,mhaze:0.06,moon:new THREE.Vector3(-80,70,-230),
+    dirC:C(0xe0cf8e),dirI:0.46,ambC:C(0x26351f),ambI:0.64}) },
+{ name:'共饮长江',dwell:17,river:0.08,build:bGongyin,
+  cam:{f:[1,6.8,27],t:[4,6.2,22],lf:[-4,3,-4],lt:[-8,2.6,-6]},
+  sky:()=>SK({top:C(0x122418),hor:C(0x2c4630),bot:C(0x0b1310),fog:C(0x101f17),fd:0.0056,star:0.12,
+    ms:0.5,mph:0.4,mhaze:0.10,moon:new THREE.Vector3(70,55,-210),
+    dirC:C(0xc9bc85),dirI:0.42,dirP:new THREE.Vector3(45,65,25),ambC:C(0x1c2a1e),ambI:0.66}) },
+{ name:'此水此恨',dwell:15,river:0.12,build:bCishui,
+  cam:{f:[0,4.6,18],t:[0.5,3.9,14],lf:[0,1.9,-8],lt:[1,1.7,-11]},
+  sky:()=>SK({top:C(0x0f1e14),hor:C(0x243c28),bot:C(0x0a120d),fog:C(0x0e1d16),fd:0.0060,star:0.10,
+    ms:0.4,mph:0.42,mhaze:0.12,moon:new THREE.Vector3(60,50,-200),
+    dirC:C(0xbfb890),dirI:0.36,dirP:new THREE.Vector3(30,60,30),ambC:C(0x1a261c),ambI:0.60}) },
+{ name:'不负相思',dwell:19,river:0.07,build:bXiangsi,
+  cam:{f:BJ_CAM3.f.slice(),t:BJ_CAM3.t.slice(),lf:BJ_CAM3.lf.slice(),lt:BJ_CAM3.lt.slice()},
+  sky:()=>SK({top:C(0x122618),hor:C(0x2c4830),bot:C(0x0a140f),fog:C(0x0e1d16),fd:0.0052,star:0.18,
+    ms:0.65,mph:0.36,mhaze:0.08,moon:new THREE.Vector3(-85,60,-200),
+    dirC:C(0xd0c090),dirI:0.44,dirP:new THREE.Vector3(-50,70,25),ambC:C(0x1e2c20),ambI:0.64}) },
+];

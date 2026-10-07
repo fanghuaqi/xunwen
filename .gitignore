@@ -1,0 +1,36 @@
+# ===== 依赖 / 缓存 / 系统文件 =====
+__pycache__/
+*.pyc
+.DS_Store
+Thumbs.db
+desktop.ini
+*.log
+
+# ===== 本地冒烟测试引擎副本 =====
+# 页面运行时从 CDN 加载 Three.js r128（UMD）；本地跑 smoke.test.js 用
+# _pipeline/vendor/three.min.js 自动回退。各诗目录的副本不提交，
+# 但 _pipeline/vendor/ 这一份随仓库提供（CONTRIBUTING.md 所述）
+*/three.min.js
+!_pipeline/vendor/three.min.js
+
+# ===== 生产管线的本机临时产物（ SCRATCH ） =====
+_pipeline/__pycache__/
+_pipeline/_dgx/_*_old/
+_pipeline/_qyyx/
+_pipeline/_tianmu/
+_pipeline/_ydz_*
+_pipeline/tmp_*
+_pipeline/diag_*
+_pipeline/probe*
+_pipeline/_dgx/probe_*
+_pipeline/%TEMP%*/
+
+# ===== 本机测试截图 / 草稿 =====
+_tts-test/
+hits.txt
+
+# ===== 编辑器 =====
+.vscode/
+.idea/
+*.part
+_pipeline/_shots_*/

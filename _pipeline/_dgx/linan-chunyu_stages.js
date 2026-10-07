@@ -1,0 +1,26 @@
+const SK=(o)=>Object.assign({
+  top:C(0x151d26),hor:C(0x2c3c4c),bot:C(0x10141a),fog:C(0x151d26),fd:0.0075,star:0.10,
+  moon:new THREE.Vector3(56,104,-208),ms:0.45,mph:0.42,mhaze:0.16,dirC:C(0xa8bccc),dirI:0.42,
+  dirP:new THREE.Vector3(38,72,26),ambC:C(0x1e2836),ambI:0.66},o);
+const STAGES=[
+{ key:'cover',name:'卷首',dwell:0,river:0.06,build:bCover,
+  cam:{f:[0,7,42],t:[0,7.5,36],lf:[-2,4,-22],lt:[-3,4.2,-25]},
+  sky:()=>SK({fd:0.0072,star:0.08,ms:0.44,mph:0.44,mhaze:0.18,moon:new THREE.Vector3(-68,78,-224),
+    dirC:C(0xb0c0d0),dirI:0.42}) },
+{ name:'京华客骑',dwell:17,river:0.07,build:bJinghua,
+  cam:{f:[0,5.6,24],t:[1,5.6,20],lf:[-2,3.4,-12],lt:[-3,3.4,-14]},
+  sky:()=>SK({fd:0.0076,star:0.08,ms:0.42,mph:0.44,mhaze:0.18,moon:new THREE.Vector3(62,70,-206),
+    dirC:C(0xa4b8c8),dirI:0.42,dirP:new THREE.Vector3(36,68,24),ambC:C(0x1e2836),ambI:0.68}) },
+{ name:'小楼听雨',dwell:19,river:0.08,build:bXiaolou,
+  cam:{f:[0,6.4,20],t:[1,6.4,16.5],lf:[-2,4.4,-10],lt:[-3,4.4,-12]},
+  sky:()=>SK({fd:0.0078,star:0.08,ms:0.40,mph:0.44,mhaze:0.20,moon:new THREE.Vector3(-62,66,-202),
+    dirC:C(0xa2b6c6),dirI:0.42,dirP:new THREE.Vector3(-34,66,22),ambC:C(0x1e2836),ambI:0.68}) },
+{ name:'矮纸分茶',dwell:17,river:0.04,build:bFencha,
+  cam:{f:[0,3.4,8.5],t:[0.4,3.4,7],lf:[-1,2.2,-3],lt:[-2,2.2,-4]},
+  sky:()=>SK({top:C(0x1b242e),fd:0.0068,star:0.06,ms:0.38,mph:0.44,mhaze:0.16,moon:new THREE.Vector3(50,60,-190),
+    dirC:C(0xb8c8d8),dirI:0.48,dirP:new THREE.Vector3(30,60,20),ambC:C(0x242e3a),ambI:0.68}) },
+{ name:'素衣清明',dwell:19,river:0.07,build:bSuyi,
+  cam:{f:[0,4.2,15],t:[0.6,4.2,12.5],lf:[-2,2.8,-8],lt:[-3,2.8,-10]},
+  sky:()=>SK({fd:0.0078,star:0.08,ms:0.44,mph:0.44,mhaze:0.18,moon:new THREE.Vector3(-60,68,-204),
+    dirC:C(0xa8bccc),dirI:0.44,dirP:new THREE.Vector3(-34,66,22),ambC:C(0x1e2836),ambI:0.66}) },
+];

@@ -1,0 +1,27 @@
+const SK=(o)=>Object.assign({
+  top:C(0x0a1220),hor:C(0x1d2937),bot:C(0x090d13),fog:C(0x151d26),fd:0.014,star:0.12,
+  moon:new THREE.Vector3(0,-200,-160),ms:0.001,mph:0,mhaze:0,dirC:C(0x9db4cc),dirI:0.36,
+  dirP:new THREE.Vector3(50,110,40),ambC:C(0x26313f),ambI:0.6},o);
+const STAGES=[
+{ key:'cover',name:'卷首',dwell:0,river:0.02,build:bCoverYulinling,
+  cam:{f:[0,11,50],t:[0,11.5,46],lf:[0,9,-28],lt:[0,9.5,-32]},
+  sky:()=>SK({top:C(0x0e141e),hor:C(0x232e3a),bot:C(0x0b0f15),fog:C(0x141c26),fd:0.013,star:0.1,
+    dirC:C(0x93a8c2),dirI:0.32,ambC:C(0x232e3c),ambI:0.64}) },
+{ name:'长亭执手',dwell:19,river:0.014,build:bChangting,
+  cam:{f:[0,6.2,21],t:[1.4,5.8,18],lf:[0,4.2,-5],lt:[1,4,-7]},
+  sky:()=>SK({top:C(0x0a0f18),hor:C(0x1e2833),bot:C(0x080c12),fog:C(0x121a24),fd:0.016,star:0.05,
+    dirC:C(0x8ea6c2),dirI:0.3,ambC:C(0x1c2734),ambI:0.62}) },
+{ name:'烟波楚天',dwell:17,river:0.03,build:bYanbo,
+  cam:{f:[0,7.5,24],t:[0,8,20],lf:[0,4.5,-26],lt:[0,5,-32]},
+  sky:()=>SK({top:C(0x080d15),hor:C(0x1e2732),bot:C(0x070b10),fog:C(0x121a25),fd:0.012,star:0.04,
+    dirC:C(0x8aa0ba),dirI:0.26,ambC:C(0x1d2735),ambI:0.6}) },
+{ name:'晓风残月',dwell:18,river:0.018,build:bXiaoyue,
+  cam:{f:[2,6,21],t:[0.5,5.6,18],lf:[3,4.6,-8],lt:[2,4.4,-10]},
+  sky:()=>SK({top:C(0x0c1320),hor:C(0x202c3a),bot:C(0x090d14),fog:C(0x131c26),fd:0.012,star:0.1,
+    ms:0.55,mph:0.62,mhaze:0.5,moon:new THREE.Vector3(-120,30,-260),
+    dirC:C(0xaebfd4),dirI:0.34,dirP:new THREE.Vector3(-60,40,-70),ambC:C(0x212d3b),ambI:0.6}) },
+{ name:'风情谁说',dwell:16,river:0.024,build:bFengqing,
+  cam:{f:[1.5,6.4,20],t:[0.5,6,17],lf:[1.2,4.6,-6],lt:[1.8,4.4,-10]},
+  sky:()=>SK({top:C(0x0a101a),hor:C(0x1c2632),bot:C(0x080c11),fog:C(0x131b25),fd:0.014,star:0.05,
+    dirC:C(0x8fa6c0),dirI:0.3,ambC:C(0x1f2a38),ambI:0.62}) },
+];

@@ -1,0 +1,250 @@
+
+function bMapleBank(){   // 五 · 青枫浦上
+  const g=new THREE.Group();
+  const water=makeWater({size:900,amp:0.72,freq:0.068,speed:0.9,flow:[0,1.3],spec:1.5,
+    deep:0x061719,shallow:0x1b554c,skyc:0x2b6156,moonDir:[-34,86,-190]});
+  g.add(water.mesh);
+  const path=makeMoonPath({w:44,len:340,op:0.50,wob:1.0,narrow:0.5});
+  path.mesh.position.set(-6,0.06,-8); g.add(path.mesh);
+  /* 青枫浦：左岸的枫林（叶色沉青，不是花） */
+  const bank=makeGround({r:32,c1:0x101f1a,c2:0x23402f});
+  bank.mesh.position.set(-38,0.05,-16); bank.mesh.scale.set(1.4,1,0.85); g.add(bank.mesh);
+  const rim=makeForeground({kind:'坡石',n:5,r:2.5,w:48,d:14,color:0x050b09,seed:63,rim:0.30,rimC:0x9ec9b8});
+  rim.g.position.set(-36,-0.5,-16); g.add(rim.g);
+  const grove=makeGrove({n:11,seed:67,leaf:0x2f5a44,spread:[38,12],h:6.4,crown:2.1,bloom:false,rim:0.44,rimC:0x9ed4bc});
+  grove.g.position.set(-38,0.05,-18); g.add(grove.g);
+  /* 谁家今夜扁舟子：江上一条小船，船头一点灯 */
+  const boat=makeBoat({len:7.6,w:2.6,scale:1.0,lantern:true,lanternScale:0.30});
+  boat.g.position.set(-13,0,-4); boat.g.rotation.y=0.42; g.add(boat.g);
+  const boatMan=makeFigure({pose:'坐饮',robe:0x1e2a28,belt:0x5a5240,hat:'幞头',scale:0.98,rim:0.80,rimC:0xe8c070,noProp:true});
+  boatMan.position.set(-1.4,-0.22,0.4); boatMan.rotation.y=-1.2; boat.g.add(boatMan);
+  /* 何处相思明月楼：右岸高楼，一格窗亮着 */
+  const tw=makeTower({w:4.8,h:10.5,scale:1.0,winC:0xf2c94c,winN:3});
+  tw.g.position.set(17,0.1,-26); tw.g.rotation.y=-0.25; g.add(tw.g);
+  const tw2=makeTower({w:4.2,h:8.6,scale:0.82,winC:0xf2c94c,winN:2});
+  tw2.g.position.set(33,0.1,-52); tw2.g.rotation.y=-0.2; g.add(tw2.g);
+  /* 白云一片去悠悠 */
+  const cloud=makeMist({n:6,spread:[70,16,40],pos:[-16,66,-150],scale:52,color:0xdceee4,op:0.14,flat:0.42});
+  g.add(cloud.g);
+  const flow=makeFlow({n:520,box:[150,16,140],pos:[4,9,-26],color:0xa8c0b4,size:18,speed:4.4,maxA:0.26});
+  g.add(flow.points);
+  const mist=makeMist({n:8,spread:[280,36,130],pos:[0,13,-60],scale:72,color:0xb0ccc0,op:0.10});
+  g.add(mist.g);
+  const range=makeRange({r:250,h:42,layers:3,peaks:5,seed:541,color:0x061310,atmo:0x2e6257,fogK:0.62,glowK:0.10,y:-15});
+  range.g.position.set(20,0,-62); g.add(range.g);
+  const branch=makeForeground({kind:'树枝',w:36,n:16,d:6,color:0x040b08,seed:69,sway:0.5,tip:0x3a5a44});
+  branch.g.position.set(-24,-1.2,22); g.add(branch.g);
+  const reeds=makeForeground({kind:'芦苇',w:34,n:15,d:6,color:0x020605,seed:73,sway:1.05,tip:0x2f5442});
+  reeds.g.position.set(16,-1.5,26); g.add(reeds.g);
+  addLights(g,{c:0xa0ccbc,i:0.60,p:[-60,90,40]},{c:0x27483e,i:0.66});
+  const pl=new THREE.PointLight(0xf2c94c,0.85,80); pl.position.set(17,5.5,-24); g.add(pl);
+  return {group:g,update(t,dt){ const k=g.userData.fadeK===undefined?1:g.userData.fadeK;
+    water.update(t,0.88+0.16*br(t,13)); path.update(t,k);
+    bank.update(); rim.update(t,k); grove.update(t,k);
+    boat.update(t,k); boatMan.update(t,k);
+    tw.update(t,k); tw2.update(t,k);
+    cloud.update(t,k); cloud.g.position.x=-16+Math.sin(t*0.055)*13;
+    flow.update(t); mist.update(t,k); range.update(t,0);
+    branch.update(t,k); reeds.update(t,k);
+    pl.intensity=k*(0.85+0.10*Math.sin(t*1.9));
+  }};
+}
+function bBower(){   // 六 · 楼上月徘徊
+  const g=new THREE.Group();
+  const water=makeWater({size:800,amp:0.52,freq:0.08,speed:0.85,flow:[0,1.0],spec:1.8,y:-6.6,
+    deep:0x061719,shallow:0x1b554c,skyc:0x2a6156,moonDir:[-52,56,-186]});
+  g.add(water.mesh);
+  const path=makeMoonPath({w:40,len:330,op:0.52,wob:1.0,narrow:0.5});
+  path.mesh.position.set(-24,-6.54,8); path.mesh.rotation.y=Math.atan2(-52,-186); g.add(path.mesh);
+  /* 楼板（暖木色，不是纯黑横带） */
+  const floor=makeGround({r:9.5,c1:0x141009,c2:0x2e2618});
+  floor.mesh.position.set(0,-0.06,-0.5); floor.mesh.scale.set(1.4,1,0.74); g.add(floor.mesh);
+  /* 后景：玉户帘（两片玉色帘，中间留出看月的口子）+ 亭柱 */
+  [[-8.6,1],[8.8,-1]].forEach(function(p){
+    const cur=makeCurtain({w:8.8,h:8.6,color:0xa8c8b8,dark:0x1c2e2a,folds:9,deep:0.62});
+    cur.g.position.set(p[0],0,-8.2); cur.g.rotation.y=p[1]*0.06; g.add(cur.g);
+  });
+  [-12.0,11.2].forEach(function(x){
+    const pil=makePillar({h:8.6,r:0.40,color:0x2c1f16,top:false});
+    pil.g.position.set(x,0,-4.6); g.add(pil.g);
+  });
+  /* 中景主体：妆镜台 + 铜镜（镜里也有一轮小月） + 灯 */
+  const tb=makeTable({w:4.8,d:2.1,h:1.32,wood:0x33261a}); tb.g.position.set(1.2,0,-3.0); g.add(tb.g);
+  const mir=makeMirror({r:0.92}); mir.g.position.set(1.6,1.32,-3.2); mir.g.rotation.y=0.5; g.add(mir.g);
+  const cup=makeVessel({type:'碗',mat:'玉',scale:1.0,liquid:true,shadow:false});
+  cup.g.position.set(-0.5,1.32,-2.7); g.add(cup.g);
+  const lan=makeLantern(0.40,{flame:true,glow:0.66}); lan.position.set(-0.9,2.25,-3.6); g.add(lan);
+  const pole=new THREE.Mesh(new THREE.CylinderGeometry(0.05,0.07,1.5,6),
+    new THREE.MeshPhongMaterial({color:0x2a1f16,shininess:10}));
+  pole.position.set(-0.9,1.65,-3.6); g.add(pole);
+  /* 月徘徊：月色落在楼板上，一亮一暗地徘徊 */
+  const pool=makePatch({w:8.4,h:5.6,color:0xdcf4e6,op:0.26,pulse:9});
+  pool.mesh.position.set(-1.4,0.05,0.6); pool.mesh.rotation.y=0.30; pool.mesh.rotation.z=0.12; g.add(pool.mesh);
+  const pool2=makePatch({w:3.0,h:2.0,color:0xe8fbf0,op:0.30,pulse:6,flat:false});
+  pool2.mesh.position.set(-4.2,1.5,-6.6); g.add(pool2.mesh);
+  /* 捣衣砧上拂还来：近景左下角一方石砧，月色拂了又来 */
+  const stone=makeStone({w:2.0,d:1.3,h:0.78,scale:1.5});
+  stone.g.position.set(-6.6,0,4.3); stone.g.rotation.y=0.55; stone.g.scale.setScalar(1.5); g.add(stone.g);
+  const club=makeVessel({type:'碗',mat:'陶',scale:1.2,shadow:false});
+  club.g.position.set(-4.2,0,3.2); g.add(club.g);
+  /* 前景：阑干 */
+  const rail=makeForeground({kind:'栏杆',w:28,h:2.9,color:0x0b0a08,rim:0.26,seed:39});
+  rail.g.position.set(-1,-0.1,5.6); g.add(rail.g);
+  const fog=makeMist({n:7,spread:[240,30,120],pos:[-10,14,-70],scale:70,color:0xc0dcd0,op:0.09});
+  g.add(fog.g);
+  const range=makeRange({r:270,h:44,layers:3,peaks:5,seed:551,color:0x061310,atmo:0x2e6257,fogK:0.60,glowK:0.10,y:-20});
+  range.g.position.set(-20,0,-80); g.add(range.g);
+  addLights(g,{c:0xcfe6d8,i:0.50,p:[-70,80,40]},{c:0x2a3a34,i:0.74});
+  const pl=new THREE.PointLight(0xf2c94c,0.95,60); pl.position.set(-1.0,3.4,-3.2); g.add(pl);
+  const pm=new THREE.PointLight(0xdcf4e6,0.45,50); pm.position.set(-5,4.0,2.0); g.add(pm);
+  return {group:g,update(t,dt){ const k=g.userData.fadeK===undefined?1:g.userData.fadeK;
+    water.update(t,0.92+0.12*br(t,13)); path.update(t,k);
+    floor.update(); mir.update(t,k); cup.update(t,k); lan.update(t,k);
+    pool.update(t,k); pool2.update(t,k); stone.update(t,k); club.update(t,k);
+    rail.update(t,k); fog.update(t,k); range.update(t,0);
+    pl.intensity=k*(0.95+0.14*Math.sin(t*7.3)+0.06*Math.sin(t*17.1));
+    pm.intensity=k*(0.45+0.20*br(t,9));
+  }};
+}
+function bMoonFlow(){   // 七 · 月华流照
+  const g=new THREE.Group();
+  const water=makeWater({size:1000,amp:0.92,freq:0.062,speed:1.0,flow:[0,1.7],spec:1.7,
+    deep:0x061719,shallow:0x1c5b52,skyc:0x2d6a5e,moonDir:[44,124,-198]});
+  g.add(water.mesh);
+  const path=makeMoonPath({w:60,len:370,op:0.74,wob:0.9,narrow:0.44,pulse:13});
+  path.mesh.position.set(0,0.07,-6); g.add(path.mesh);
+  const flow=makeFlow({n:640,box:[120,16,150],pos:[0,8,-24],color:0xdcf0e4,size:17,speed:5.6,maxA:0.30});
+  g.add(flow.points);
+  const glitter=makeGlow({n:330,box:[240,6,190],pos:[0,1.3,-40],color:0xe4f8ee,size:5.5,speed:0.03,rise:0,maxA:0.50});
+  g.add(glitter.points);
+  /* 相望不相闻：左岸楼、右江舟，隔着一江月色对看 */
+  const tw=makeTower({w:4.6,h:10.0,scale:0.86,winC:0xf2c94c,winN:3});
+  tw.g.position.set(-36,0.1,-32); tw.g.rotation.y=0.30; g.add(tw.g);
+  const boat=makeBoat({len:7.4,w:2.5,scale:1.05,lantern:true,lanternScale:0.30});
+  boat.g.position.set(27,0,-14); boat.g.rotation.y=-0.5; g.add(boat.g);
+  const far=makeFigure({pose:'独立',robe:0x1e2a28,belt:0x5a5240,hat:'幞头',scale:0.96,rim:0.86,rimC:0xe8c070,noProp:true});
+  far.position.set(0.4,1.02,0.5); far.rotation.y=-0.9; boat.g.add(far);
+  /* 鸿雁长飞光不度 */
+  const geese=makeGeese({n:9,scale:1.05,y:60,z:-136,x0:-170,x1:180,speed:0.019,seed:33});
+  g.add(geese.mesh);
+  /* 鱼龙潜跃水成文 */
+  const leaps=[];
+  [[-14,-18,0.85],[10,-34,1.10],[-30,-52,0.95]].forEach(function(p,i){
+    const m=new THREE.Mesh(new THREE.SphereGeometry(0.34,8,6),
+      new THREE.MeshPhongMaterial({color:0x2c3c36,specular:0xcfe8dc,shininess:70,emissive:0x060c0a}));
+    m.scale.set(1.9,0.72,0.70); m.renderOrder=3; g.add(m);
+    const rp=makeRipples({maxR:24,color:0xdff6ea,op:0.62});
+    rp.mesh.position.set(p[0],0.09,p[1]); g.add(rp.mesh);
+    leaps.push({m,rp,x:p[0],z:p[1],h:p[2],ph:i*0.34,last:0.9});
+  });
+  const rl=makeRange({r:250,h:40,layers:3,peaks:5,seed:561,color:0x061310,atmo:0x2e6257,fogK:0.62,glowK:0.10,y:-15});
+  rl.g.position.set(-30,0,-64); const rr2=makeRange({r:255,h:36,layers:2,peaks:4,seed:567,color:0x061310,atmo:0x2e6257,fogK:0.64,glowK:0.10,y:-15});
+  rr2.g.position.set(34,0,-70); g.add(rl.g,rr2.g);
+  const reeds=makeForeground({kind:'芦苇',w:44,n:18,d:6,color:0x020605,seed:87,sway:1.05,tip:0x2f5442});
+  reeds.g.position.set(-18,-1.5,34); g.add(reeds.g);
+  const branch=makeForeground({kind:'树枝',w:30,n:14,d:5,color:0x040b08,seed:89,sway:0.45,tip:0x2f5344});
+  branch.g.position.set(26,-1.2,28); g.add(branch.g);
+  const mist=makeMist({n:9,spread:[300,44,140],pos:[0,16,-80],scale:78,color:0xb4d4c4,op:0.09});
+  g.add(mist.g);
+  addLights(g,{c:0xa8d8c8,i:0.72,p:[60,110,40]},{c:0x27483e,i:0.64});
+  const pl=new THREE.PointLight(0xf2c94c,0.70,70); pl.position.set(27,4.4,-14); g.add(pl);
+  return {group:g,update(t,dt){ const k=g.userData.fadeK===undefined?1:g.userData.fadeK;
+    water.update(t,0.90+0.16*br(t,13)); path.update(t,k); flow.update(t); glitter.update(t);
+    tw.update(t,k); boat.update(t,k); far.update(t,k); geese.update(t);
+    rl.update(t,0); rr2.update(t,0); reeds.update(t,k); branch.update(t,k); mist.update(t,k);
+    leaps.forEach(function(L){
+      const cyc=(t*0.30+L.ph)%1, up=Math.sin(cyc*Math.PI);
+      L.m.position.set(L.x+cyc*2.6,0.16+up*L.h*2.5,L.z-cyc*1.8);
+      L.m.rotation.z=-Math.cos(cyc*Math.PI)*0.95; L.m.rotation.y=0.5;
+      if(cyc<0.04&&L.last>0.5)L.rp.fire();
+      L.last=cyc; L.rp.update(t,k);
+    });
+    pl.intensity=k*(0.70+0.10*Math.sin(t*2.1));
+  }};
+}
+function bSettingMoon(){   // 八 · 落月摇情（末境 · 可点击）
+  const g=new THREE.Group();
+  const water=makeWater({size:1100,amp:1.62,freq:0.050,speed:1.15,flow:[0,2.0],spec:1.8,
+    deep:0x051518,shallow:0x1a554c,skyc:0x2a5f54,moonDir:[-16,26,-200]});
+  g.add(water.mesh);
+  const path=makeMoonPath({w:62,len:380,op:0.54,wob:1.7,narrow:0.60});
+  path.mesh.position.set(-4,0.07,-6); g.add(path.mesh);
+  /* 江树：两岸成排的树影（满江树） */
+  const bankL=makeGround({r:34,c1:0x101f1a,c2:0x223c2c});
+  bankL.mesh.position.set(-46,0.05,-14); bankL.mesh.scale.set(1.5,1,0.95); g.add(bankL.mesh);
+  const bankR=makeGround({r:30,c1:0x101f1a,c2:0x223c2c});
+  bankR.mesh.position.set(44,0.05,-4); bankR.mesh.scale.set(1.4,1,1.1); g.add(bankR.mesh);
+  const groveL=makeGrove({n:12,seed:101,leaf:0x24402f,spread:[40,13],h:6.6,crown:1.9,bloom:false,rim:0.34,rimC:0x9ec9b8});
+  groveL.g.position.set(-46,0.05,-16); g.add(groveL.g);
+  const groveR=makeGrove({n:10,seed:107,leaf:0x24402f,spread:[36,14],h:6.0,crown:1.8,bloom:false,rim:0.34,rimC:0x9ec9b8});
+  groveR.g.position.set(44,0.05,-6); g.add(groveR.g);
+  const rimL=makeForeground({kind:'坡石',n:5,r:2.6,w:52,d:14,color:0x040a08,seed:103,rim:0.26,rimC:0x9ec9b8});
+  rimL.g.position.set(-46,-0.5,-14); g.add(rimL.g);
+  const rimR=makeForeground({kind:'坡石',n:4,r:2.4,w:46,d:13,color:0x040a08,seed:109,rim:0.26,rimC:0x9ec9b8});
+  rimR.g.position.set(44,-0.5,-4); g.add(rimR.g);
+  /* 不知乘月几人归：归舟两条（一条近、一条远） */
+  const b1=makeBoat({len:7.2,w:2.5,scale:1.05,lantern:true,lanternScale:0.30});
+  b1.g.position.set(20,0,-6); b1.g.rotation.y=-0.62; g.add(b1.g);
+  const m1=makeFigure({pose:'独立',robe:0x1c2622,belt:0x5a5240,hat:'幞头',scale:1.0,rim:0.84,rimC:0xe8c070,noProp:true});
+  m1.position.set(0.4,1.02,0.3); m1.rotation.y=-1.1; b1.g.add(m1);
+  const b2=makeBoat({len:7.0,w:2.4,scale:0.92,lantern:true,lanternScale:0.26});
+  b2.g.position.set(-18,0,-46); b2.g.rotation.y=0.5; g.add(b2.g);
+  const crowd=makeCrowd({n:8,rect:[30,-10,22,10],seed:113,color:0x141d19,rimC:0x9ec9b8,rim:0.30,y:0.5,sMin:0.60,sMax:0.78});
+  g.add(crowd.mesh);
+  /* 落花与摇情 */
+  const petals=makePetals({n:280,box:[190,52,120],pos:[-6,20,-20],size:6.5,speed:0.048,maxA:0.85});
+  g.add(petals.points);
+  const drift=makeGlow({n:180,box:[200,3,150],pos:[0,0.7,-30],color:0xf0dade,size:6,speed:0.03,rise:0,maxA:0.5});
+  g.add(drift.points);
+  /* 斜月沉沉藏海雾：贴近地平线的海雾把月半吞 */
+  const seafog=makeMist({n:10,spread:[340,26,120],pos:[-16,10,-180],scale:96,color:0xc8dcd2,op:0.14,flat:0.30});
+  g.add(seafog.g);
+  const mist=makeMist({n:9,spread:[300,40,140],pos:[0,18,-90],scale:80,color:0xb0ccc0,op:0.10});
+  g.add(mist.g);
+  const range=makeRange({r:260,h:46,layers:3,peaks:6,seed:571,color:0x061310,atmo:0x2c5a52,fogK:0.52,glowK:0.08,y:-17});
+  range.g.position.set(-26,0,-70); g.add(range.g);
+  /* 前景：满江树（贴着相机的树影）+ 芦苇 */
+  const branch=makeForeground({kind:'树枝',w:46,n:20,d:7,color:0x030806,seed:117,sway:0.42,tip:0x27402f});
+  branch.g.position.set(-16,-2.0,30); g.add(branch.g);
+  const branch2=makeForeground({kind:'树枝',w:34,n:15,d:6,color:0x030806,seed:119,sway:0.42,tip:0x27402f});
+  branch2.g.position.set(30,-2.2,26); g.add(branch2.g);
+  const reeds=makeForeground({kind:'芦苇',w:40,n:16,d:6,color:0x020605,seed:121,sway:1.0,tip:0x2a4a3c});
+  reeds.g.position.set(8,-1.6,34); g.add(reeds.g);
+  /* 点击：月华随波漫开 */
+  const rips=[];
+  [[0,0.08,-22,64],[6,0.08,-46,104],[-12,0.08,-70,142]].forEach(function(p){
+    const rp=makeRipples({maxR:p[3],color:0xe4f8ee,op:0.72});
+    rp.mesh.position.set(p[0],p[1],p[2]); g.add(rp.mesh); rips.push(rp);
+  });
+  const burst=makeBurst({n:70,color:0xe8fbf0,pos:[0,4,-26]}); g.add(burst.points);
+  const ring=new THREE.Sprite(new THREE.SpriteMaterial({map:ringTex(),color:0xe8fbf0,transparent:true,
+    opacity:0,depthWrite:false,fog:false,blending:THREE.AdditiveBlending}));
+  ring.scale.set(24,24,1); ring.renderOrder=-7; g.add(ring);
+  addLights(g,{c:0x9fc4b4,i:0.40,p:[-60,60,40]},{c:0x24382f,i:0.68});
+  let clickT=-99;
+  return {group:g,update(t,dt){
+    const k=g.userData.fadeK===undefined?1:g.userData.fadeK;
+    water.update(t,1.06+0.30*br(t,9));
+    path.update(t,k);
+    bankL.update(); bankR.update();
+    groveL.update(t,k); groveR.update(t,k); rimL.update(t,k); rimR.update(t,k);
+    b1.update(t,k); m1.update(t,k);
+    b2.update(t,k);
+    crowd.update(t); petals.update(t); drift.update(t);
+    seafog.update(t,k); mist.update(t,k); range.update(t,0);
+    branch.update(t,k); branch2.update(t,k); reeds.update(t,k);
+    rips.forEach(function(rp){ rp.update(t,k); });
+    burst.update(t,k);
+    b1.g.position.x=20-t*0.10; b2.g.position.x=-18+t*0.06;
+    const age=t-clickT;
+    if(age>=0&&age<3.2){
+      ring.position.set(SKYcur.moon.x,SKYcur.moon.y+SKYcur.ms*6,SKYcur.moon.z);
+      const sc0=SKYcur.ms*(13+age*22); ring.scale.set(sc0,sc0,1);
+      ring.material.opacity=k*0.55*(1-age/3.2)*(0.5+0.5*Math.sin(age*3.4));
+    }else ring.material.opacity=0;
+  },
+  click(){ clickT=stageT; rips.forEach(function(rp,i){ setTimeout(function(){ rp.fire(); },i*200); });
+    burst.fire();
+    const fl=$('#flash'); fl.textContent='落月摇情'; fl.classList.remove('go');
+    void fl.offsetWidth; fl.classList.add('go'); }};
+}

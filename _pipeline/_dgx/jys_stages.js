@@ -1,0 +1,26 @@
+const SK=(o)=>Object.assign({
+  top:C(0x0a101c),hor:C(0x1c2838),bot:C(0x0d1117),fog:C(0x131a26),fd:0.006,star:0.55,
+  moon:new THREE.Vector3(120,150,-210),ms:1.0,mph:0,mhaze:0,dirC:C(0xbccbe4),dirI:0.7,
+  dirP:new THREE.Vector3(60,120,40),ambC:C(0x2a3550),ambI:0.55},o);
+const STAGES=[
+{ key:'cover',name:'卷首',dwell:0,river:0.02,build:bCover,
+  cam:{f:[0,12,80],t:[0,14,72],lf:[0,26,-60],lt:[0,26,-60]},
+  sky:()=>SK({ms:1.5,moon:new THREE.Vector3(40,70,-210),fd:0.005,star:0.5}) },
+{ name:'床前月光',dwell:14,river:0.008,build:bBedroom,
+  cam:{f:[0,5,24],t:[2.5,5.5,20],lf:[0,6,-6],lt:[0.5,7.5,-10]},
+  sky:()=>SK({hor:C(0x1a2436),fog:C(0x121a28),fd:0.006,star:0.5,ms:1.1,
+    moon:new THREE.Vector3(12,95,-200),dirC:C(0xc0d2ec),dirI:0.5,
+    dirP:new THREE.Vector3(10,90,-70),ambC:C(0x2a3550),ambI:0.62}) },
+{ name:'疑是清霜',dwell:14,river:0.006,build:bFrost,
+  cam:{f:[0,4.2,16],t:[3,3.4,12],lf:[0,1.6,-4],lt:[-1.5,1.2,-8]},
+  sky:()=>SK({top:C(0x0a0f1a),hor:C(0x182336),fog:C(0x131a28),fd:0.0055,star:0.5,ms:1.2,
+    moon:new THREE.Vector3(25,115,-205),dirC:C(0xbccde8),dirI:0.5,ambC:C(0x2a3450),ambI:0.62}) },
+{ name:'举头望月',dwell:14,river:0.006,build:bLookUp,
+  cam:{f:[0,5,22],t:[0,5.5,19],lf:[0,16,-50],lt:[0,80,-150]},
+  sky:()=>SK({top:C(0x0a101d),hor:C(0x1a2840),fog:C(0x131a26),fd:0.005,star:0.55,ms:2.2,
+    moon:new THREE.Vector3(0,105,-195),dirC:C(0xccdbf2),dirI:0.8,ambC:C(0x2c3a58),ambI:0.5}) },
+{ name:'低头思乡',dwell:16,river:0.012,build:bHomesick,
+  cam:{f:[0,7,34],t:[0,6,28],lf:[0,6,-30],lt:[0,10,-90]},
+  sky:()=>SK({top:C(0x0c1120),hor:C(0x1e2740),fog:C(0x141a28),fd:0.006,star:0.45,ms:1.8,
+    moon:new THREE.Vector3(0,55,-240),dirC:C(0xc4d2e8),dirI:0.5,ambC:C(0x2b3246),ambI:0.6}) },
+];

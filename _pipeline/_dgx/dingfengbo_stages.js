@@ -1,0 +1,26 @@
+const SK=(o)=>Object.assign({
+  top:C(0x081020),hor:C(0x1d3350),bot:C(0x0c1016),fog:C(0x0a1526),fd:0.0045,star:0.85,
+  moon:new THREE.Vector3(120,150,-210),ms:1.0,mph:0,mhaze:0,dirC:C(0x9db8e8),dirI:0.7,
+  dirP:new THREE.Vector3(60,120,40),ambC:C(0x31405c),ambI:0.55},o);
+const STAGES=[
+{ key:'cover',name:'卷首',dwell:0,river:0.02,build:bCover,
+  cam:{f:[0,12,80],t:[0,14,72],lf:[0,22,-40],lt:[0,22,-40]},
+  sky:()=>SK({top:C(0x10141c),hor:C(0x26303e),bot:C(0x0d1118),fog:C(0x151d26),fd:0.0046,star:0.35,
+    ms:0.5,mph:0.3,mhaze:0.16,moon:new THREE.Vector3(-70,70,-190),
+    dirC:C(0x9aaec8),dirI:0.4,ambC:C(0x222c38),ambI:0.64}) },
+{ name:'一蓑烟雨',dwell:18,river:0.02,build:bYisuo,
+  cam:{f:[0,6.5,24],t:[1.5,6,20],lf:[0,4,-2],lt:[0.5,3.8,-3]},
+  sky:()=>SK({top:C(0x0e121a),hor:C(0x202a36),bot:C(0x0c1016),fog:C(0x141c24),fd:0.0065,star:0.15,
+    ms:0.3,mph:0.42,mhaze:0.2,moon:new THREE.Vector3(-80,60,-180),
+    dirC:C(0x8fa4c0),dirI:0.36,ambC:C(0x1e2632),ambI:0.64}) },
+{ name:'山头斜照',dwell:17,river:0.015,build:bXiezhao,
+  cam:{f:[0,6.5,24],t:[-1.5,6,20],lf:[14,8,-40],lt:[16,8.5,-44]},
+  sky:()=>SK({top:C(0x121824),hor:C(0x3a3028),bot:C(0x0e1218),fog:C(0x181c22),fd:0.0052,star:0.2,
+    ms:0.4,mph:0.38,mhaze:0.18,moon:new THREE.Vector3(-90,50,-190),
+    dirC:C(0xc09060),dirI:0.48,ambC:C(0x222c38),ambI:0.62}) },
+{ name:'无雨无晴',dwell:18,river:0.012,build:bWufengyu,
+  cam:{f:[0,6.5,24],t:[0,6,20],lf:[-2,4,-8],lt:[-2,3.8,-10]},
+  sky:()=>SK({top:C(0x101620),hor:C(0x2a303a),bot:C(0x0d1116),fog:C(0x151c24),fd:0.0055,star:0.25,
+    ms:0.4,mph:0.34,mhaze:0.16,moon:new THREE.Vector3(-80,66,-190),
+    dirC:C(0x9aaec8),dirI:0.42,ambC:C(0x202a36),ambI:0.64}) },
+];

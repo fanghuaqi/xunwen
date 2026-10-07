@@ -1,0 +1,26 @@
+const SK=(o)=>Object.assign({
+  top:C(0x14100a),hor:C(0x3a2a18),bot:C(0x0c0805),fog:C(0x1a120a),fd:0.0058,star:0.22,
+  moon:new THREE.Vector3(-60,26,-190),ms:0.5,mph:0,mhaze:0,dirC:C(0xc89860),dirI:0.42,
+  dirP:new THREE.Vector3(-50,70,30),ambC:C(0x33281a),ambI:0.6},o);
+const STAGES=[
+{ key:'cover',name:'卷首',dwell:0,river:0.03,build:bCoverNxz,
+  cam:{f:[0,10,74],t:[0,11,66],lf:[0,9,-40],lt:[0,10,-46]},
+  sky:()=>SK({top:C(0x16100a),hor:C(0x3a2a18),bot:C(0x0b0805),fog:C(0x191108),fd:0.0058,star:0.20,
+    ms:0.6,moon:new THREE.Vector3(-70,28,-190),dirI:0.40}) },
+{ name:'望断神州',dwell:17,river:0.04,build:bWangshen,
+  cam:{f:[0,6.5,26],t:[0,6.2,20],lf:[0,6.5,-30],lt:[2.5,7,-46]},
+  sky:()=>SK({top:C(0x12100a),hor:C(0x342416),bot:C(0x0b0705),fog:C(0x181008),fd:0.0060,star:0.14,
+    ms:0.45,moon:new THREE.Vector3(-84,22,-190),dirC:C(0xb08858),dirI:0.34,ambI:0.58}) },
+{ name:'不尽长江',dwell:19,river:0.07,build:bChangjiang,
+  cam:{f:[0,9,30],t:[-1.5,8.6,24],lf:[0,2.5,-70],lt:[-3,2.5,-92]},
+  sky:()=>SK({top:C(0x15100b),hor:C(0x3a2a18),bot:C(0x0c0805),fog:C(0x181008),fd:0.0055,star:0.28,
+    ms:0.5,moon:new THREE.Vector3(-60,30,-200),dirC:C(0xc89860),dirI:0.44,ambI:0.60}) },
+{ name:'坐断东南',dwell:17,river:0.04,build:bZuoduan,
+  cam:{f:[2,6,30],t:[0,5.8,24],lf:[0,4.5,-14],lt:[-1,5,-26]},
+  sky:()=>SK({top:C(0x14100a),hor:C(0x402c18),bot:C(0x0c0805),fog:C(0x191108),fd:0.0062,star:0.18,
+    ms:0.4,moon:new THREE.Vector3(-50,20,-185),dirC:C(0xd0a060),dirI:0.50,ambI:0.62}) },
+{ name:'生子仲谋',dwell:19,river:0.06,build:bZhongmou,
+  cam:{f:[0,4.5,34],t:[0.5,4.2,28],lf:[0.5,9.5,-20],lt:[1,10,-26]},
+  sky:()=>SK({top:C(0x110c08),hor:C(0x362616),bot:C(0x0a0704),fog:C(0x170f08),fd:0.0075,star:0.22,
+    ms:0.42,moon:new THREE.Vector3(-70,24,-180),dirC:C(0xb08858),dirI:0.30,ambI:0.58}) },
+];

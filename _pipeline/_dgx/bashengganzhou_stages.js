@@ -1,0 +1,26 @@
+const SK=(o)=>Object.assign({
+  top:C(0x0a1018),hor:C(0x1c2531),bot:C(0x0a0d13),fog:C(0x131a26),fd:0.0062,star:0.30,
+  moon:new THREE.Vector3(0,-200,-160),ms:0.001,mph:0,mhaze:0,dirC:C(0x9db0c8),dirI:0.40,
+  dirP:new THREE.Vector3(40,100,30),ambC:C(0x1c2531),ambI:0.6},o);
+const STAGES=[
+{ key:'cover',name:'卷首',dwell:0,river:0.02,build:bCoverBsg,
+  cam:{f:[0,10,56],t:[0,10.5,52],lf:[0,12,-30],lt:[0,12.5,-34]},
+  sky:()=>SK({top:C(0x0b1119),hor:C(0x1e2733),bot:C(0x0a0e14),fog:C(0x131a26),fd:0.0058,star:0.28,
+    dirC:C(0x93a8c2),dirI:0.34,ambC:C(0x202a37),ambI:0.62}) },
+{ name:'暮雨清秋',dwell:20,river:0.012,build:bMuyu,
+  cam:{f:[2,6.5,24],t:[0.4,6.1,21],lf:[-11,7,-26],lt:[-10,6.6,-30]},
+  sky:()=>SK({top:C(0x0a0f18),hor:C(0x22242c),bot:C(0x080b11),fog:C(0x121a24),fd:0.0066,star:0.10,
+    dirC:C(0x8ea6c2),dirI:0.30,ambC:C(0x1c2734),ambI:0.62}) },
+{ name:'江水东流',dwell:17,river:0.05,build:bDongliu,
+  cam:{f:[0,6.8,22],t:[0.5,6.6,19],lf:[2,3.4,-30],lt:[4,3.6,-36]},
+  sky:()=>SK({top:C(0x0a111c),hor:C(0x1d2835),bot:C(0x080c12),fog:C(0x121a26),fd:0.0056,star:0.22,
+    dirC:C(0x8aa0ba),dirI:0.28,ambC:C(0x1d2836),ambI:0.6}) },
+{ name:'登高望乡',dwell:18,river:0.02,build:bDenggao,
+  cam:{f:[0,8.2,7],t:[0,8.0,3],lf:[0,5.8,-56],lt:[-0.8,6.0,-66]},
+  sky:()=>SK({top:C(0x0b1320),hor:C(0x212c3a),bot:C(0x090d14),fog:C(0x131c26),fd:0.0072,star:0.30,
+    dirC:C(0x9db0c8),dirI:0.34,ambC:C(0x202b39),ambI:0.6}) },
+{ name:'倚栏凝愁',dwell:17,river:0.03,build:bNingchou,
+  cam:{f:[1.5,6.6,20],t:[0.5,6.2,17],lf:[-6,5.4,-22],lt:[-3.5,5.2,-30]},
+  sky:()=>SK({top:C(0x0a0f17),hor:C(0x1c2530),bot:C(0x080b10),fog:C(0x131b25),fd:0.0082,star:0.16,
+    dirC:C(0x8fa6c0),dirI:0.28,ambC:C(0x1e2937),ambI:0.6}) },
+];

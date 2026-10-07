@@ -1,0 +1,26 @@
+const SK=(o)=>Object.assign({
+  top:C(0x14100a),hor:C(0x3a2a18),bot:C(0x0c0805),fog:C(0x1a120a),fd:0.0058,star:0.18,
+  moon:new THREE.Vector3(0,-300,0),ms:0.001,mph:0,mhaze:0,dirC:C(0xc89860),dirI:0.42,
+  dirP:new THREE.Vector3(-50,70,30),ambC:C(0x33281a),ambI:0.6},o);
+const STAGES=[
+{ key:'cover',name:'卷首',dwell:0,river:0.03,build:bCoverYyk,
+  cam:{f:[0,10,74],t:[0,11,66],lf:[0,9,-40],lt:[0,10,-46]},
+  sky:()=>SK({top:C(0x16100a),hor:C(0x3d2a16),bot:C(0x0b0805),fog:C(0x191108),fd:0.0058,star:0.16,
+    dirI:0.40}) },
+{ name:'千古江山',dwell:17,river:0.04,build:bQianGu,
+  cam:{f:[1,6.5,26],t:[-1,6.2,20],lf:[-8,4,-55],lt:[-12,4,-70]},
+  sky:()=>SK({top:C(0x12100a),hor:C(0x362616),bot:C(0x0b0705),fog:C(0x181008),fd:0.0060,star:0.14,
+    dirC:C(0xb08858),dirI:0.34,ambI:0.58}) },
+{ name:'金戈铁马',dwell:19,river:0.05,build:bJinge,
+  cam:{f:[0,5.5,30],t:[-2,5,24],lf:[-10,4,-60],lt:[-14,4.5,-82]},
+  sky:()=>SK({top:C(0x15100b),hor:C(0x4a3218),bot:C(0x0c0805),fog:C(0x1a1208),fd:0.0055,star:0.08,
+    dirC:C(0xd8a060),dirI:0.55,ambI:0.62}) },
+{ name:'烽火扬州',dwell:17,river:0.03,build:bFengHuo,
+  cam:{f:[0.5,7.5,27],t:[0,7.2,22],lf:[-14,5,-70],lt:[-20,6,-100]},
+  sky:()=>SK({top:C(0x100c08),hor:C(0x30200f),bot:C(0x0a0704),fog:C(0x170f08),fd:0.0070,star:0.12,
+    dirC:C(0xb08858),dirI:0.30,ambI:0.56}) },
+{ name:'凭谁问',dwell:19,river:0.04,build:bPingWen,
+  cam:{f:[0,5.5,32],t:[1,5.2,26],lf:[0,7,-70],lt:[2,8,-80]},
+  sky:()=>SK({top:C(0x110c08),hor:C(0x30200f),bot:C(0x0a0704),fog:C(0x170f08),fd:0.0075,star:0.16,
+    dirC:C(0xb08858),dirI:0.30,ambI:0.58}) },
+];

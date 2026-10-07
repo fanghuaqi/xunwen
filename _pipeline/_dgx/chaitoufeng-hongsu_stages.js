@@ -1,0 +1,26 @@
+const SK=(o)=>Object.assign({
+  top:C(0x0a0f18),hor:C(0x1d2836),bot:C(0x080b10),fog:C(0x151d26),fd:0.013,star:0.08,
+  moon:new THREE.Vector3(0,-200,-160),ms:0.001,mph:0,mhaze:0,dirC:C(0x9db0c8),dirI:0.32,
+  dirP:new THREE.Vector3(50,110,40),ambC:C(0x252f3d),ambI:0.6},o);
+const STAGES=[
+{ key:'cover',name:'卷首',dwell:0,river:0.018,build:bCoverShen,
+  cam:{f:[0,9.5,30],t:[0,10,26],lf:[0,7,-10],lt:[0,7.5,-16]},
+  sky:()=>SK({top:C(0x0d131d),hor:C(0x222d3a),bot:C(0x0a0d13),fog:C(0x141b25),fd:0.012,star:0.06,
+    dirC:C(0x93a8c2),dirI:0.3,ambC:C(0x232e3c),ambI:0.62}) },
+{ name:'宫墙柳',dwell:18,river:0.012,build:bChunyan,
+  cam:{f:[1.5,4.8,13],t:[0.4,4.5,10.5],lf:[-1,3.2,-4],lt:[-0.6,3.4,-6]},
+  sky:()=>SK({top:C(0x0a0f18),hor:C(0x1e2936),bot:C(0x080b11),fog:C(0x131b25),fd:0.013,star:0.04,
+    dirC:C(0x8fa6c0),dirI:0.3,ambC:C(0x222d3b),ambI:0.6}) },
+{ name:'错错错',dwell:16,river:0.012,build:bCuocuo,
+  cam:{f:[0,4.6,10.5],t:[0,4.3,9],lf:[0,3.2,-7],lt:[0.4,3.4,-9]},
+  sky:()=>SK({top:C(0x090d15),hor:C(0x1b2531),bot:C(0x070a0f),fog:C(0x121a24),fd:0.014,star:0.03,
+    dirC:C(0x8ba2bc),dirI:0.28,ambC:C(0x202b39),ambI:0.58}) },
+{ name:'人空瘦',dwell:17,river:0.022,build:bRenShou,
+  cam:{f:[8,5,17],t:[6.4,4.7,14],lf:[-2,3,-2],lt:[-3,3.2,-4]},
+  sky:()=>SK({top:C(0x0b111c),hor:C(0x1f2a38),bot:C(0x080c11),fog:C(0x131b25),fd:0.012,star:0.05,
+    dirC:C(0x8fa6c0),dirI:0.3,ambC:C(0x222d3b),ambI:0.6}) },
+{ name:'莫莫莫',dwell:16,river:0.014,build:bMomo,
+  cam:{f:[-1.5,4.8,12.5],t:[0.5,4.6,10],lf:[0,3.4,-6],lt:[1,3.6,-8]},
+  sky:()=>SK({top:C(0x0a0e16),hor:C(0x1c2632),bot:C(0x070a0f),fog:C(0x121a24),fd:0.014,star:0.04,
+    dirC:C(0x8ba2bc),dirI:0.28,ambC:C(0x212c3a),ambI:0.58}) },
+];

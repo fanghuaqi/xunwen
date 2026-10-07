@@ -1,0 +1,1664 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>循文入境 · 古诗词沉浸式诗集</title>
+<style>
+:root{--bg:#0a0d13;--card:#11161f;--line:rgba(255,255,255,.09);--txt:#e8e4d8;--dim:#8d8672}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--txt);font-family:'Kaiti SC','STKaiti','KaiTi','Noto Serif SC',serif;min-height:100vh;padding:6vh 6vw}
+header{text-align:center;margin-bottom:5vh}
+header h1{font-size:clamp(30px,5vw,46px);letter-spacing:.35em;font-weight:normal}
+header .sub{color:var(--dim);letter-spacing:.5em;font-size:13px;margin-top:12px}
+header .tip{color:var(--dim);font-size:12.5px;margin-top:18px;line-height:2;font-family:'Noto Serif SC','SimSun',serif}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:18px;max-width:1200px;margin:0 auto}
+a.card{display:block;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:22px 24px;text-decoration:none;color:var(--txt);transition:all .3s;position:relative;overflow:hidden}
+a.card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--ac)}
+a.card:hover{transform:translateY(-4px);border-color:var(--ac);box-shadow:0 10px 34px rgba(0,0,0,.45)}
+.card .name{font-size:24px;letter-spacing:.2em;margin-bottom:4px}
+.card .author{color:var(--dim);font-size:12.5px;letter-spacing:.25em;margin-bottom:12px}
+.card .track{display:inline-block;font-size:11.5px;letter-spacing:.15em;color:var(--ac);border:1px solid var(--ac);border-radius:20px;padding:3px 12px;margin-bottom:12px;opacity:.9}
+.card .jing{font-size:13.5px;color:#b5ad98;line-height:1.9;font-family:'Noto Serif SC','SimSun',serif}
+.card .meta{margin-top:12px;color:var(--dim);font-size:11px;letter-spacing:.2em}
+a.ext{opacity:.92}
+.sister{margin-top:5vh;text-align:center;color:var(--dim);font-size:12.5px;letter-spacing:.2em;line-height:2.2}
+.sister a{color:#d4af37;text-decoration:none;border-bottom:1px dashed rgba(212,175,55,.5)}
+.progress{margin:0 auto 4vh;max-width:1200px;color:var(--dim);font-size:12px;letter-spacing:.2em;text-align:center;font-family:'Noto Serif SC',serif}
+</style>
+</head>
+<body>
+<header>
+  <h1>循文入境 · 诗集</h1>
+  <div class="sub">诗 句 到 哪 一 句 · 实 景 走 到 哪 一 境</div>
+  <div class="tip">每首一个独立网页：逐句入画 · 逐字注音 · 释义注释 · AI 朗读 · 自动游览 · 结课小测<br>
+  双击各页 index.html 打开 · 用 Microsoft Edge 体验最佳真人感朗诵 · 首次打开需联网加载三维引擎</div>
+</header>
+<div class="progress">已完成 270 首 · 排队 28 首 —— 六大画风：夜宴金彩 / 水墨夜思 / 宣纸留白 / 青绿春晓 / 大漠金戈 / 烟雨江南</div>
+<div class="grid">
+  <a class="card" style="--ac:#c9d3e0" href="jingyesi/index.html">
+    <div class="name">静夜思</div><div class="author">唐 · 李白</div>
+    <div class="track">水墨夜思</div>
+    <div class="jing">月光如练穿窗而入，霜华满地；举头是月，低头是千里故乡的灯火。</div>
+    <div class="meta">点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#2c2f33" href="jiangxue/index.html">
+    <div class="name">江雪</div><div class="author">唐 · 柳宗元</div>
+    <div class="track">宣纸留白</div>
+    <div class="jing">天地皆白的宣纸上，千山鸟绝、万径踪灭，唯有一舟一翁，一点墨。</div>
+    <div class="meta">点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#9fce8f" href="chunxiao/index.html">
+    <div class="name">春晓</div><div class="author">唐 · 孟浩然</div>
+    <div class="track">青绿春晓·晨光</div>
+    <div class="jing">夜来风雨声里酣眠，醒来满树花团、落瓣成毯——花落知多少。</div>
+    <div class="meta">点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#c9a06a" href="youziyin/index.html">
+    <div class="name">游子吟</div><div class="author">唐 · 孟郊</div>
+    <div class="track">宣纸暖烛</div>
+    <div class="jing">油灯下一针一线密密缝，那根线走出柴门，在原野上化作三春晖。</div>
+    <div class="meta">点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#d9c98a" href="shuidiao-getou/index.html">
+    <div class="name">水调歌头</div><div class="author">宋 · 苏轼</div>
+    <div class="track">夜宴金彩·天界</div>
+    <div class="jing">把酒问青天，乘风归去——云上琼楼玉宇，高处不胜寒；千里共婵娟。</div>
+    <div class="meta">点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#d98e3a" href="guancanghai/index.html">
+    <div class="name">观沧海</div><div class="author">汉魏 · 曹操</div>
+    <div class="track">大漠金戈·沧海</div>
+    <div class="jing">碣石临海，洪波涌起；日月沉浮于海中，银河倒卷入其里。</div>
+    <div class="meta">点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#8fb89a" href="guanju/index.html">
+    <div class="name">关雎</div><div class="author">先秦 · 诗经·周南</div>
+    <div class="track">青绿·水泽</div>
+    <div class="jing">河洲之上雎鸠和鸣，荇菜左右流之；辗转反侧，终以钟鼓乐之。</div>
+    <div class="meta">点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#8fb3c9" href="shengshengman/index.html">
+    <div class="name">声声慢</div><div class="author">宋 · 李清照</div>
+    <div class="track">烟雨江南</div>
+    <div class="jing">寻寻觅觅，冷冷清清；梧桐细雨点点滴滴到黄昏，怎一个愁字了得。</div>
+    <div class="meta">点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#d4af37" href="jiangjinjiu/index.html">
+    <div class="name">将进酒</div><div class="author">唐 · 李白</div>
+    <div class="track">夜宴金彩</div>
+    <div class="jing">黄河之水天上来；三百金杯列如星河，与尔同销万古愁。</div>
+    <div class="meta">点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#3a6b5a" href="yong-e/index.html">
+    <div class="name">咏鹅</div><div class="author">唐 · 骆宾王</div>
+    <div class="track">宣纸留白</div>
+    <div class="jing">鹅，鹅，鹅，曲项向天歌。</div>
+    <div class="meta">3境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#6fae7e" href="jiangnan/index.html">
+    <div class="name">江南</div><div class="author">汉 · 汉乐府</div>
+    <div class="track">青绿春晓</div>
+    <div class="jing">江南可采莲，莲叶何田田。</div>
+    <div class="meta">4境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#9fc2cf" href="feng-liqiao/index.html">
+    <div class="name">风</div><div class="author">唐 · 李峤</div>
+    <div class="track">烟雨江南</div>
+    <div class="jing">解落三秋叶，</div>
+    <div class="meta">4境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#8a5a2a" href="min-nong/index.html">
+    <div class="name">悯农（其二）</div><div class="author">唐 · 李绅</div>
+    <div class="track">宣纸留白</div>
+    <div class="jing">锄禾日当午，</div>
+    <div class="meta">3境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#d6dee9" href="gu-lang-yue-xing/index.html">
+    <div class="name">古朗月行（节选）</div><div class="author">唐 · 李白</div>
+    <div class="track">水墨夜思</div>
+    <div class="jing">小时不识月，</div>
+    <div class="meta">3境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#d9a05a" href="deng-guanque-lou/index.html">
+    <div class="name">登鹳雀楼</div><div class="author">唐 · 王之涣</div>
+    <div class="track">大漠金戈</div>
+    <div class="jing">白日依山尽，</div>
+    <div class="meta">3境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#8fb89a" href="wang-lushan-pubu/index.html">
+    <div class="name">望庐山瀑布</div><div class="author">唐 · 李白</div>
+    <div class="track">青绿春晓</div>
+    <div class="jing">日照香炉生紫烟，</div>
+    <div class="meta">4境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#d8a7b1" href="zeng-wanglun/index.html">
+    <div class="name">赠汪伦</div><div class="author">唐 · 李白</div>
+    <div class="track">烟雨江南</div>
+    <div class="jing">李白乘舟将欲行，</div>
+    <div class="meta">3境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#a8b8d8" href="huanghelou-song-meng/index.html">
+    <div class="name">黄鹤楼送孟浩然之广陵</div><div class="author">唐 · 李白</div>
+    <div class="track">烟雨江南</div>
+    <div class="jing">故人西辞黄鹤楼，</div>
+    <div class="meta">4境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#a8cf8f" href="zaofa-baidicheng/index.html">
+    <div class="name">早发白帝城</div><div class="author">唐 · 李白</div>
+    <div class="track">青绿春晓</div>
+    <div class="jing">朝辞白帝彩云间，</div>
+    <div class="meta">4境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#8fc4b8" href="wang-tianmen-shan/index.html">
+    <div class="name">望天门山</div><div class="author">唐 · 李白</div>
+    <div class="track">青绿春晓</div>
+    <div class="jing">天门中断楚江开，</div>
+    <div class="meta">4境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#95c9a8" href="jueju-huangli/index.html">
+    <div class="name">绝句（两个黄鹂）</div><div class="author">唐 · 杜甫</div>
+    <div class="track">青绿春晓</div>
+    <div class="jing">两个黄鹂鸣翠柳，</div>
+    <div class="meta">4境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#7da88a" href="chunye-xiyu/index.html">
+    <div class="name">春夜喜雨</div><div class="author">唐 · 杜甫</div>
+    <div class="track">青绿春晓</div>
+    <div class="jing">好雨知时节，当春乃发生。</div>
+    <div class="meta">4境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#b8c8dd" href="fengqiao-yebo/index.html">
+    <div class="name">枫桥夜泊</div><div class="author">唐 · 张继</div>
+    <div class="track">水墨夜思</div>
+    <div class="jing">月落乌啼霜满天，</div>
+    <div class="meta">3境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#8fc4a8" href="chuzhou-xijian/index.html">
+    <div class="name">滁州西涧</div><div class="author">唐 · 韦应物</div>
+    <div class="track">青绿春晓</div>
+    <div class="jing">独怜幽草涧边生，</div>
+    <div class="meta">4境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#c4823a" href="saixiaqu/index.html">
+    <div class="name">塞下曲</div><div class="author">唐 · 卢纶</div>
+    <div class="track">大漠金戈</div>
+    <div class="jing">月黑雁飞高，</div>
+    <div class="meta">3境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#d9c98a" href="you-shanxicun/index.html">
+    <div class="name">游山西村</div><div class="author">宋 · 陆游</div>
+    <div class="track">夜宴金彩</div>
+    <div class="jing">莫笑农家腊酒浑，丰年留客足鸡豚。</div>
+    <div class="meta">3境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#b0906a" href="chusai/index.html">
+    <div class="name">出塞</div><div class="author">唐 · 王昌龄</div>
+    <div class="track">大漠金戈</div>
+    <div class="jing">秦时明月汉时关，</div>
+    <div class="meta">3境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#d09148" href="liangzhou-huanghe/index.html">
+    <div class="name">凉州词（黄河远上）</div><div class="author">唐 · 王之涣</div>
+    <div class="track">大漠金戈</div>
+    <div class="jing">黄河远上白云间，</div>
+    <div class="meta">3境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#e0c060" href="liangzhou-putao/index.html">
+    <div class="name">凉州词（葡萄美酒）</div><div class="author">唐 · 王翰</div>
+    <div class="track">夜宴金彩</div>
+    <div class="jing">葡萄美酒夜光杯，</div>
+    <div class="meta">3境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#9ab8d8" href="furonglou-song/index.html">
+    <div class="name">芙蓉楼送辛渐</div><div class="author">唐 · 王昌龄</div>
+    <div class="track">烟雨江南</div>
+    <div class="jing">寒雨连江夜入吴，</div>
+    <div class="meta">3境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#aebfd6" href="luzhai/index.html">
+    <div class="name">鹿柴</div><div class="author">唐 · 王维</div>
+    <div class="track">水墨夜思</div>
+    <div class="jing">空山不见人，但闻人语响。</div>
+    <div class="meta">3境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#44403a" href="zhuliguan/index.html">
+    <div class="name">竹里馆</div><div class="author">唐 · 王维</div>
+    <div class="track">宣纸留白</div>
+    <div class="jing">独坐幽篁里，弹琴复长啸。</div>
+    <div class="meta">3境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#8fb0c4" href="song-yuaner/index.html">
+    <div class="name">送元二使安西</div><div class="author">唐 · 王维</div>
+    <div class="track">烟雨江南</div>
+    <div class="jing">渭城朝雨浥轻尘，</div>
+    <div class="meta">3境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#c4d3e4" href="jiuyue-jiuri/index.html">
+    <div class="name">九月九日忆山东兄弟</div><div class="author">唐 · 王维</div>
+    <div class="track">水墨夜思</div>
+    <div class="jing">独在异乡为异客，</div>
+    <div class="meta">3境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#a3c98f" href="sishi-tianyuan/index.html">
+    <div class="name">四时田园杂兴</div><div class="author">宋 · 范成大</div>
+    <div class="track">青绿春晓</div>
+    <div class="jing">昼出耘田夜绩麻，</div>
+    <div class="meta">3境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#8fc4b0" href="xiangcun-siyue/index.html">
+    <div class="name">乡村四月</div><div class="author">宋 · 翁卷</div>
+    <div class="track">青绿春晓</div>
+    <div class="jing">绿遍山原白满川，</div>
+    <div class="meta">3境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#9fce8f" href="cunju/index.html">
+    <div class="name">村居</div><div class="author">清 · 高鼎</div>
+    <div class="track">青绿春晓</div>
+    <div class="jing">草长莺飞二月天，</div>
+    <div class="meta">3境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#a8cf9f" href="suojian/index.html">
+    <div class="name">所见</div><div class="author">清 · 袁枚</div>
+    <div class="track">青绿春晓</div>
+    <div class="jing">牧童骑黄牛，歌声振林樾。</div>
+    <div class="meta">3境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#8fc4c9" href="xiaochi/index.html">
+    <div class="name">小池</div><div class="author">宋 · 杨万里</div>
+    <div class="track">青绿春晓</div>
+    <div class="jing">泉眼无声惜细流，</div>
+    <div class="meta">3境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#95c98f" href="xiaochu-jingci/index.html">
+    <div class="name">晓出净慈寺送林子方</div><div class="author">宋 · 杨万里</div>
+    <div class="track">青绿春晓</div>
+    <div class="jing">毕竟西湖六月中，</div>
+    <div class="meta">3境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#3a3f4a" href="ti-xilin-bi/index.html">
+    <div class="name">题西林壁</div><div class="author">宋 · 苏轼</div>
+    <div class="track">宣纸留白</div>
+    <div class="jing">横看成岭侧成峰，远近高低各不同。</div>
+    <div class="meta">3境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#c4824a" href="xiari-jueju/index.html">
+    <div class="name">夏日绝句</div><div class="author">宋 · 李清照</div>
+    <div class="track">大漠金戈</div>
+    <div class="jing">生当作人杰，死亦为鬼雄。</div>
+    <div class="meta">2境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#b0c4de" href="shier/index.html">
+    <div class="name">示儿</div><div class="author">宋 · 陆游</div>
+    <div class="track">水墨夜思</div>
+    <div class="jing">死去元知万事空，</div>
+    <div class="meta">3境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#9fb3cc" href="qiuye-jiangxiao/index.html">
+    <div class="name">秋夜将晓出篱门迎凉有感</div><div class="author">宋 · 陆游</div>
+    <div class="track">水墨夜思</div>
+    <div class="jing">三万里河东入海，五千仞岳上摩天。</div>
+    <div class="meta">3境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#50443a" href="shihui-yin/index.html">
+    <div class="name">石灰吟</div><div class="author">明 · 于谦</div>
+    <div class="track">宣纸留白</div>
+    <div class="jing">千锤万凿出深山，</div>
+    <div class="meta">3境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#2e3a34" href="zhushi/index.html">
+    <div class="name">竹石</div><div class="author">清 · 郑燮</div>
+    <div class="track">宣纸留白</div>
+    <div class="jing">咬定青山不放松，</div>
+    <div class="meta">3境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#2c2f33" href="momei/index.html">
+    <div class="name">墨梅</div><div class="author">元 · 王冕</div>
+    <div class="track">宣纸留白</div>
+    <div class="jing">我家洗砚池头树，</div>
+    <div class="meta">3境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#b3a0c9" href="jihai-zashi/index.html">
+    <div class="name">己亥杂诗（浩荡离愁）</div><div class="author">清 · 龚自珍</div>
+    <div class="track">烟雨江南</div>
+    <div class="jing">浩荡离愁白日斜，吟鞭东指即天涯。</div>
+    <div class="meta">3境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#c98f5f" href="shanxing/index.html">
+    <div class="name">山行</div><div class="author">唐 · 杜牧</div>
+    <div class="track">青绿春晓</div>
+    <div class="jing">远上寒山石径斜，</div>
+    <div class="meta">3境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#8fb0b8" href="qingming/index.html">
+    <div class="name">清明</div><div class="author">唐 · 杜牧</div>
+    <div class="track">烟雨江南</div>
+    <div class="jing">清明时节雨纷纷，</div>
+    <div class="meta">3境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#9fc2b8" href="jiangnanchun/index.html">
+    <div class="name">江南春</div><div class="author">唐 · 杜牧</div>
+    <div class="track">烟雨江南</div>
+    <div class="jing">千里莺啼绿映红，</div>
+    <div class="meta">3境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#b8a05a" href="mifeng/index.html">
+    <div class="name">蜂</div><div class="author">唐 · 罗隐</div>
+    <div class="track">青绿春晓</div>
+    <div class="jing">不论平地与山尖，</div>
+    <div class="meta">3境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#cbd6e4" href="bo-chuan-guazhou/index.html">
+    <div class="name">泊船瓜洲</div><div class="author">宋 · 王安石</div>
+    <div class="track">水墨夜思</div>
+    <div class="jing">京口瓜洲一水间，钟山只隔数重山。</div>
+    <div class="meta">3境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#8fbf7f" href="shu-huyin/index.html">
+    <div class="name">书湖阴先生壁</div><div class="author">宋 · 王安石</div>
+    <div class="track">青绿春晓</div>
+    <div class="jing">茅檐长扫净无苔，花木成畦手自栽。</div>
+    <div class="meta">3境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#a8b8c9" href="wanghulou-zuishu/index.html">
+    <div class="name">六月二十七日望湖楼醉书</div><div class="author">宋 · 苏轼</div>
+    <div class="track">烟雨江南</div>
+    <div class="jing">黑云翻墨未遮山，</div>
+    <div class="meta">3境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#9fb8c9" href="yinhu-shang/index.html">
+    <div class="name">饮湖上初晴后雨</div><div class="author">宋 · 苏轼</div>
+    <div class="track">烟雨江南</div>
+    <div class="jing">水光潋滟晴方好，</div>
+    <div class="meta">3境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#95c9b0" href="huichong-chunjiang/index.html">
+    <div class="name">惠崇春江晚景</div><div class="author">宋 · 苏轼</div>
+    <div class="track">青绿春晓</div>
+    <div class="jing">竹外桃花三两枝，</div>
+    <div class="meta">3境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#c9c95f" href="su-xinshi/index.html">
+    <div class="name">宿新市徐公店</div><div class="author">宋 · 杨万里</div>
+    <div class="track">青绿春晓</div>
+    <div class="jing">篱落疏疏一径深，</div>
+    <div class="meta">3境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#b8c4dd" href="yeshu-suojian/index.html">
+    <div class="name">夜书所见</div><div class="author">宋 · 叶绍翁</div>
+    <div class="track">水墨夜思</div>
+    <div class="jing">萧萧梧叶送寒声，</div>
+    <div class="meta">3境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#4a5060" href="xuemei/index.html">
+    <div class="name">雪梅</div><div class="author">宋 · 卢梅坡</div>
+    <div class="track">宣纸留白</div>
+    <div class="jing">梅雪争春未肯降，</div>
+    <div class="meta">3境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#d6dce9" href="chang-e/index.html">
+    <div class="name">嫦娥</div><div class="author">唐 · 李商隐</div>
+    <div class="track">水墨夜思</div>
+    <div class="jing">云母屏风烛影深，</div>
+    <div class="meta">3境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#d4b050" href="yuanri/index.html">
+    <div class="name">元日</div><div class="author">宋 · 王安石</div>
+    <div class="track">夜宴金彩</div>
+    <div class="jing">爆竹声中一岁除，</div>
+    <div class="meta">3境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#9a90b8" href="tianjingsha-qiusi/index.html">
+    <div class="name">天净沙·秋思</div><div class="author">元 · 马致远</div>
+    <div class="track">烟雨江南</div>
+    <div class="jing">枯藤老树昏鸦，小桥流水人家，</div>
+    <div class="meta">4境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#e0b84f" href="wen-guanjun/index.html">
+    <div class="name">闻官军收河南北</div><div class="author">唐 · 杜甫</div>
+    <div class="track">夜宴金彩</div>
+    <div class="jing">剑外忽传收蓟北，初闻涕泪满衣裳。</div>
+    <div class="meta">4境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#d9a05a" href="langtaosha/index.html">
+    <div class="name">浪淘沙（九曲黄河）</div><div class="author">唐 · 刘禹锡</div>
+    <div class="track">大漠金戈</div>
+    <div class="jing">九曲黄河万里沙，</div>
+    <div class="meta">3境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#4a4438" href="duzuo-jingting/index.html">
+    <div class="name">独坐敬亭山</div><div class="author">唐 · 李白</div>
+    <div class="track">宣纸留白</div>
+    <div class="jing">众鸟高飞尽，</div>
+    <div class="meta">3境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#d9b06a" href="mujiang-yin/index.html">
+    <div class="name">暮江吟</div><div class="author">唐 · 白居易</div>
+    <div class="track">夜宴金彩</div>
+    <div class="jing">一道残阳铺水中，</div>
+    <div class="meta">3境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#d8a7b1" href="dalinsi-taohua/index.html">
+    <div class="name">大林寺桃花</div><div class="author">唐 · 白居易</div>
+    <div class="track">青绿春晓</div>
+    <div class="jing">人间四月芳菲尽，</div>
+    <div class="meta">3境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#cf9a5a" href="bie-dongda/index.html">
+    <div class="name">别董大</div><div class="author">唐 · 高适</div>
+    <div class="track">大漠金戈</div>
+    <div class="jing">千里黄云白日曛，</div>
+    <div class="meta">3境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#a8c98f" href="zaochun-cheng/index.html">
+    <div class="name">早春呈水部张十八员外</div><div class="author">唐 · 韩愈</div>
+    <div class="track">青绿春晓</div>
+    <div class="jing">天街小雨润如酥，</div>
+    <div class="meta">3境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#a89fb8" href="yeyu-jibei/index.html">
+    <div class="name">夜雨寄北</div><div class="author">唐 · 李商隐</div>
+    <div class="track">烟雨江南</div>
+    <div class="jing">君问归期未有期，巴山夜雨涨秋池。</div>
+    <div class="meta">3境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#b8c0d0" href="huixiang-oushu/index.html">
+    <div class="name">回乡偶书</div><div class="author">唐 · 贺知章</div>
+    <div class="track">水墨夜思</div>
+    <div class="jing">少小离家老大回，乡音无改鬓毛衰。</div>
+    <div class="meta">3境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#9fc98f" href="yongliu/index.html">
+    <div class="name">咏柳</div><div class="author">唐 · 贺知章</div>
+    <div class="track">青绿春晓</div>
+    <div class="jing">碧玉妆成一树高，</div>
+    <div class="meta">3境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#8fbf6a" href="changgexing/index.html">
+    <div class="name">长歌行（节选）</div><div class="author">汉 · 汉乐府</div>
+    <div class="track">青绿春晓</div>
+    <div class="jing">青青园中葵，朝露待日晞。阳春布德泽，万物生光辉。</div>
+    <div class="meta">4境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#b8a05a" href="chile-ge/index.html">
+    <div class="name">敕勒歌</div><div class="author">北朝 · 北朝民歌</div>
+    <div class="track">大漠金戈</div>
+    <div class="jing">敕勒川，阴山下。</div>
+    <div class="meta">4境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#6a3a2a" href="qibu-shi/index.html">
+    <div class="name">七步诗</div><div class="author">魏 · 曹植</div>
+    <div class="track">宣纸留白</div>
+    <div class="jing">煮豆持作羹，漉菽以为汁。</div>
+    <div class="meta">3境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#a8bcd4" href="niaoming-jian/index.html">
+    <div class="name">鸟鸣涧</div><div class="author">唐 · 王维</div>
+    <div class="track">水墨夜思</div>
+    <div class="jing">人闲桂花落，夜静春山空。</div>
+    <div class="meta">3境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#8f9ab8" href="bo-qinhuai/index.html">
+    <div class="name">泊秦淮</div><div class="author">唐 · 杜牧</div>
+    <div class="track">烟雨江南</div>
+    <div class="jing">烟笼寒水月笼沙，</div>
+    <div class="meta">3境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#b0bccd" href="shangshan-zaoxing/index.html">
+    <div class="name">商山早行</div><div class="author">唐 · 温庭筠</div>
+    <div class="track">水墨夜思</div>
+    <div class="jing">晨起动征铎，客行悲故乡。</div>
+    <div class="meta">4境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#9fc2a8" href="zhizhi-ci/index.html">
+    <div class="name">竹枝词</div><div class="author">唐 · 刘禹锡</div>
+    <div class="track">烟雨江南</div>
+    <div class="jing">杨柳青青江水平，</div>
+    <div class="meta">3境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#c0c8dd" href="qiuxi/index.html">
+    <div class="name">秋夕</div><div class="author">唐 · 杜牧</div>
+    <div class="track">水墨夜思</div>
+    <div class="jing">银烛秋光冷画屏，</div>
+    <div class="meta">3境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#3f4a3e" href="wangyue/index.html">
+    <div class="name">望岳</div><div class="author">唐 · 杜甫</div>
+    <div class="track">宣纸留白</div>
+    <div class="jing">岱宗夫如何？齐鲁青未了。</div>
+    <div class="meta">4境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#b0bccd" href="chunwang/index.html">
+    <div class="name">春望</div><div class="author">唐 · 杜甫</div>
+    <div class="track">水墨夜思</div>
+    <div class="jing">国破山河在，城春草木深。</div>
+    <div class="meta">4境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#b8905a" href="dengyouzhoutai/index.html">
+    <div class="name">登幽州台歌</div><div class="author">唐 · 陈子昂</div>
+    <div class="track">大漠金戈</div>
+    <div class="jing">前不见古人，后不见来者。</div>
+    <div class="meta">2境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#9ab8d8" href="songdushaofu/index.html">
+    <div class="name">送杜少府之任蜀州</div><div class="author">唐 · 王勃</div>
+    <div class="track">烟雨江南</div>
+    <div class="jing">城阙辅三秦，风烟望五津。</div>
+    <div class="meta">4境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#a8b8d8" href="huanghelou/index.html">
+    <div class="name">黄鹤楼</div><div class="author">唐 · 崔颢</div>
+    <div class="track">烟雨江南</div>
+    <div class="jing">昔人已乘黄鹤去，此地空余黄鹤楼。</div>
+    <div class="meta">4境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#c96a6a" href="xiangsi/index.html">
+    <div class="name">相思</div><div class="author">唐 · 王维</div>
+    <div class="track">青绿春晓</div>
+    <div class="jing">红豆生南国，春来发几枝。</div>
+    <div class="meta">3境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#c4d3e4" href="zashi-junzigu/index.html">
+    <div class="name">杂诗（君自故乡来）</div><div class="author">唐 · 王维</div>
+    <div class="track">水墨夜思</div>
+    <div class="jing">君自故乡来，应知故乡事。</div>
+    <div class="meta">2境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#4a5a3e" href="guyuancao/index.html">
+    <div class="name">赋得古原草送别</div><div class="author">唐 · 白居易</div>
+    <div class="track">宣纸留白</div>
+    <div class="jing">离离原上草，一岁一枯荣。</div>
+    <div class="meta">4境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#8fc4c9" href="chishang/index.html">
+    <div class="name">池上</div><div class="author">唐 · 白居易</div>
+    <div class="track">青绿春晓</div>
+    <div class="jing">小娃撑小艇，偷采白莲回。</div>
+    <div class="meta">2境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#e0b060" href="wenliushijiu/index.html">
+    <div class="name">问刘十九</div><div class="author">唐 · 白居易</div>
+    <div class="track">夜宴金彩</div>
+    <div class="jing">绿蚁新醅酒，红泥小火炉。</div>
+    <div class="meta">2境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#8fb0c4" href="suojiandejiang/index.html">
+    <div class="name">宿建德江</div><div class="author">唐 · 孟浩然</div>
+    <div class="track">烟雨江南</div>
+    <div class="jing">移舟泊烟渚，日暮客愁新。</div>
+    <div class="meta">3境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#d9c98a" href="wangdongting/index.html">
+    <div class="name">望洞庭</div><div class="author">唐 · 刘禹锡</div>
+    <div class="track">夜宴金彩</div>
+    <div class="jing">湖光秋月两相和，</div>
+    <div class="meta">3境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#c9a06a" href="qiuci/index.html">
+    <div class="name">秋词</div><div class="author">唐 · 刘禹锡</div>
+    <div class="track">大漠金戈</div>
+    <div class="jing">自古逢秋悲寂寥，</div>
+    <div class="meta">3境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#b8a090" href="wuyixiang/index.html">
+    <div class="name">乌衣巷</div><div class="author">唐 · 刘禹锡</div>
+    <div class="track">烟雨江南</div>
+    <div class="jing">朱雀桥边野草花，</div>
+    <div class="meta">3境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#c4824a" href="chibi/index.html">
+    <div class="name">赤壁</div><div class="author">唐 · 杜牧</div>
+    <div class="track">大漠金戈</div>
+    <div class="jing">折戟沉沙铁未销，</div>
+    <div class="meta">3境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#9fb3cc" href="lisi/index.html">
+    <div class="name">离思（曾经沧海）</div><div class="author">唐 · 元稹</div>
+    <div class="track">水墨夜思</div>
+    <div class="jing">曾经沧海难为水，</div>
+    <div class="meta">3境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#3e4436" href="xunyinzhe/index.html">
+    <div class="name">寻隐者不遇</div><div class="author">唐 · 贾岛</div>
+    <div class="track">宣纸留白</div>
+    <div class="jing">松下问童子，</div>
+    <div class="meta">3境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#d4b050" href="hanshi/index.html">
+    <div class="name">寒食</div><div class="author">唐 · 韩翃</div>
+    <div class="track">夜宴金彩</div>
+    <div class="jing">春城无处不飞花，寒食东风御柳斜。</div>
+    <div class="meta">3境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#c9d3e4" href="shiwuyewangyue/index.html">
+    <div class="name">十五夜望月</div><div class="author">唐 · 王建</div>
+    <div class="track">水墨夜思</div>
+    <div class="jing">中庭地白树栖鸦，</div>
+    <div class="meta">3境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#a8cf8f" href="jiangnanfengliguijun/index.html">
+    <div class="name">江南逢李龟年</div><div class="author">唐 · 杜甫</div>
+    <div class="track">青绿春晓</div>
+    <div class="jing">岐王宅里寻常见，</div>
+    <div class="meta">3境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#e0c060" href="zenghuaqing/index.html">
+    <div class="name">赠花卿</div><div class="author">唐 · 杜甫</div>
+    <div class="track">夜宴金彩</div>
+    <div class="jing">锦城丝管日纷纷，</div>
+    <div class="meta">3境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#95c9b0" href="yugezi/index.html">
+    <div class="name">渔歌子</div><div class="author">唐 · 张志和</div>
+    <div class="track">青绿春晓</div>
+    <div class="jing">西塞山前白鹭飞，桃花流水鳜鱼肥。</div>
+    <div class="meta">3境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#d88a6a" href="yijiangnan/index.html">
+    <div class="name">忆江南</div><div class="author">唐 · 白居易</div>
+    <div class="track">青绿春晓</div>
+    <div class="jing">江南好，风景旧曾谙。</div>
+    <div class="meta">3境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#9fb0c9" href="yumeiren/index.html">
+    <div class="name">虞美人</div><div class="author">五代 · 李煜</div>
+    <div class="track">烟雨江南</div>
+    <div class="jing">春花秋月何时了？往事知多少。</div>
+    <div class="meta">4境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#b8c4dd" href="xiangjianhuan/index.html">
+    <div class="name">相见欢</div><div class="author">五代 · 李煜</div>
+    <div class="track">水墨夜思</div>
+    <div class="jing">无言独上西楼，月如钩。</div>
+    <div class="meta">4境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#a3c98f" href="qingpingyue-cunju/index.html">
+    <div class="name">清平乐·村居</div><div class="author">宋 · 辛弃疾</div>
+    <div class="track">青绿春晓</div>
+    <div class="jing">茅檐低小，溪上青青草。</div>
+    <div class="meta">4境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#95c9a8" href="xijiangyue-yehuangsha/index.html">
+    <div class="name">西江月·夜行黄沙道中</div><div class="author">宋 · 辛弃疾</div>
+    <div class="track">青绿春晓</div>
+    <div class="jing">明月别枝惊鹊，清风半夜鸣蝉。</div>
+    <div class="meta">4境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#3a3f4a" href="meihua-wanganxi/index.html">
+    <div class="name">梅花</div><div class="author">宋 · 王安石</div>
+    <div class="track">宣纸留白</div>
+    <div class="jing">墙角数枝梅，凌寒独自开。</div>
+    <div class="meta">2境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#c98f9f" href="chunri/index.html">
+    <div class="name">春日</div><div class="author">宋 · 朱熹</div>
+    <div class="track">青绿春晓</div>
+    <div class="jing">胜日寻芳泗水滨，无边光景一时新。</div>
+    <div class="meta">3境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#44505c" href="guanshuyougan/index.html">
+    <div class="name">观书有感</div><div class="author">宋 · 朱熹</div>
+    <div class="track">宣纸留白</div>
+    <div class="jing">半亩方塘一鉴开，天光云影共徘徊。</div>
+    <div class="meta">3境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#4a5a60" href="zhizinongbing/index.html">
+    <div class="name">稚子弄冰</div><div class="author">宋 · 杨万里</div>
+    <div class="track">宣纸留白</div>
+    <div class="jing">稚子金盆脱晓冰，彩丝穿取当银钲。</div>
+    <div class="meta">3境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#c9a05a" href="jiangpandubu/index.html">
+    <div class="name">江畔独步寻花</div><div class="author">唐 · 杜甫</div>
+    <div class="track">青绿春晓</div>
+    <div class="jing">黄四娘家花满蹊，千朵万朵压枝低。</div>
+    <div class="meta">3境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#c0c8dd" href="qiupuge/index.html">
+    <div class="name">秋浦歌</div><div class="author">唐 · 李白</div>
+    <div class="track">水墨夜思</div>
+    <div class="jing">白发三千丈，缘愁似个长。</div>
+    <div class="meta">2境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#d6dee9" href="yesusi/index.html">
+    <div class="name">夜宿山寺</div><div class="author">唐 · 李白</div>
+    <div class="track">水墨夜思</div>
+    <div class="jing">危楼高百尺，</div>
+    <div class="meta">3境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#4a5060" href="fengxue-furongshan/index.html">
+    <div class="name">逢雪宿芙蓉山主人</div><div class="author">唐 · 刘长卿</div>
+    <div class="track">宣纸留白</div>
+    <div class="jing">日暮苍山远，天寒白屋贫。</div>
+    <div class="meta">3境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#3a4048" href="chan-yushinan/index.html">
+    <div class="name">蝉</div><div class="author">唐 · 虞世南</div>
+    <div class="track">宣纸留白</div>
+    <div class="jing">垂緌饮清露，流响出疏桐。</div>
+    <div class="meta">2境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#4a4450" href="busuanzi-yongmei/index.html">
+    <div class="name">卜算子·咏梅</div><div class="author">宋 · 陆游</div>
+    <div class="track">宣纸留白</div>
+    <div class="jing">驿外断桥边，寂寞开无主。</div>
+    <div class="meta">4境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#c9a0b0" href="rumengling/index.html">
+    <div class="name">如梦令</div><div class="author">宋 · 李清照</div>
+    <div class="track">烟雨江南</div>
+    <div class="jing">昨夜雨疏风骤，浓睡不消残酒。</div>
+    <div class="meta">3境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#b09a80" href="tianjinsha-qiu/index.html">
+    <div class="name">天净沙·秋</div><div class="author">元 · 白朴</div>
+    <div class="track">烟雨江南</div>
+    <div class="jing">孤村落日残霞，轻烟老树寒鸦，</div>
+    <div class="meta">3境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#b0906a" href="shanpoyang-tongguan/index.html">
+    <div class="name">山坡羊·潼关怀古</div><div class="author">元 · 张养浩</div>
+    <div class="track">大漠金戈</div>
+    <div class="jing">峰峦如聚，波涛如怒，山河表里潼关路。</div>
+    <div class="meta">4境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#d9b06a" href="nian-nujiao-chibi/index.html">
+    <div class="name">念奴娇·赤壁怀古</div><div class="author">宋 · 苏轼</div>
+    <div class="track">大漠金戈</div>
+    <div class="jing">大江东去，浪淘尽，千古风流人物。故垒西边，人道是，三国周郎赤壁。</div>
+    <div class="meta">4境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#d9a05a" href="shizhisai/index.html">
+    <div class="name">使至塞上</div><div class="author">唐 · 王维</div>
+    <div class="track">大漠金戈</div>
+    <div class="jing">单车欲问边，属国过居延。</div>
+    <div class="meta">4境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#a8cf9a" href="qiantanghu-chunxing/index.html">
+    <div class="name">钱塘湖春行</div><div class="author">唐 · 白居易</div>
+    <div class="track">青绿春晓</div>
+    <div class="jing">孤山寺北贾亭西，水面初平云脚低。</div>
+    <div class="meta">4境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#c9a06a" href="linjiangxian/index.html">
+    <div class="name">临江仙</div><div class="author">明 · 杨慎</div>
+    <div class="track">大漠金戈</div>
+    <div class="jing">滚滚长江东逝水，浪花淘尽英雄。</div>
+    <div class="meta">5境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#9fc2b0" href="busuanzi-song/index.html">
+    <div class="name">卜算子·送鲍浩然之浙东</div><div class="author">宋 · 王观</div>
+    <div class="track">烟雨江南</div>
+    <div class="jing">水是眼波横，山是眉峰聚。</div>
+    <div class="meta">4境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#9ec9b8" href="chunjiang-huayueye/index.html">
+    <div class="name">春江花月夜</div><div class="author">唐 · 张若虚</div>
+    <div class="track">青绿春晓</div>
+    <div class="jing">春江潮水连海平，海上明月共潮生。滟滟随波千万里，何处春江无月明！</div>
+    <div class="meta">8境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#c98f5a" href="shudaonan/index.html">
+    <div class="name">蜀道难</div><div class="author">唐 · 李白</div>
+    <div class="track">大漠金戈</div>
+    <div class="jing">噫吁嚱，危乎高哉！蜀道之难，难于上青天！蚕丛及鱼凫，开国何茫然！</div>
+    <div class="meta">7境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#d9a8c0" href="mengyou-tianmu/index.html">
+    <div class="name">梦游天姥吟留别</div><div class="author">唐 · 李白</div>
+    <div class="track">夜宴金彩</div>
+    <div class="jing">海客谈瀛洲，烟涛微茫信难求。越人语天姥，云霞明灭或可睹。天姥连天向天横，势拔五岳掩赤城。天台四万八千丈，对此欲倒东南倾。</div>
+    <div class="meta">7境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#cdd6e6" href="yuexia-duzhuo/index.html">
+    <div class="name">月下独酌（其一）</div><div class="author">唐 · 李白</div>
+    <div class="track">水墨夜思</div>
+    <div class="jing">花间一壶酒，独酌无相亲。</div>
+    <div class="meta">4境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#c9a44a" href="duange-xing/index.html">
+    <div class="name">短歌行</div><div class="author">汉 · 曹操</div>
+    <div class="track">夜宴金彩</div>
+    <div class="jing">对酒当歌，人生几何！譬如朝露，去日苦多。慨当以慷，忧思难忘。何以解忧？唯有杜康。</div>
+    <div class="meta">6境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#e0a860" href="qingyu-an-yuanxi/index.html">
+    <div class="name">青玉案·元夕</div><div class="author">宋 · 辛弃疾</div>
+    <div class="track">夜宴金彩</div>
+    <div class="jing">东风夜放花千树。更吹落、星如雨。</div>
+    <div class="meta">4境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#c0503a" href="manjianghong/index.html">
+    <div class="name">满江红</div><div class="author">宋 · 岳飞</div>
+    <div class="track">大漠金戈</div>
+    <div class="jing">怒发冲冠，凭栏处、潇潇雨歇。抬望眼，仰天长啸，壮怀激烈。</div>
+    <div class="meta">4境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#8fc4a8" href="wanghaichao/index.html">
+    <div class="name">望海潮</div><div class="author">宋 · 柳永</div>
+    <div class="track">青绿春晓</div>
+    <div class="jing">东南形胜，三吴都会，钱塘自古繁华。</div>
+    <div class="meta">5境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#7fa88f" href="shangui/index.html">
+    <div class="name">山鬼</div><div class="author">先秦 · 屈原</div>
+    <div class="track">水墨夜思</div>
+    <div class="jing">若有人兮山之阿，被薜荔兮带女萝。既含睇兮又宜笑，子慕予兮善窈窕。</div>
+    <div class="meta">7境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#b08fa0" href="pipaxing/index.html">
+    <div class="name">琵琶行（节选）</div><div class="author">唐 · 白居易</div>
+    <div class="track">烟雨江南</div>
+    <div class="jing">浔阳江头夜送客，枫叶荻花秋瑟瑟。主人下马客在船，举酒欲饮无管弦。醉不成欢惨将别，别时茫茫江浸月。</div>
+    <div class="meta">8境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#b8763a" href="yanmen-taishou-xing/index.html">
+    <div class="name">雁门太守行</div><div class="author">唐 · 李贺</div>
+    <div class="track">大漠金戈</div>
+    <div class="jing">黑云压城城欲摧，甲光向日金鳞开。</div>
+    <div class="meta">4境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#4a5560" href="baixuege/index.html">
+    <div class="name">白雪歌送武判官归京</div><div class="author">唐 · 岑参</div>
+    <div class="track">宣纸留白</div>
+    <div class="jing">北风卷地白草折，胡天八月即飞雪。</div>
+    <div class="meta">6境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#d9b050" href="xinglu-nan/index.html">
+    <div class="name">行路难·其一</div><div class="author">唐 · 李白</div>
+    <div class="track">夜宴金彩</div>
+    <div class="jing">金樽清酒斗十千，玉盘珍羞直万钱。停杯投箸不能食，拔剑四顾心茫然。</div>
+    <div class="meta">4境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#6fae7e" href="cibeigushan/index.html">
+    <div class="name">次北固山下</div><div class="author">唐 · 王湾</div>
+    <div class="track">青绿春晓</div>
+    <div class="jing">客路青山外，行舟绿水前。</div>
+    <div class="meta">4境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#8fb3c9" href="dujingmen/index.html">
+    <div class="name">渡荆门送别</div><div class="author">唐 · 李白</div>
+    <div class="track">水墨夜思</div>
+    <div class="jing">渡远荆门外，来从楚国游。</div>
+    <div class="meta">4境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#7a8a5a" href="yinjiu/index.html">
+    <div class="name">饮酒·其五</div><div class="author">魏晋 · 陶渊明</div>
+    <div class="track">宣纸留白</div>
+    <div class="jing">结庐在人境，而无车马喧。问君何能尔？心远地自偏。</div>
+    <div class="meta">4境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#9fce8f" href="guiyuantianju/index.html">
+    <div class="name">归园田居·其三</div><div class="author">魏晋 · 陶渊明</div>
+    <div class="track">青绿春晓</div>
+    <div class="jing">种豆南山下，草盛豆苗稀。</div>
+    <div class="meta">4境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#8fb3c9" href="wangjiangnan/index.html">
+    <div class="name">望江南·梳洗罢</div><div class="author">唐 · 温庭筠</div>
+    <div class="track">烟雨江南</div>
+    <div class="jing">梳洗罢，独倚望江楼。</div>
+    <div class="meta">3境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#d98e3a" href="fengrujingshi/index.html">
+    <div class="name">逢入京使</div><div class="author">唐 · 岑参</div>
+    <div class="track">大漠金戈</div>
+    <div class="jing">故园东望路漫漫，双袖龙钟泪不干。</div>
+    <div class="meta">2境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#b8874a" href="yeshouxiangwen/index.html">
+    <div class="name">夜上受降城闻笛</div><div class="author">唐 · 李益</div>
+    <div class="track">大漠金戈</div>
+    <div class="jing">回乐烽前沙似雪，受降城外月如霜。</div>
+    <div class="meta">2境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#93a8bd" href="songyouren/index.html">
+    <div class="name">送友人</div><div class="author">唐 · 李白</div>
+    <div class="track">水墨夜思</div>
+    <div class="jing">青山横北郭，白水绕东城。</div>
+    <div class="meta">4境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#9db3c9" href="yueye-yishe/index.html">
+    <div class="name">月夜忆舍弟</div><div class="author">唐 · 杜甫</div>
+    <div class="track">水墨夜思</div>
+    <div class="jing">戍鼓断人行，边秋一雁声。</div>
+    <div class="meta">4境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#5a4a3a" href="maitanweng/index.html">
+    <div class="name">卖炭翁</div><div class="author">唐 · 白居易</div>
+    <div class="track">宣纸留白</div>
+    <div class="jing">卖炭翁，伐薪烧炭南山中。满面尘灰烟火色，两鬓苍苍十指黑。</div>
+    <div class="meta">5境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#7a8a99" href="shihaoli/index.html">
+    <div class="name">石壕吏</div><div class="author">唐 · 杜甫</div>
+    <div class="track">水墨夜思</div>
+    <div class="jing">暮投石壕村，有吏夜捉人。老翁逾墙走，老妇出门看。</div>
+    <div class="meta">5境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#8a9ab0" href="maowu/index.html">
+    <div class="name">茅屋为秋风所破歌</div><div class="author">唐 · 杜甫</div>
+    <div class="track">水墨夜思</div>
+    <div class="jing">八月秋高风怒号，卷我屋上三重茅。茅飞渡江洒江郊，高者挂罥长林梢，下者飘转沉塘坳。</div>
+    <div class="meta">4境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#c08a4a" href="yujiaao-qiusi/index.html">
+    <div class="name">渔家傲·秋思</div><div class="author">宋 · 范仲淹</div>
+    <div class="track">大漠金戈</div>
+    <div class="jing">塞下秋来风景异，衡阳雁去无留意。四面边声连角起，千嶂里，长烟落日孤城闭。</div>
+    <div class="meta">3境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#c0503a" href="pozhenzi/index.html">
+    <div class="name">破阵子·为陈同甫赋壮词以寄之</div><div class="author">宋 · 辛弃疾</div>
+    <div class="track">大漠金戈</div>
+    <div class="jing">醉里挑灯看剑，梦回吹角连营。</div>
+    <div class="meta">4境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#8fb3c9" href="dingfengbo/index.html">
+    <div class="name">定风波·莫听穿林打叶声</div><div class="author">宋 · 苏轼</div>
+    <div class="track">烟雨江南</div>
+    <div class="jing">莫听穿林打叶声，何妨吟啸且徐行。竹杖芒鞋轻胜马，谁怕？一蓑烟雨任平生。</div>
+    <div class="meta">3境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#d9a050" href="jiangchengzi/index.html">
+    <div class="name">江城子·密州出猎</div><div class="author">宋 · 苏轼</div>
+    <div class="track">夜宴金彩</div>
+    <div class="jing">老夫聊发少年狂，左牵黄，右擎苍，锦帽貂裘，千骑卷平冈。为报倾城随太守，亲射虎，看孙郎。</div>
+    <div class="meta">3境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#b0703a" href="guolingdingyang/index.html">
+    <div class="name">过零丁洋</div><div class="author">宋 · 文天祥</div>
+    <div class="track">大漠金戈</div>
+    <div class="jing">辛苦遭逢起一经，干戈寥落四周星。</div>
+    <div class="meta">4境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#c08aa8" href="wuti/index.html">
+    <div class="name">无题·相见时难别亦难</div><div class="author">唐 · 李商隐</div>
+    <div class="track">烟雨江南</div>
+    <div class="jing">相见时难别亦难，东风无力百花残。</div>
+    <div class="meta">4境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#9aa8c9" href="yujiaao-tianjie/index.html">
+    <div class="name">渔家傲·天接云涛连晓雾</div><div class="author">宋 · 李清照</div>
+    <div class="track">水墨夜思</div>
+    <div class="jing">天接云涛连晓雾，星河欲转千帆舞。</div>
+    <div class="meta">4境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#9fb3cc" href="yi-qin-e/index.html">
+    <div class="name">忆秦娥</div><div class="author">唐 · 李白</div>
+    <div class="track">水墨夜思</div>
+    <div class="jing">箫声咽，秦娥梦断秦楼月。秦楼月，年年柳色，灞陵伤别。</div>
+    <div class="meta">2境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#8f9ab8" href="pusaman-pinglin/index.html">
+    <div class="name">菩萨蛮·平林漠漠烟如织</div><div class="author">唐 · 李白</div>
+    <div class="track">烟雨江南</div>
+    <div class="jing">平林漠漠烟如织，寒山一带伤心碧。暝色入高楼，有人楼上愁。</div>
+    <div class="meta">3境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#d4b050" href="pusaman-xiaoshan/index.html">
+    <div class="name">菩萨蛮·小山重叠金明灭</div><div class="author">唐 · 温庭筠</div>
+    <div class="track">夜宴金彩</div>
+    <div class="jing">小山重叠金明灭，鬓云欲度香腮雪。懒起画蛾眉，弄妆梳洗迟。</div>
+    <div class="meta">2境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#9ab0c9" href="pusaman-renren/index.html">
+    <div class="name">菩萨蛮·人人尽说江南好</div><div class="author">五代 · 韦庄</div>
+    <div class="track">烟雨江南</div>
+    <div class="jing">人人尽说江南好，游人只合江南老。春水碧于天，画船听雨眠。</div>
+    <div class="meta">2境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#c98f9f" href="xiangjianhuan-linhua/index.html">
+    <div class="name">相见欢·林花谢了春红</div><div class="author">五代 · 李煜</div>
+    <div class="track">青绿春晓</div>
+    <div class="jing">林花谢了春红，太匆匆。无奈朝来寒雨晚来风。</div>
+    <div class="meta">2境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#90a8c0" href="langtaosha-lianyu/index.html">
+    <div class="name">浪淘沙令·帘外雨潺潺</div><div class="author">五代 · 李煜</div>
+    <div class="track">烟雨江南</div>
+    <div class="jing">帘外雨潺潺，春意阑珊。罗衾不耐五更寒。</div>
+    <div class="meta">3境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#a8bcd4" href="qingpingyue-bielai/index.html">
+    <div class="name">清平乐·别来春半</div><div class="author">五代 · 李煜</div>
+    <div class="track">水墨夜思</div>
+    <div class="jing">别来春半，触目柔肠断。砌下落梅如雪乱，拂了一身还满。</div>
+    <div class="meta">2境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#4a5060" href="changxiangsi-yichongshan/index.html">
+    <div class="name">长相思·一重山</div><div class="author">五代 · 李煜</div>
+    <div class="track">宣纸留白</div>
+    <div class="jing">一重山，两重山。山远天高烟水寒，相思枫叶丹。</div>
+    <div class="meta">2境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#a3c98f" href="yejinmen-fengzha/index.html">
+    <div class="name">谒金门·风乍起</div><div class="author">五代 · 冯延巳</div>
+    <div class="track">青绿春晓</div>
+    <div class="jing">风乍起，吹皱一池春水。闲引鸳鸯香径里，手挼红杏蕊。</div>
+    <div class="meta">2境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#b0bccd" href="sumuzhe-biyuntian/index.html">
+    <div class="name">苏幕遮·碧云天</div><div class="author">宋 · 范仲淹</div>
+    <div class="track">水墨夜思</div>
+    <div class="jing">碧云天，黄叶地。秋色连波，波上寒烟翠。</div>
+    <div class="meta">3境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#e0b060" href="huanxisha-yiqu/index.html">
+    <div class="name">浣溪沙·一曲新词酒一杯</div><div class="author">宋 · 晏殊</div>
+    <div class="track">夜宴金彩</div>
+    <div class="jing">一曲新词酒一杯，去年天气旧亭台。夕阳西下几时回？</div>
+    <div class="meta">2境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#9ab8d8" href="dielianhua-jianju/index.html">
+    <div class="name">蝶恋花·槛菊愁烟兰泣露</div><div class="author">宋 · 晏殊</div>
+    <div class="track">水墨夜思</div>
+    <div class="jing">槛菊愁烟兰泣露，罗幕轻寒，燕子双飞去。明月不谙离恨苦，斜光到晓穿朱户。</div>
+    <div class="meta">2境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#a8b4c9" href="dielianhua-tingyuan/index.html">
+    <div class="name">蝶恋花·庭院深深深几许</div><div class="author">宋 · 欧阳修</div>
+    <div class="track">水墨夜思</div>
+    <div class="jing">庭院深深深几许，杨柳堆烟，帘幕无重数。玉勒雕鞍游冶处，楼高不见章台路。</div>
+    <div class="meta">2境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#d9a85a" href="shengzhazi-yuanxi/index.html">
+    <div class="name">生查子·元夕</div><div class="author">宋 · 欧阳修</div>
+    <div class="track">夜宴金彩</div>
+    <div class="jing">去年元夜时，花市灯如昼。月上柳梢头，人约黄昏后。</div>
+    <div class="meta">2境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#c96a6a" href="yulouchun-dongcheng/index.html">
+    <div class="name">玉楼春·东城渐觉风光好</div><div class="author">宋 · 宋祁</div>
+    <div class="track">青绿春晓</div>
+    <div class="jing">东城渐觉风光好，縠皱波纹迎客棹。绿杨烟外晓寒轻，红杏枝头春意闹。</div>
+    <div class="meta">2境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#8fb3c9" href="yulinling/index.html">
+    <div class="name">雨霖铃</div><div class="author">宋 · 柳永</div>
+    <div class="track">烟雨江南</div>
+    <div class="jing">寒蝉凄切，对长亭晚，骤雨初歇。都门帐饮无绪，留恋处，兰舟催发。执手相看泪眼，竟无语凝噎。</div>
+    <div class="meta">4境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#90a8c0" href="dielianhua-zhuyi/index.html">
+    <div class="name">蝶恋花·伫倚危楼风细细</div><div class="author">宋 · 柳永</div>
+    <div class="track">烟雨江南</div>
+    <div class="jing">伫倚危楼风细细，望极春愁，黯黯生天际。草色烟光残照里，无言谁会凭阑意。</div>
+    <div class="meta">2境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#98aec8" href="bashengganzhou/index.html">
+    <div class="name">八声甘州·对潇潇暮雨洒江天</div><div class="author">宋 · 柳永</div>
+    <div class="track">水墨夜思</div>
+    <div class="jing">对潇潇暮雨洒江天，一番洗清秋。渐霜风凄紧，关河冷落，残照当楼。</div>
+    <div class="meta">4境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#b8905a" href="guizhixiang-jinling/index.html">
+    <div class="name">桂枝香·金陵怀古</div><div class="author">宋 · 王安石</div>
+    <div class="track">大漠金戈</div>
+    <div class="jing">登临送目，正故国晚秋，天气初肃。千里澄江似练，翠峰如簇。</div>
+    <div class="meta">4境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#e0c060" href="zhegutian-caixiu/index.html">
+    <div class="name">鹧鸪天·彩袖殷勤捧玉钟</div><div class="author">宋 · 晏几道</div>
+    <div class="track">夜宴金彩</div>
+    <div class="jing">彩袖殷勤捧玉钟，当年拼却醉颜红。舞低杨柳楼心月，歌尽桃花扇底风。</div>
+    <div class="meta">2境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#a4b6cc" href="linjiangxian-menghou/index.html">
+    <div class="name">临江仙·梦后楼台高锁</div><div class="author">宋 · 晏几道</div>
+    <div class="track">水墨夜思</div>
+    <div class="jing">梦后楼台高锁，酒醒帘幕低垂。去年春恨却来时。</div>
+    <div class="meta">3境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#b8c4dd" href="jiangchengzi-jimeng/index.html">
+    <div class="name">江城子·乙卯正月二十日夜记梦</div><div class="author">宋 · 苏轼</div>
+    <div class="track">水墨夜思</div>
+    <div class="jing">十年生死两茫茫，不思量，自难忘。千里孤坟，无处话凄凉。</div>
+    <div class="meta">3境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#a8cf8f" href="dielianhua-chunjing/index.html">
+    <div class="name">蝶恋花·春景</div><div class="author">宋 · 苏轼</div>
+    <div class="track">青绿春晓</div>
+    <div class="jing">花褪残红青杏小，燕子飞时，绿水人家绕。枝上柳绵吹又少，天涯何处无芳草。</div>
+    <div class="meta">2境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#8fc4a8" href="huanxisha-qishui/index.html">
+    <div class="name">浣溪沙·游蕲水清泉寺</div><div class="author">宋 · 苏轼</div>
+    <div class="track">青绿春晓</div>
+    <div class="jing">山下兰芽短浸溪，松间沙路净无泥，潇潇暮雨子规啼。谁道人生无再少？</div>
+    <div class="meta">2境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#3e4a44" href="busuanzi-huangzhou/index.html">
+    <div class="name">卜算子·黄州定慧院寓居作</div><div class="author">宋 · 苏轼</div>
+    <div class="track">宣纸留白</div>
+    <div class="jing">缺月挂疏桐，漏断人初静。谁见幽人独往来，缥缈孤鸿影。</div>
+    <div class="meta">2境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#9ab0c9" href="wangjiangnan-choran/index.html">
+    <div class="name">望江南·超然台作</div><div class="author">宋 · 苏轼</div>
+    <div class="track">烟雨江南</div>
+    <div class="jing">春未老，风细柳斜斜。试上超然台上看，半壕春水一城花。</div>
+    <div class="meta">3境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#95c9b0" href="busuanzi-changjiang/index.html">
+    <div class="name">卜算子·我住长江头</div><div class="author">宋 · 李之仪</div>
+    <div class="track">青绿春晓</div>
+    <div class="jing">我住长江头，君住长江尾。日日思君不见君，共饮长江水。</div>
+    <div class="meta">3境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#a3c9a8" href="qingpingyue-chungui/index.html">
+    <div class="name">清平乐·春归何处</div><div class="author">宋 · 黄庭坚</div>
+    <div class="track">青绿春晓</div>
+    <div class="jing">春归何处？寂寞无行路。若有人知春去处，唤取归来同住。</div>
+    <div class="meta">2境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#adc0d8" href="queqiaoxian-xianyun/index.html">
+    <div class="name">鹊桥仙·纤云弄巧</div><div class="author">宋 · 秦观</div>
+    <div class="track">水墨夜思</div>
+    <div class="jing">纤云弄巧，飞星传恨，银汉迢迢暗度。金风玉露一相逢，便胜却人间无数。</div>
+    <div class="meta">2境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#8f9fc0" href="tasuoxing-chenzhou/index.html">
+    <div class="name">踏莎行·郴州旅舍</div><div class="author">宋 · 秦观</div>
+    <div class="track">烟雨江南</div>
+    <div class="jing">雾失楼台，月迷津渡，桃源望断无寻处。可堪孤馆闭春寒，杜鹃声里斜阳暮。</div>
+    <div class="meta">2境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#a0c9b8" href="xingxiangzi-shurao/index.html">
+    <div class="name">行香子·树绕村庄</div><div class="author">宋 · 秦观</div>
+    <div class="track">青绿春晓</div>
+    <div class="jing">树绕村庄，水满陂塘。倚东风，豪兴徜徉。</div>
+    <div class="meta">4境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#95c9c0" href="sumuzhe-lianchenxiang/index.html">
+    <div class="name">苏幕遮·燎沉香</div><div class="author">宋 · 周邦彦</div>
+    <div class="track">青绿春晓</div>
+    <div class="jing">燎沉香，消溽暑。鸟雀呼晴，侵晓窥檐语。</div>
+    <div class="meta">4境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#50484a" href="zuihuayun-bo/index.html">
+    <div class="name">醉花阴·薄雾浓云愁永昼</div><div class="author">宋 · 李清照</div>
+    <div class="track">宣纸留白</div>
+    <div class="jing">薄雾浓云愁永昼，瑞脑销金兽。佳节又重阳，玉枕纱厨，半夜凉初透。</div>
+    <div class="meta">2境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#8fc9b8" href="rumengling-changji/index.html">
+    <div class="name">如梦令·常记溪亭日暮</div><div class="author">宋 · 李清照</div>
+    <div class="track">青绿春晓</div>
+    <div class="jing">常记溪亭日暮，沉醉不知归路。兴尽晚回舟，误入藕花深处。</div>
+    <div class="meta">2境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#b4c2d4" href="yijianmei-hongou/index.html">
+    <div class="name">一剪梅·红藕香残玉簟秋</div><div class="author">宋 · 李清照</div>
+    <div class="track">水墨夜思</div>
+    <div class="jing">红藕香残玉簟秋。轻解罗裳，独上兰舟。</div>
+    <div class="meta">4境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#93a8c4" href="wulingchun/index.html">
+    <div class="name">武陵春·风住尘香花已尽</div><div class="author">宋 · 李清照</div>
+    <div class="track">水墨夜思</div>
+    <div class="jing">风住尘香花已尽，日晚倦梳头。物是人非事事休，欲语泪先流。</div>
+    <div class="meta">2境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#b0cf9f" href="dianjiangchun-cuba/index.html">
+    <div class="name">点绛唇·蹴罢秋千</div><div class="author">宋 · 李清照</div>
+    <div class="track">青绿春晓</div>
+    <div class="jing">蹴罢秋千，起来慵整纤纤手。露浓花瘦，薄汗轻衣透。</div>
+    <div class="meta">2境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#a0b4cc" href="chounuer-shaonian/index.html">
+    <div class="name">丑奴儿·书博山道中壁</div><div class="author">宋 · 辛弃疾</div>
+    <div class="track">水墨夜思</div>
+    <div class="jing">少年不识愁滋味，爱上层楼。爱上层楼，为赋新词强说愁。</div>
+    <div class="meta">2境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#8fa4c0" href="pusaman-yugu/index.html">
+    <div class="name">菩萨蛮·书江西造口壁</div><div class="author">宋 · 辛弃疾</div>
+    <div class="track">水墨夜思</div>
+    <div class="jing">郁孤台下清江水，中间多少行人泪。西北望长安，可怜无数山。</div>
+    <div class="meta">2境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#c49a5a" href="nanxiangzi-jingkou/index.html">
+    <div class="name">南乡子·登京口北固亭有怀</div><div class="author">宋 · 辛弃疾</div>
+    <div class="track">大漠金戈</div>
+    <div class="jing">何处望神州？满眼风光北固楼。</div>
+    <div class="meta">4境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#c9a06a" href="yongyule-jingkou/index.html">
+    <div class="name">永遇乐·京口北固亭怀古</div><div class="author">宋 · 辛弃疾</div>
+    <div class="track">大漠金戈</div>
+    <div class="jing">千古江山，英雄无觅，孙仲谋处。舞榭歌台，风流总被，雨打风吹去。</div>
+    <div class="meta">4境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#a8a0c0" href="chaitoufeng-hongsu/index.html">
+    <div class="name">钗头凤·红酥手</div><div class="author">宋 · 陆游</div>
+    <div class="track">烟雨江南</div>
+    <div class="jing">红酥手，黄縢酒，满城春色宫墙柳。东风恶，欢情薄。</div>
+    <div class="meta">4境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#b0906a" href="suzhongqing-wanli/index.html">
+    <div class="name">诉衷情·当年万里觅封侯</div><div class="author">宋 · 陆游</div>
+    <div class="track">大漠金戈</div>
+    <div class="jing">当年万里觅封侯，匹马戍梁州。关河梦断何处？</div>
+    <div class="meta">3境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#8f9fc9" href="yangzhoman-huaizuo/index.html">
+    <div class="name">扬州慢·淮左名都</div><div class="author">宋 · 姜夔</div>
+    <div class="track">烟雨江南</div>
+    <div class="jing">淮左名都，竹西佳处，解鞍少驻初程。过春风十里，尽荠麦青青。</div>
+    <div class="meta">4境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#90a8c8" href="yumeiren-tingyu/index.html">
+    <div class="name">虞美人·听雨</div><div class="author">宋 · 蒋捷</div>
+    <div class="track">水墨夜思</div>
+    <div class="jing">少年听雨歌楼上，红烛昏罗帐。壮年听雨客舟中，江阔云低，断雁叫西风。</div>
+    <div class="meta">2境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#9fb0c9" href="yijianmei-zhouguo/index.html">
+    <div class="name">一剪梅·舟过吴江</div><div class="author">宋 · 蒋捷</div>
+    <div class="track">烟雨江南</div>
+    <div class="jing">一片春愁待酒浇。江上舟摇，楼上帘招。</div>
+    <div class="meta">3境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#b8c8dc" href="nian-nujiao-dongting/index.html">
+    <div class="name">念奴娇·过洞庭</div><div class="author">宋 · 张孝祥</div>
+    <div class="track">水墨夜思</div>
+    <div class="jing">洞庭青草，近中秋，更无一点风色。玉鉴琼田三万顷，着我扁舟一叶。</div>
+    <div class="meta">4境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#b8905f" href="changxiangsi-shanyicheng/index.html">
+    <div class="name">长相思·山一程</div><div class="author">清 · 纳兰性德</div>
+    <div class="track">大漠金戈</div>
+    <div class="jing">山一程，水一程，身向榆关那畔行，夜深千帐灯。</div>
+    <div class="meta">2境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#c4cfe0" href="mulanhua-chujian/index.html">
+    <div class="name">木兰花·拟古决绝词柬友</div><div class="author">清 · 纳兰性德</div>
+    <div class="track">水墨夜思</div>
+    <div class="jing">人生若只如初见，何事秋风悲画扇。等闲变却故人心，却道故人心易变。</div>
+    <div class="meta">2境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#b0bcc9" href="huanxisha-xifeng/index.html">
+    <div class="name">浣溪沙·谁念西风独自凉</div><div class="author">清 · 纳兰性德</div>
+    <div class="track">水墨夜思</div>
+    <div class="jing">谁念西风独自凉，萧萧黄叶闭疏窗，沉思往事立残阳。</div>
+    <div class="meta">2境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#a8b8a0" href="shanju-qiuming/index.html">
+    <div class="name">山居秋暝</div><div class="author">唐 · 王维</div>
+    <div class="track">水墨夜思</div>
+    <div class="jing">空山新雨后，天气晚来秋。明月松间照，清泉石上流。</div>
+    <div class="meta">2境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#c4824a" href="congjunxing-yumen/index.html">
+    <div class="name">从军行·其四</div><div class="author">唐 · 王昌龄</div>
+    <div class="track">大漠金戈</div>
+    <div class="jing">青海长云暗雪山，孤城遥望玉门关。</div>
+    <div class="meta">2境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#98a8b8" href="denggao/index.html">
+    <div class="name">登高</div><div class="author">唐 · 杜甫</div>
+    <div class="track">水墨夜思</div>
+    <div class="jing">风急天高猿啸哀，渚清沙白鸟飞回。</div>
+    <div class="meta">4境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#a3c98f" href="kuanzhi/index.html">
+    <div class="name">客至</div><div class="author">唐 · 杜甫</div>
+    <div class="track">青绿春晓</div>
+    <div class="jing">舍南舍北皆春水，但见群鸥日日来。</div>
+    <div class="meta">4境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#9fb0c9" href="chunye-luocheng/index.html">
+    <div class="name">春夜洛城闻笛</div><div class="author">唐 · 李白</div>
+    <div class="track">水墨夜思</div>
+    <div class="jing">谁家玉笛暗飞声，散入春风满洛城。</div>
+    <div class="meta">2境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#d4a84f" href="jinyuyi/index.html">
+    <div class="name">金缕衣</div><div class="author">唐 · 杜秋娘</div>
+    <div class="track">夜宴金彩</div>
+    <div class="jing">劝君莫惜金缕衣，劝君惜取少年时。</div>
+    <div class="meta">2境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#c96a6a" href="youyuan-buzhi/index.html">
+    <div class="name">游园不值</div><div class="author">宋 · 叶绍翁</div>
+    <div class="track">青绿春晓</div>
+    <div class="jing">应怜屐齿印苍苔，小扣柴扉久不开。</div>
+    <div class="meta">2境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#8fa4b8" href="yueke/index.html">
+    <div class="name">约客</div><div class="author">宋 · 赵师秀</div>
+    <div class="track">水墨夜思</div>
+    <div class="jing">黄梅时节家家雨，青草池塘处处蛙。</div>
+    <div class="meta">2境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#3a4444" href="tai/index.html">
+    <div class="name">苔</div><div class="author">清 · 袁枚</div>
+    <div class="track">宣纸留白</div>
+    <div class="jing">白日不到处，青春恰自来。</div>
+    <div class="meta">2境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#a8b4c0" href="zhouye-shushuo/index.html">
+    <div class="name">舟夜书所见</div><div class="author">清 · 查慎行</div>
+    <div class="track">水墨夜思</div>
+    <div class="jing">月黑见渔灯，孤光一点萤。</div>
+    <div class="meta">2境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#9fb3cc" href="wangyue-huaiyuan/index.html">
+    <div class="name">望月怀远</div><div class="author">唐 · 张九龄</div>
+    <div class="track">水墨夜思</div>
+    <div class="jing">海上生明月，天涯共此时。</div>
+    <div class="meta">4境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#a3c98f" href="guo-gurenzhuang/index.html">
+    <div class="name">过故人庄</div><div class="author">唐 · 孟浩然</div>
+    <div class="track">青绿春晓</div>
+    <div class="jing">故人具鸡黍，邀我至田家。</div>
+    <div class="meta">4境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#b8905a" href="wangdongtinghu-zhang/index.html">
+    <div class="name">望洞庭湖赠张丞相</div><div class="author">唐 · 孟浩然</div>
+    <div class="track">大漠金戈</div>
+    <div class="jing">八月湖水平，涵虚混太清。</div>
+    <div class="meta">4境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#4a5060" href="zhongnanwang-yuxue/index.html">
+    <div class="name">终南望余雪</div><div class="author">唐 · 祖咏</div>
+    <div class="track">宣纸留白</div>
+    <div class="jing">终南阴岭秀，积雪浮云端。</div>
+    <div class="meta">2境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#98aec8" href="ti-poshansi/index.html">
+    <div class="name">题破山寺后禅院</div><div class="author">唐 · 常建</div>
+    <div class="track">水墨夜思</div>
+    <div class="jing">清晨入古寺，初日照高林。</div>
+    <div class="meta">4境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#c4824a" href="saixiaqu-linan/index.html">
+    <div class="name">塞下曲·其二</div><div class="author">唐 · 卢纶</div>
+    <div class="track">大漠金戈</div>
+    <div class="jing">林暗草惊风，将军夜引弓。</div>
+    <div class="meta">2境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#b0906a" href="xingjun-jiuri/index.html">
+    <div class="name">行军九日思长安故园</div><div class="author">唐 · 岑参</div>
+    <div class="track">大漠金戈</div>
+    <div class="jing">强欲登高去，无人送酒来。</div>
+    <div class="meta">2境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#c49a5a" href="saishang-chuidi/index.html">
+    <div class="name">塞上听吹笛</div><div class="author">唐 · 高适</div>
+    <div class="track">大漠金戈</div>
+    <div class="jing">雪净胡天牧马还，月明羌笛戍楼间。</div>
+    <div class="meta">2境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#a8b4c0" href="ti-jinlingdu/index.html">
+    <div class="name">题金陵渡</div><div class="author">唐 · 张祜</div>
+    <div class="track">水墨夜思</div>
+    <div class="jing">金陵津渡小山楼，一宿行人自可愁。</div>
+    <div class="meta">2境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#c4823a" href="longxixing/index.html">
+    <div class="name">陇西行</div><div class="author">唐 · 陈陶</div>
+    <div class="track">大漠金戈</div>
+    <div class="jing">誓扫匈奴不顾身，五千貂锦丧胡尘。</div>
+    <div class="meta">2境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#c9824a" href="jianke/index.html">
+    <div class="name">剑客</div><div class="author">唐 · 贾岛</div>
+    <div class="track">大漠金戈</div>
+    <div class="jing">十年磨一剑，霜刃未曾试。</div>
+    <div class="meta">2境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#b8905f" href="mashima/index.html">
+    <div class="name">马诗·其五</div><div class="author">唐 · 李贺</div>
+    <div class="track">大漠金戈</div>
+    <div class="jing">大漠沙如雪，燕山月似钩。</div>
+    <div class="meta">2境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#c9a06a" href="nanyuan-wugou/index.html">
+    <div class="name">南园·其五</div><div class="author">唐 · 李贺</div>
+    <div class="track">大漠金戈</div>
+    <div class="jing">男儿何不带吴钩，收取关山五十州。</div>
+    <div class="meta">2境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#93a8c4" href="xianyang-chenglou/index.html">
+    <div class="name">咸阳城东楼</div><div class="author">唐 · 许浑</div>
+    <div class="track">水墨夜思</div>
+    <div class="jing">一上高城万里愁，蒹葭杨柳似汀洲。</div>
+    <div class="meta">4境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#a0b4cc" href="jianglou-ganjiu/index.html">
+    <div class="name">江楼感旧</div><div class="author">唐 · 赵嘏</div>
+    <div class="track">水墨夜思</div>
+    <div class="jing">独上江楼思渺然，月光如水水如天。</div>
+    <div class="meta">2境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#3e4436" href="dengleyouyuan/index.html">
+    <div class="name">登乐游原</div><div class="author">唐 · 李商隐</div>
+    <div class="track">宣纸留白</div>
+    <div class="jing">向晚意不适，驱车登古原。</div>
+    <div class="meta">2境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#9ab8d8" href="jiasheng/index.html">
+    <div class="name">贾生</div><div class="author">唐 · 李商隐</div>
+    <div class="track">水墨夜思</div>
+    <div class="jing">宣室求贤访逐臣，贾生才调更无伦。</div>
+    <div class="meta">2境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#b8c4dd" href="jinse/index.html">
+    <div class="name">锦瑟</div><div class="author">唐 · 李商隐</div>
+    <div class="track">水墨夜思</div>
+    <div class="jing">锦瑟无端五十弦，一弦一柱思华年。</div>
+    <div class="meta">4境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#d4a84f" href="qianhuai/index.html">
+    <div class="name">遣怀</div><div class="author">唐 · 杜牧</div>
+    <div class="track">夜宴金彩</div>
+    <div class="jing">落魄江湖载酒行，楚腰纤细掌中轻。</div>
+    <div class="meta">2境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#b8906a" href="tiwujiangting/index.html">
+    <div class="name">题乌江亭</div><div class="author">唐 · 杜牧</div>
+    <div class="track">大漠金戈</div>
+    <div class="jing">胜败兵家事不期，包羞忍耻是男儿。</div>
+    <div class="meta">2境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#e0b060" href="guohuaqinggong/index.html">
+    <div class="name">过华清宫</div><div class="author">唐 · 杜牧</div>
+    <div class="track">夜宴金彩</div>
+    <div class="jing">长安回望绣成堆，山顶千门次第开。</div>
+    <div class="meta">2境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#8f9ab8" href="taicheng/index.html">
+    <div class="name">台城</div><div class="author">唐 · 韦庄</div>
+    <div class="track">烟雨江南</div>
+    <div class="jing">江雨霏霏江草齐，六朝如梦鸟空啼。</div>
+    <div class="meta">2境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#3a4444" href="huaju/index.html">
+    <div class="name">画菊</div><div class="author">宋 · 郑思肖</div>
+    <div class="track">宣纸留白</div>
+    <div class="jing">花开不并百花丛，独立疏篱趣未穷。</div>
+    <div class="meta">2境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#a8bcd4" href="shanyuan-xiaomei/index.html">
+    <div class="name">山园小梅</div><div class="author">宋 · 林逋</div>
+    <div class="track">水墨夜思</div>
+    <div class="jing">众芳摇落独暄妍，占尽风情向小园。</div>
+    <div class="meta">4境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#b8905a" href="dengfeilaifeng/index.html">
+    <div class="name">登飞来峰</div><div class="author">宋 · 王安石</div>
+    <div class="track">大漠金戈</div>
+    <div class="jing">飞来山上千寻塔，闻说鸡鸣见日升。</div>
+    <div class="meta">2境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#a8cf8f" href="zengliujingwen/index.html">
+    <div class="name">赠刘景文</div><div class="author">宋 · 苏轼</div>
+    <div class="track">青绿春晓</div>
+    <div class="jing">荷尽已无擎雨盖，菊残犹有傲霜枝。</div>
+    <div class="meta">2境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#d9a85a" href="haitang/index.html">
+    <div class="name">海棠</div><div class="author">宋 · 苏轼</div>
+    <div class="track">夜宴金彩</div>
+    <div class="jing">东风袅袅泛崇光，香雾空蒙月转廊。</div>
+    <div class="meta">2境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#8fb3c9" href="linan-chunyu/index.html">
+    <div class="name">临安春雨初霁</div><div class="author">宋 · 陆游</div>
+    <div class="track">烟雨江南</div>
+    <div class="jing">世味年来薄似纱，谁令骑马客京华。</div>
+    <div class="meta">4境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#b0906a" href="shiyiyuer-shiyi/index.html">
+    <div class="name">十一月四日风雨大作·其二</div><div class="author">宋 · 陆游</div>
+    <div class="track">大漠金戈</div>
+    <div class="jing">僵卧孤村不自哀，尚思为国戍轮台。</div>
+    <div class="meta">2境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#8fa4c0" href="timaandi/index.html">
+    <div class="name">题临安邸</div><div class="author">宋 · 林升</div>
+    <div class="track">水墨夜思</div>
+    <div class="jing">山外青山楼外楼，西湖歌舞几时休？</div>
+    <div class="meta">2境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#95c9a8" href="sanchu-daozhong/index.html">
+    <div class="name">三衢道中</div><div class="author">宋 · 曾几</div>
+    <div class="track">青绿春晓</div>
+    <div class="jing">梅子黄时日日晴，小溪泛尽却山行。</div>
+    <div class="meta">2境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#a3c98f" href="huamei-niao/index.html">
+    <div class="name">画眉鸟</div><div class="author">宋 · 欧阳修</div>
+    <div class="track">青绿春晓</div>
+    <div class="jing">百啭千声随意移，山花红紫树高低。</div>
+    <div class="meta">2境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#98a8b8" href="huaizhong-wanbo/index.html">
+    <div class="name">淮中晚泊犊头</div><div class="author">宋 · 苏舜钦</div>
+    <div class="track">水墨夜思</div>
+    <div class="jing">春阴垂野草青青，时有幽花一树明。</div>
+    <div class="meta">2境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#8fc9b8" href="juesi-gumu/index.html">
+    <div class="name">绝句·古木阴中</div><div class="author">宋 · 志南</div>
+    <div class="track">青绿春晓</div>
+    <div class="jing">古木阴中系短篷，杖藜扶我过桥东。</div>
+    <div class="meta">2境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#9fb0c9" href="duhanjiang/index.html">
+    <div class="name">渡汉江</div><div class="author">唐 · 宋之问</div>
+    <div class="track">水墨夜思</div>
+    <div class="jing">岭外音书断，经冬复历春。</div>
+    <div class="meta">2境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#50484a" href="xinggong/index.html">
+    <div class="name">行宫</div><div class="author">唐 · 元稹</div>
+    <div class="track">宣纸留白</div>
+    <div class="jing">寥落古行宫，宫花寂寞红。</div>
+    <div class="meta">2境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#a3c9a8" href="juhua/index.html">
+    <div class="name">菊花</div><div class="author">唐 · 元稹</div>
+    <div class="track">青绿春晓</div>
+    <div class="jing">秋丛绕舍似陶家，遍绕篱边日渐斜。</div>
+    <div class="meta">2境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#a0c9b8" href="xiju-jishi/index.html">
+    <div class="name">溪居即事</div><div class="author">唐 · 崔道融</div>
+    <div class="track">青绿春晓</div>
+    <div class="jing">篱外谁家不系船，春风吹入钓鱼湾。</div>
+    <div class="meta">2境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#a4b6cc" href="taohuaxi/index.html">
+    <div class="name">桃花溪</div><div class="author">唐 · 张旭</div>
+    <div class="track">水墨夜思</div>
+    <div class="jing">隐隐飞桥隔野烟，石矶西畔问渔船。</div>
+    <div class="meta">2境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#43484a" href="xinyiwu/index.html">
+    <div class="name">辛夷坞</div><div class="author">唐 · 王维</div>
+    <div class="track">宣纸留白</div>
+    <div class="jing">木末芙蓉花，山中发红萼。</div>
+    <div class="meta">2境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#8fb3c9" href="jianjia/index.html">
+    <div class="name">蒹葭</div><div class="author">先秦 · 诗经·秦风</div>
+    <div class="track">烟雨江南</div>
+    <div class="jing">蒹葭苍苍，白露为霜。所谓伊人，在水一方。溯洄从之，道阻且长。溯游从之，宛在水中央。</div>
+    <div class="meta">3境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#98aec8" href="caiwei-jiexuan/index.html">
+    <div class="name">采薇·节选</div><div class="author">先秦 · 诗经·小雅</div>
+    <div class="track">水墨夜思</div>
+    <div class="jing">昔我往矣，杨柳依依。</div>
+    <div class="meta">4境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#c9a0a8" href="taoyao/index.html">
+    <div class="name">桃夭</div><div class="author">先秦 · 诗经·周南</div>
+    <div class="track">青绿春晓</div>
+    <div class="jing">桃之夭夭，灼灼其华。之子于归，宜其室家。</div>
+    <div class="meta">3境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#b8905a" href="wuyi/index.html">
+    <div class="name">无衣</div><div class="author">先秦 · 诗经·秦风</div>
+    <div class="track">大漠金戈</div>
+    <div class="jing">岂曰无衣？与子同袍。王于兴师，修我戈矛。与子同仇！</div>
+    <div class="meta">3境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#4a5060" href="shiwucongjun/index.html">
+    <div class="name">十五从军征</div><div class="author">汉 · 汉乐府</div>
+    <div class="track">宣纸留白</div>
+    <div class="jing">十五从军征，八十始得归。道逢乡里人，家中有阿谁？</div>
+    <div class="meta">4境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#b8c4dd" href="tiaotiao-qianniu/index.html">
+    <div class="name">迢迢牵牛星</div><div class="author">汉 · 古诗十九首</div>
+    <div class="track">水墨夜思</div>
+    <div class="jing">迢迢牵牛星，皎皎河汉女。纤纤擢素手，札札弄机杼。</div>
+    <div class="meta">4境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#4a5a4e" href="shejiang-caifurong/index.html">
+    <div class="name">涉江采芙蓉</div><div class="author">汉 · 古诗十九首</div>
+    <div class="track">宣纸留白</div>
+    <div class="jing">涉江采芙蓉，兰泽多芳草。</div>
+    <div class="meta">4境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#c4823a" href="mulanci/index.html">
+    <div class="name">木兰辞</div><div class="author">北朝 · 北朝民歌</div>
+    <div class="track">大漠金戈</div>
+    <div class="jing">唧唧复唧唧，木兰当户织。不闻机杼声，惟闻女叹息。问女何所思，问女何所忆。女亦无所思，女亦无所忆。昨夜见军帖，可汗大点兵，军书十二卷，卷卷有爷名。阿爷无大儿，木兰无长兄，愿为市鞍马，从此替爷征。</div>
+    <div class="meta">6境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#93a8c4" href="bingchexing/index.html">
+    <div class="name">兵车行</div><div class="author">唐 · 杜甫</div>
+    <div class="track">水墨夜思</div>
+    <div class="jing">车辚辚，马萧萧，行人弓箭各在腰。耶娘妻子走相送，尘埃不见咸阳桥。牵衣顿足拦道哭，哭声直上干云霄。</div>
+    <div class="meta">4境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#b8906a" href="yange-xing/index.html">
+    <div class="name">燕歌行</div><div class="author">唐 · 高适</div>
+    <div class="track">大漠金戈</div>
+    <div class="jing">汉家烟尘在东北，汉将辞家破残贼。男儿本自重横行，天子非常赐颜色。摐金伐鼓下榆关，旌旆逶迤碣石间。校尉羽书飞瀚海，单于猎火照狼山。</div>
+    <div class="meta">4境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#c9a06a" href="zoumachuan/index.html">
+    <div class="name">走马川行奉送封大夫出师西征</div><div class="author">唐 · 岑参</div>
+    <div class="track">大漠金戈</div>
+    <div class="jing">君不见走马川行雪海边，平沙莽莽黄入天。轮台九月风夜吼，一川碎石大如斗，随风满地石乱走。</div>
+    <div class="meta">4境 · 点击画面有互动</div>
+  </a>
+  <a class="card" style="--ac:#a8905f" href="laojiang/index.html">
+    <div class="name">老将行</div><div class="author">唐 · 王维</div>
+    <div class="track">大漠金戈</div>
+    <div class="jing">少年十五二十时，步行夺得胡马骑。射杀山中白额虎，肯数邺下黄须儿。一身转战三千里，一剑曾当百万师。汉兵奋迅如霹雳，虏骑崩腾畏蒺藜。</div>
+    <div class="meta">4境 · 点击画面有互动</div>
+  </a>
+</div>
+<div class="sister">
+  由循文入境技能批量生成 · 每页独立可分发 · 制作进度见 <a href="_pipeline/manifest.json">manifest</a>
+</div>
+</body>
+</html>

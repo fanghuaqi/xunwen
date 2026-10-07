@@ -1,0 +1,27 @@
+const SK=(o)=>Object.assign({
+  top:C(0x081020),hor:C(0x1d3350),bot:C(0x0c1016),fog:C(0x0a1526),fd:0.0045,star:0.85,
+  moon:new THREE.Vector3(120,150,-210),ms:1.0,mph:0,mhaze:0,dirC:C(0x9db8e8),dirI:0.7,
+  dirP:new THREE.Vector3(60,120,40),ambC:C(0x31405c),ambI:0.55},o);
+const STAGES=[
+{ key:'cover',name:'卷首',dwell:0,river:0.02,build:bCover,
+  cam:{f:[0,12,80],t:[0,14,72],lf:[0,24,-40],lt:[0,24,-40]},
+  sky:()=>SK({ms:1.2,moon:new THREE.Vector3(40,90,-190),fd:0.0038}) },
+{ name:'停杯投箸',dwell:17,river:0.02,build:bJinzun,
+  cam:{f:[0,6.8,22],t:[2.4,6.2,18.5],lf:[0,4.8,-2.5],lt:[0.4,4.6,-3]},
+  sky:()=>SK({top:C(0x0a0a12),hor:C(0x241a10),bot:C(0x0a0806),fog:C(0x141008),fd:0.0075,star:0.5,
+    ms:0.9,mph:0.22,mhaze:0.12,moon:new THREE.Vector3(-80,110,-170),
+    dirC:C(0x9a8568),dirI:0.3,ambC:C(0x2e2519),ambI:0.7}) },
+{ name:'冰塞雪满',dwell:16,river:0.015,build:bBingshan,
+  cam:{f:[0,9,38],t:[-3,8.5,34],lf:[0,8,-20],lt:[-1,7.5,-22]},
+  sky:()=>SK({top:C(0x14202a),hor:C(0x2e4450),bot:C(0x0e161c),fog:C(0x1a2830),fd:0.0068,star:0.3,
+    ms:0.9,mph:0.2,mhaze:0.1,moon:new THREE.Vector3(-70,110,-190),
+    dirC:C(0xaec4d4),dirI:0.5,ambC:C(0x2a3642),ambI:0.6}) },
+{ name:'溪钓梦日',dwell:16,river:0.02,build:bDiaoxi,
+  cam:{f:[-4,6.5,26],t:[2,6,22],lf:[8,10,-40],lt:[14,12,-52]},
+  sky:()=>SK({top:C(0x09130d),hor:C(0x24382a),bot:C(0x0b120d),fog:C(0x10201a),fd:0.006,star:0.6,
+    ms:1.1,mph:0.15,mhaze:0.07,moon:new THREE.Vector3(-60,110,-180),
+    dirC:C(0xc9b088),dirI:0.42,ambC:C(0x203024),ambI:0.6}) },
+{ name:'长风破浪',dwell:18,river:0.04,build:bChangfeng,
+  cam:{f:[0,10,40],t:[-3,9.5,36],lf:[-4,8,-6],lt:[-2,7.5,-8]},
+  sky:()=>SK({star:0.85,ms:1.5,mph:0,mhaze:0.06,moon:new THREE.Vector3(90,130,-200),fd:0.0048}) },
+];
