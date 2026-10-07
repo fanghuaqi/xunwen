@@ -50,7 +50,11 @@ body.no-py-off .zi rt{display:none}
 /* ---------- 释义 / 注释 ---------- */
 #notePanel{position:fixed;left:26px;bottom:108px;width:min(400px,86vw);background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:16px 20px;backdrop-filter:blur(12px);z-index:18;transition:opacity .8s;line-height:1.85}
 body.no-poem #notePanel{opacity:0;pointer-events:none}
-#notePanel h3{font-family:var(--kai);color:var(--gold);font-size:15px;letter-spacing:.4em;margin-bottom:6px;font-weight:normal}
+#notePanel h3{font-family:var(--kai);color:var(--gold);font-size:15px;letter-spacing:.4em;margin-bottom:6px;font-weight:normal;cursor:pointer;user-select:none}
+#notePanel h3::after{content:'▾';float:right;font-size:11px;opacity:.6;transition:transform .3s}
+#notePanel.fold h3::after{transform:rotate(-90deg)}
+#notePanel.fold #yisi,#notePanel.fold #zsBox{display:none}
+#notePanel.fold{padding-bottom:9px}
 #yisi{font-size:14px;color:var(--ink)}
 #zsBox{margin-top:8px;font-size:13px;color:var(--dim)}
 #zsBox summary{cursor:pointer;letter-spacing:.3em;color:var(--dim);font-size:13px;outline:none}
@@ -2176,6 +2180,7 @@ function boot(){
     if(curIdx===2&&state==='stage'&&curStageObj&&curStageObj.click)curStageObj.click();
   });
   // 控件
+  $('#notePanel h3').addEventListener('click',()=>$('#notePanel').classList.toggle('fold'));
   $('#enterBtn').addEventListener('click',()=>{
     initAudio();
     if(groupAudio.ctx&&groupAudio.ctx.state==='suspended')groupAudio.ctx.resume();
