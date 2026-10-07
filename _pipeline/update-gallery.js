@@ -76,7 +76,7 @@ a.ext{opacity:.92}
   <div class="tip">每首一个独立网页：逐句入画 · 逐字注音 · 释义注释 · AI 朗读 · 自动游览 · 结课小测<br>
   双击各页 index.html 打开 · 用 Microsoft Edge 体验最佳真人感朗诵 · 首次打开需联网加载三维引擎</div>
 </header>
-<div class="progress">已完成 ${LEGACY.length + done.length} 首${building.length ? ` · 制作中 ${building.length} 首` : ''}${queuedN ? ` · 排队 ${queuedN} 首` : ''} —— 六大画风：夜宴金彩 / 水墨夜思 / 宣纸留白 / 青绿春晓 / 大漠金戈 / 烟雨江南</div>
+<div class="progress">已完成 ${LEGACY.length + done.length} 首 —— 六大画风：夜宴金彩 / 水墨夜思 / 宣纸留白 / 青绿春晓 / 大漠金戈 / 烟雨江南</div>
 <div class="grid">
 ${LEGACY.map(legacyCard).concat(done.map(card)).join('\n')}
 </div>
