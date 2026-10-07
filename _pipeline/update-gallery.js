@@ -85,7 +85,7 @@ a.ext{opacity:.92}
 ${LEGACY.map(legacyCard).concat(done.map(card)).join('\n')}
 </div>
 <div class="sister">
-  由循文入境技能批量生成 · 每页独立可分发
+  由循文入境技能批量生成 · 每页独立可分发 · 代码开源 <a href="https://github.com/fanghuaqi/xunwen">GitHub</a>
 </div>
 </body>
 </html>

@@ -1435,7 +1435,8 @@ function boot(){
     else if(e.code==='ArrowLeft')goto(curIdx-1);
     else if(e.code==='Space'){
       e.preventDefault();
-      if(curIdx===3&&state==='stage'&&curStageObj.click)curStageObj.click();
+      if(state==='boot'){$('#enterBtn').click&&$('#enterBtn').click();}
+      else if(curIdx===3&&state==='stage'&&curStageObj.click)curStageObj.click();
       else if(curIdx>=3)showEnding();
       else goto(curIdx+1);
     }
