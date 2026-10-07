@@ -85,7 +85,7 @@ a.ext{opacity:.92}
 ${LEGACY.map(legacyCard).concat(done.map(card)).join('\n')}
 </div>
 <div class="sister">
-  由循文入境技能批量生成 · 每页独立可分发 · 制作进度见 <a href="_pipeline/manifest.json">manifest</a>
+  由循文入境技能批量生成 · 每页独立可分发
 </div>
 </body>
 </html>
