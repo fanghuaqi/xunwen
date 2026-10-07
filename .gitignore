@@ -27,6 +27,7 @@ _pipeline/%TEMP%*/
 
 # ===== 本机测试截图 / 草稿 =====
 _tts-test/
+_ci-shots/
 hits.txt
 
 # ===== 编辑器 =====

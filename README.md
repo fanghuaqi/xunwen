@@ -3,7 +3,7 @@
 > 「循文入境」：诗句推进到哪一句，三维实景就走到哪一重意境 —— 学生边读诗，边"走进"诗里。
 > **270 首**古典诗词，每首一个单文件网页：Three.js 三维诗境 + 逐字注音 + 释义注释 + AI 朗读 + 自动游览 + 结课小测。双击即开，无需安装。
 
-🌐 **在线体验**：**[fanghuaqi.github.io/xunwen](https://fanghuaqi.github.io/xunwen/)** | [English](#english) | 许可证：[CC BY-NC-SA 4.0](LICENSE)（免费教学 · 非商业 · 署名-相同方式共享）
+🌐 **在线体验**：**[fanghuaqi.github.io/xunwen](https://fanghuaqi.github.io/xunwen/)** | [English](#english) | [![CI](https://github.com/fanghuaqi/xunwen/actions/workflows/ci.yml/badge.svg)](https://github.com/fanghuaqi/xunwen/actions/workflows/ci.yml) | 许可证：[CC BY-NC-SA 4.0](LICENSE)（免费教学 · 非商业 · 署名-相同方式共享）
 
 ---
 

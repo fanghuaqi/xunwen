@@ -2266,7 +2266,7 @@ function boot(){
     else if(e.code==='ArrowLeft')goto(curIdx-1);
     else if(e.code==='Space'){
       e.preventDefault();
-      if(state==='boot'){$('#enterBtn').click&&$('#enterBtn').click();}
+      const cv=$('#cover'),op=cv&&window.getComputedStyle?parseFloat(getComputedStyle(cv).opacity):0;if(op>0.5){$('#enterBtn').click&&$('#enterBtn').click();}
       else if(curIdx===2&&state==='stage'&&curStageObj.click){
         // 末境：空格先触发交互，交互过后再按才进终章
         if(!curStageObj.clicked)curStageObj.click();

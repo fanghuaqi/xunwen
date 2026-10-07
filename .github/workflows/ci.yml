@@ -1,0 +1,85 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: 计算改动范围（增量优先，动到管线则回退全量）
+        run: |
+          set -e
+          if [ "$GITHUB_EVENT_NAME" = "pull_request" ]; then
+            BASE="${{ github.event.pull_request.base.sha }}"
+            git diff --name-only "$BASE...HEAD" > /tmp/changed.txt
+          else
+            git diff --name-only HEAD~1..HEAD > /tmp/changed.txt 2>/dev/null || : > /tmp/changed.txt
+          fi
+          # 改动的诗 = 顶层 <slug>/index.html
+          grep -E '^[^/]+/index\.html$' /tmp/changed.txt | cut -d/ -f1 | sort -u > /tmp/slugs.txt || : > /tmp/slugs.txt
+          # 动到 _pipeline（引擎/验收工具）→ 全量
+          if grep -q '^_pipeline/' /tmp/changed.txt; then
+            echo "[scope] 检测到 _pipeline 变更 → 全量检查"
+            find . -mindepth 2 -maxdepth 2 -name index.html -not -path './_pipeline/*' \
+              | sed 's|^\./||; s|/index\.html$||' | sort > /tmp/slugs.txt
+          fi
+          COUNT=$(wc -l < /tmp/slugs.txt)
+          echo "[scope] 改动诗数：$COUNT"
+          echo "$COUNT" > /tmp/count.txt
+
+      - name: 结构校验 + 冒烟 + 确定性验收（改动诗）
+        run: |
+          set -e
+          while read -r s; do
+            [ -z "$s" ] && continue
+            echo "—— $s ——"
+            node _pipeline/tools/validate.js "$s/index.html"
+            node "$s/smoke.test.js" > /dev/null
+            echo "  smoke: SMOKE PASS"
+            node _pipeline/accept.js "$s"
+          done < /tmp/slugs.txt
+
+      - name: 风格一致性（全库）
+        run: node _pipeline/style-audit.js
+
+      - name: Playwright 真浏览器健康检查（改动诗 ≤ 40）
+        run: |
+          set -e
+          COUNT=$(cat /tmp/count.txt)
+          if [ "$COUNT" -gt 40 ]; then
+            echo "改动 $COUNT 首 > 40，跳过真浏览器检查（结构/冒烟/验收已全量跑过）"
+            exit 0
+          fi
+          pip install -q playwright
+          python -m playwright install --with-deps chromium
+          python _pipeline/ci_browser_check.py $(tr '\n' ' ' < /tmp/slugs.txt)
+
+      - name: 上传实拍截图（人工复核用）
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ci-shots
+          path: _ci-shots/
+          if-no-files-found: ignore

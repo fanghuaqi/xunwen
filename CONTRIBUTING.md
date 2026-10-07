@@ -63,6 +63,8 @@ node _pipeline/style-audit.js                                     # 风格一致
 
 ## PR 检查清单
 
+CI 会在 PR 和 push 时自动执行：改动诗的结构校验/冒烟/确定性验收 + 全库风格审查 + （改动 ≤ 40 首时）Playwright 真浏览器健康检查；动到 `_pipeline/` 时自动回退全量。以下清单供本地自查：
+
 - [ ] `node _pipeline/tools/validate.js <改动页>` 全绿
 - [ ] `node <改动页目录>/smoke.test.js` SMOKE PASS
 - [ ] `node _pipeline/accept.js <slug>` 输出 ACCEPT
