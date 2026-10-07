@@ -3,7 +3,7 @@
 > 「循文入境」：诗句推进到哪一句，三维实景就走到哪一重意境 —— 学生边读诗，边"走进"诗里。
 > **270 首**古典诗词，每首一个单文件网页：Three.js 三维诗境 + 逐字注音 + 释义注释 + AI 朗读 + 自动游览 + 结课小测。双击即开，无需安装。
 
-[English](#english) | 许可证：[CC BY-NC-SA 4.0](LICENSE)（免费教学 · 非商业 · 署名-相同方式共享）
+🌐 **在线体验**：**[fanghuaqi.github.io/xunwen](https://fanghuaqi.github.io/xunwen/)** | [English](#english) | 许可证：[CC BY-NC-SA 4.0](LICENSE)（免费教学 · 非商业 · 署名-相同方式共享）
 
 ---
 
@@ -93,6 +93,6 @@ chinese-poetry-xunwen/
 
 ## English
 
-**Xunwen Rujing** ("Following the Text into the Scene") is a collection of **270 immersive, single-file web lessons** for classical Chinese poetry. Each poem unfolds scene by scene in 3D (Three.js r128) as the verses advance, with per-character pinyin annotation, plain-language explanations, exam-oriented notes, AI voice recitation (Edge Neural TTS), auto-tour mode, and a 5-question quiz. Just open `index.html` — no build step, no dependencies.
+**Xunwen Rujing** ("Following the Text into the Scene") is a collection of **270 immersive, single-file web lessons** for classical Chinese poetry. Each poem unfolds scene by scene in 3D (Three.js r128) as the verses advance, with per-character pinyin annotation, plain-language explanations, exam-oriented notes, AI voice recitation (Edge Neural TTS), auto-tour mode, and a 5-question quiz. Try it live at **[fanghuaqi.github.io/xunwen](https://fanghuaqi.github.io/xunwen/)**, or open `index.html` directly — no build step, no dependencies.
 
 Licensed under [CC BY-NC-SA 4.0](LICENSE): free for **educational and personal use** with attribution and share-alike; **commercial use requires prior permission** from the author. Contributions are welcome — see [CONTRIBUTING.md](CONTRIBUTING.md).

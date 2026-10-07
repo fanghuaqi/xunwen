@@ -40,11 +40,15 @@ const card = p => `  <a class="card" style="--ac:${p.accent}" href="${p.slug}/in
     <div class="meta">${p.stages.length}境 · 点击画面有互动</div>
   </a>`;
 
+/* 内联 SVG favicon（金月黛山·诗境）：data-URI 零文件，file:// 直开可用 */
+const FAVICON = 'data:image/svg+xml,' + encodeURIComponent(`<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='14' fill='#0a0d13'/><circle cx='41' cy='21' r='10' fill='#d4af37'/><path d='M4 53 L19 31 L31 45 L40 36 L60 53 Z' fill='#253044'/><path d='M14 58 q5 -4 10 0 t10 0 t10 0 t10 0' stroke='#56687f' stroke-width='3' fill='none' stroke-linecap='round'/></svg>`);
+
 const html = `<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="${FAVICON}">
 <title>循文入境 · 古诗词沉浸式诗集</title>
 <style>
 :root{--bg:#0a0d13;--card:#11161f;--line:rgba(255,255,255,.09);--txt:#e8e4d8;--dim:#8d8672}
